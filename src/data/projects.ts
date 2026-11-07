@@ -23,6 +23,7 @@ export interface Project {
   featuresDelivered: {
     title: string;
     description: string;
+    items?: string[];
   }[];
   techStack: {
     category: string;
@@ -128,11 +129,11 @@ export const MAIN_PROJECTS: Project[] = [
     slug: "aurified",
     name: "AURIFIED SHOPIFY STORE",
     client: "Parth",
-    category: "Shopify / E-commerce",
+    category: "E-commerce Development",
     industry: "D2C Lifestyle & Wellness Products",
     year: "2024",
-    location: "Location unverified",
-    locationVerified: false,
+    location: "Varanasi, Uttar Pradesh, India",
+    locationVerified: true,
     statusBadge: "In Progress",
     statusType: "in_progress",
     liveUrl: "https://aurified.in/",
@@ -141,7 +142,7 @@ export const MAIN_PROJECTS: Project[] = [
     tagline:
       "A structured and responsive Shopify storefront built around modern online shopping journeys.",
     description:
-      "A Shopify storefront built to deliver a structured and responsive online shopping experience across lifestyle, accessories, and wellness goods.",
+      "A Shopify-based e-commerce storefront developed for Aurified, a brand based in Varanasi, Uttar Pradesh. The project focuses on creating a polished online shopping experience with product discovery, responsive storefront design, product presentation, and a streamlined shopping journey.",
     features: [
       "Shopify storefront development & theme customization",
       "E-commerce product catalogue architecture",
@@ -156,9 +157,9 @@ export const MAIN_PROJECTS: Project[] = [
       "Responsive shopping experience across mobile viewports",
       "Brand-focused design with frictionless browsing",
     ],
-    tags: ["Shopify", "E-commerce", "Liquid", "Conversion Optimization", "Mobile Commerce"],
+    tags: ["Shopify", "E-commerce Development", "Liquid", "Conversion Optimization", "Mobile Commerce"],
     overview:
-      "Aurified is a direct-to-consumer lifestyle brand offering home accessories, fitness gear, and daily ergonomic essentials. DataCraft is developing and refining a clean Shopify storefront that structures diverse product categories into an intuitive shopping flow with frictionless mobile checkout.",
+      "A Shopify-based e-commerce storefront developed for Aurified, a brand based in Varanasi, Uttar Pradesh. The project focuses on creating a polished online shopping experience with product discovery, responsive storefront design, product presentation, and a streamlined shopping journey.",
     businessRequirements: [
       "Structure multi-category product lines (Accessories, Gym Wear, Home Essentials) for effortless discovery.",
       "Ensure fast page load speeds on mobile networks where the majority of D2C shoppers browse.",
@@ -212,47 +213,43 @@ export const MAIN_PROJECTS: Project[] = [
   {
     slug: "finance-crm",
     name: "FINANCE CRM PLATFORM",
-    client: "Sparsh Agrawal",
-    category: "Custom Software / Finance Management",
-    industry: "Enterprise FinTech & EMI Management",
+    client: "Confidential Finance Client",
+    category: "Custom Software Development",
+    industry: "Finance Management & Loan Operations CRM",
     year: "2024",
-    location: "Location unverified",
-    locationVerified: false,
+    location: "Auraiya, Uttar Pradesh, India",
+    locationVerified: true,
     statusBadge: "Prototyped / Paused",
     statusType: "paused",
     liveUrl: "https://crm-two-orcin-18.vercel.app/#dashboard",
     ctaLabel: "Explore Project",
     isMainPortfolio: true,
     tagline:
-      "A custom finance and loan management platform designed to automate EMI operations and field recovery.",
+      "A custom-built finance management and loan operations platform designed to automate EMI operations and field recovery.",
     description:
-      "A custom finance and loan management platform designed to manage customer onboarding, loan operations, payments, collections and recovery activities.",
+      "A custom-built finance management and loan operations platform developed for a finance company based in Auraiya, Uttar Pradesh. The platform centralizes customer onboarding, loan management, EMI calculations, payment allocation, field recovery operations, reporting, and administrative workflows into one integrated system.",
     features: [
-      "Executive finance & operations command dashboard",
       "Customer onboarding & digital KYC verification",
-      "Loan account management with automated interest calculation",
-      "EMI calculation & automated payment allocation",
-      "Dealer store management & commission settlements",
-      "Field agent management & collection tracking",
-      "Agent contact activity logging & recovery follow-ups",
-      "Financial reporting & Portfolio-at-Risk (PAR) aging analysis",
-      "Role-based access control (Super Admin, Manager, Agent)",
+      "Loan application, lifecycle & collateral management",
+      "Automated EMI calculation & waterfall payment allocation",
+      "Payment collection, allocation & reversal tracking",
+      "Field recovery queues, agent tracking & contact logs",
+      "Role-based access control & executive operational monitoring",
     ],
     highlights: [
       "Executive finance dashboard with real-time portfolio metrics",
-      "Customer onboarding & loan lifecycle management",
-      "Automated EMI calculation & payment allocation ledgers",
-      "Field agent management & mobile collection tracking",
-      "Financial reporting with Credit Risk & PAR aging buckets",
-      "Role-based access control safeguarding sensitive ledger data",
+      "ACID-compliant collection ledger with automated waterfall allocation",
+      "Field recovery queues, agent tracking & contact activity logs",
+      "Portfolio-at-Risk (PAR) aging and credit exposure reporting",
+      "Role-based access control safeguarding sensitive ledger operations",
     ],
-    tags: ["Custom Software", "Finance CRM", "TypeScript", "React", "Capacitor", "Role-Based Access"],
+    tags: ["Custom Software Development", "Finance Management CRM", "TypeScript", "React", "Capacitor", "Role-Based Access"],
     overview:
-      "Alpha Mobile Gallery / Shubh Pvt Ltd required a bespoke operational platform to handle retail device loans, customer KYC, monthly EMI collections, and field recovery assignments. DataCraft engineered an extensive single-page web and mobile-ready application. The platform is currently paused and is presented here as an engineering prototype demonstrating our capabilities in complex financial workflows, schema validation, and operational dashboards.",
+      "A custom-built finance management and loan operations platform developed for a finance company based in Auraiya, Uttar Pradesh. The platform centralizes customer onboarding, loan management, EMI calculations, payment allocation, field recovery operations, reporting, and administrative workflows into one integrated system. Built as an enterprise operational system, it replaces physical ledgers and disparate spreadsheets with a central, ACID-compliant collection ledger.",
     businessRequirements: [
       "Replace physical ledgers and disparate spreadsheets with a central, ACID-compliant collection ledger.",
-      "Calculate amortization schedules, overdue penalty fees, and payment allocations automatically.",
-      "Provide field recovery agents with mobile-ready verification tools and offline resilience.",
+      "Calculate amortization schedules, overdue penalty fees, and waterfall payment allocations automatically.",
+      "Provide field recovery agents with mobile-ready verification tools, contact logging, and recovery queues.",
       "Enforce granular role-based permissions between store dealers, field officers, and executive management.",
     ],
     challenges: [
@@ -271,20 +268,47 @@ export const MAIN_PROJECTS: Project[] = [
     ],
     featuresDelivered: [
       {
-        title: "Executive Finance Dashboard",
-        description: "High-density overview of total disbursed capital, active portfolio, collection efficiency %, and overdue tracking.",
+        title: "Customer & Loan Management",
+        description: "Customer onboarding and profile management, digital KYC verification, and complete loan lifecycle administration.",
+        items: [
+          "Customer onboarding and profile management.",
+          "KYC and document management.",
+          "Loan application and lifecycle management.",
+          "Product and collateral management.",
+        ],
       },
       {
-        title: "Customer & Loan Management Engine",
-        description: "Complete loan account lifecycle management with automated tenure calculations and digital KYC record keeping.",
+        title: "EMI & Financial Operations",
+        description: "Automated calculations, payment allocation algorithms, and transaction ledgers.",
+        items: [
+          "Automated EMI calculations.",
+          "Payment collection and allocation.",
+          "Waterfall-based payment allocation.",
+          "Payment reversals and transaction tracking.",
+          "Outstanding balance management.",
+        ],
       },
       {
-        title: "Collection & Field Agent Tracking",
-        description: "Real-time logging of customer visits, payment receipts, agent settlements, and overdue follow-up queues.",
+        title: "Field Recovery & Collections",
+        description: "Field recovery operations, mobile agent tracking, and dealer store workflows.",
+        items: [
+          "Agent and dealer management.",
+          "Recovery queues and collection tracking.",
+          "Agent contact activity logs.",
+          "Follow-up and payment commitment tracking.",
+          "Collection performance summaries.",
+        ],
       },
       {
-        title: "Portfolio-at-Risk (PAR) Aging",
-        description: "Automated segmentation of active loans by Days Past Due (DPD) buckets to monitor credit exposure.",
+        title: "Administration & Reporting",
+        description: "Granular role-based security, comprehensive audit trails, and portfolio intelligence.",
+        items: [
+          "Role-based access control.",
+          "Admin and manager dashboards.",
+          "Financial reports and exports.",
+          "Audit logs and activity tracking.",
+          "Notifications and operational monitoring.",
+        ],
       },
     ],
     techStack: [
@@ -379,7 +403,7 @@ export const EXPERIMENTAL_PROJECTS: Project[] = [
 export const PLANNING_PROJECTS = [
   {
     name: "Shopify Store",
-    client: "Shubh Aggrawal",
+    client: "Private Client",
     category: "Shopify / E-commerce",
     status: "Planning",
     location: "Location not verified",

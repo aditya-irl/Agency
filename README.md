@@ -33,19 +33,20 @@ Built strictly around the designated color palette:
    * **Screenshot Asset**: **Attachment 2** (`/images/asquare_homepage.jpg`) displayed in original aspect ratio inside a desktop mockup.
    * **CTA**: “Visit Live Website”
 2. **AURIFIED SHOPIFY STORE** (Client: Parth)
-   * **Category**: Shopify / E-commerce
-   * **Location**: `📍 Location to be verified` (unverified city is never fabricated)
+   * **Category**: E-commerce Development
+   * **Location**: `📍 Varanasi, Uttar Pradesh, India` (verified badge)
    * **Status**: In Progress
    * **CTA**: “Visit Website”
-3. **FINANCE CRM PLATFORM** (Client: Sparsh Agrawal)
-   * **Category**: Custom Software / Finance Management
-   * **Location**: `📍 Location to be verified`
+3. **FINANCE CRM PLATFORM** (Client: Confidential Finance Client)
+   * **Category**: Custom Software Development
+   * **Industry**: Finance Management & Loan Operations CRM
+   * **Location**: `📍 Auraiya, Uttar Pradesh, India` (verified badge)
    * **Status**: Paused (Engineering Prototype)
-   * **Screenshot Asset**: **Attachment 1** (`/images/crm_dashboard.jpg`) displayed inside a dark technical dashboard frame.
+   * **Screenshot Asset**: **Attachment 1** (`/images/crm_dashboard.jpg`) displayed inside a dark technical dashboard frame with proprietary client records anonymized.
    * **CTA**: “Explore Project”
 4. **PHONEVAULT PRO** (Client: Shivendra Rathore)
    * **Status**: Cancelled before completion. Clearly segregated in an **Archival & Exploratory Lab** section; excluded from the primary completed portfolio.
-5. **SHOPIFY STORE** (Client: Shubh Aggrawal)
+5. **SHOPIFY STORE** (Private Client)
    * **Status**: Planning. Kept strictly out of the public portfolio until deliverables exist.
 
 ---

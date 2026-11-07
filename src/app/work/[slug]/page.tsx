@@ -188,20 +188,22 @@ export default function CaseStudyPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Honest Framing Notice for CRM */}
+      {/* Confidentiality & Enterprise Framing Notice for CRM */}
       {isCrm && (
         <div className="rounded-2xl bg-amber-50/90 border border-amber-300 p-6 flex flex-col sm:flex-row items-start gap-4">
           <ShieldAlert className="w-6 h-6 text-amber-700 flex-shrink-0 mt-0.5" />
           <div className="space-y-1">
             <h3 className="font-bold text-sm text-amber-950">
-              Platform Engineering Prototype (Status: Paused)
+              Confidential Enterprise System (Status: Paused Prototype)
             </h3>
             <p className="text-xs md:text-sm text-amber-900/90 leading-relaxed">
-              This custom software system was engineered and prototyped for
-              Sparsh Agrawal / Shubh Pvt Ltd to automate device lending, KYC
-              verifications, and recovery routes. The project is currently paused
-              and is documented here as an engineering prototype demonstrating our
-              technical software depth, decimal financial ledgers, and role-based
+              This custom software platform was engineered for a private finance company
+              based in Auraiya, Uttar Pradesh to centralize customer onboarding, loan management,
+              EMI calculations, payment allocation, field recovery operations, reporting, and
+              administrative workflows into one integrated system. In accordance with strict client
+              confidentiality, proprietary business data and identifying customer records are omitted.
+              Documented here as an enterprise operational showcase demonstrating our technical
+              capabilities in ACID-compliant ledgers, automated waterfall allocation, and role-based
               access controls.
             </p>
           </div>
@@ -370,7 +372,7 @@ export default function CaseStudyPage({ params }: PageProps) {
           {project.featuresDelivered.map((feature, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.1)] shadow-subtle space-y-2"
+              className="p-6 rounded-2xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.1)] shadow-subtle space-y-3"
             >
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
@@ -381,6 +383,19 @@ export default function CaseStudyPage({ params }: PageProps) {
               <p className="text-sm text-text-secondary leading-relaxed pl-6">
                 {feature.description}
               </p>
+              {feature.items && feature.items.length > 0 && (
+                <ul className="pl-6 space-y-2 pt-2 border-t border-[rgba(35,31,32,0.06)]">
+                  {feature.items.map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="text-xs text-foreground/85 flex items-start gap-2"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
