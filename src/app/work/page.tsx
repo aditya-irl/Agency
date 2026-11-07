@@ -149,13 +149,21 @@ export default function WorkPage() {
                     </div>
                   </div>
 
-                  <div className="lg:col-span-7">
+                  <div className="lg:col-span-7 relative">
                     <DesktopMockup
                       src={project.screenshots.desktop}
                       alt={`${project.name} Executive Operations Command Dashboard`}
                       urlDisplay="crm-two-orcin-18.vercel.app/#dashboard"
                       theme="dark"
                     />
+                    {project.screenshots.mobile && (
+                      <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-32 md:w-36 z-10 transition-transform duration-300 group-hover:-translate-y-2">
+                        <MobileMockup
+                          src={project.screenshots.mobile}
+                          alt={`${project.name} Mobile Operations`}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>

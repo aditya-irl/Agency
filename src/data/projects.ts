@@ -319,7 +319,7 @@ export const MAIN_PROJECTS: Project[] = [
     ],
     screenshots: {
       desktop: "/images/crm_dashboard.jpg", // ATTACHMENT 1: Exact user uploaded image
-      mobile: "/screenshots/crm_mobile.png", // Actual mobile capture
+      mobile: "/screenshots/crm_mobile.webp", // Newly attached CRM mobile screenshot
       caption: "Finance CRM Platform: original executive dashboard screenshot showing live portfolio command, collection efficiency, and channel distribution.",
     },
   },

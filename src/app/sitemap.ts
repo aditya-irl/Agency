@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { MAIN_PROJECTS } from "@/data/projects";
+import { LEGAL_LINKS } from "@/data/studio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://datacraft.studio";
+  const baseUrl = "https://www.datacrafts.in";
 
   const staticPages = [
     "",
@@ -24,5 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  return [...staticPages, ...projectPages];
+  const legalPages = LEGAL_LINKS.map((link) => ({
+    url: `${baseUrl}${link.href}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.4,
+  }));
+
+  return [...staticPages, ...projectPages, ...legalPages];
 }

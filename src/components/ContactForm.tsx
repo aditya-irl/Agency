@@ -1,8 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, AlertCircle, Loader2, Send, MessageCircle, PhoneCall } from "lucide-react";
+import Link from "next/link";
+import {
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Send,
+  MessageCircle,
+  PhoneCall,
+  ShieldCheck,
+} from "lucide-react";
 import { BRAND } from "@/data/studio";
+import {
+  trackConsultationSubmit,
+  trackWhatsAppClick,
+  trackPhoneClick,
+} from "@/lib/analytics";
 
 interface ContactFormProps {
   initialService?: string;
@@ -16,11 +30,16 @@ export default function ContactForm({
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     businessName: "",
     service: initialService || "Website Development",
-    budget: initialBudget || "₹3,000 – ₹10,000 (Starter / Landing Page)",
+    budget: initialBudget || "₹4,000 – ₹10,000 (Starter / Landing Page)",
     preferredContact: "WhatsApp",
     description: "",
+    privacyConsent: false,
+    marketingConsent: false,
+    website_hp: "",
+    b_name_trap: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -49,9 +68,18 @@ export default function ContactForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setStatus("idle");
     setErrorMessage("");
+
+    if (!formData.privacyConsent) {
+      setStatus("error");
+      setErrorMessage(
+        "Please acknowledge the Privacy Policy and Terms & Conditions to submit your enquiry."
+      );
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch("/api/contact", {
@@ -66,25 +94,41 @@ export default function ContactForm({
         throw new Error(data.error || "Failed to submit enquiry.");
       }
 
+      const confirmedRef = data.referenceId || "DATACRAFT-CONFIRMED";
       setStatus("success");
-      setReferenceId(data.referenceId || "DATACRAFT-CONFIRMED");
+      setReferenceId(confirmedRef);
       setWhatsappUrl(data.whatsappUrl || BRAND.officialWhatsAppUrl);
+
+      // Track lead conversion event
+      trackConsultationSubmit({
+        service: formData.service,
+        budget: formData.budget,
+        referenceId: confirmedRef,
+      });
+
+      // Clear form inputs only upon confirmed success
       setFormData({
         name: "",
         email: "",
+        phone: "",
         businessName: "",
         service: "Website Development",
-        budget: "₹3,000 – ₹10,000 (Starter / Landing Page)",
+        budget: "₹4,000 – ₹10,000 (Starter / Landing Page)",
         preferredContact: "WhatsApp",
         description: "",
+        privacyConsent: false,
+        marketingConsent: false,
+        website_hp: "",
+        b_name_trap: "",
       });
     } catch (err: unknown) {
       setStatus("error");
+      // Form data is preserved intentionally so user does not have to retype
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
         setErrorMessage(
-          "Something went wrong. Please connect via our official consultation line."
+          "Something went wrong while transmitting your brief. Please retry or contact our founders directly via WhatsApp."
         );
       }
     } finally {
@@ -114,8 +158,7 @@ export default function ContactForm({
             <span className="font-mono font-semibold text-foreground">
               {referenceId}
             </span>
-            . A team member will review your requirements and reach out within 24
-            business hours.
+            . Our founders will review your scope and respond within 24 business hours.
           </p>
         </div>
 
@@ -124,6 +167,7 @@ export default function ContactForm({
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick("consultation_success")}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-semibold text-xs sm:text-sm hover:bg-accent-hover transition-colors shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
@@ -131,6 +175,7 @@ export default function ContactForm({
           </a>
           <a
             href="tel:+918006205606"
+            onClick={() => trackPhoneClick("+918006205606", "consultation_success")}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FCFAF8] border border-[rgba(35,31,32,0.15)] text-foreground font-semibold text-xs sm:text-sm hover:border-accent transition-colors"
           >
             <PhoneCall className="w-4 h-4 text-accent" />
@@ -172,13 +217,41 @@ export default function ContactForm({
       </div>
 
       {status === "error" && (
-        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-3">
+        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-3 animate-fadeIn">
           <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-rose-600" />
           <p>{errorMessage}</p>
         </div>
       )}
 
-      {/* Name & Email */}
+      {/* Honeypot Spam Traps (Hidden from human visitors) */}
+      <div
+        className="hidden"
+        aria-hidden="true"
+        style={{ display: "none", position: "absolute", left: "-9999px" }}
+      >
+        <input
+          type="text"
+          name="website_hp"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.website_hp}
+          onChange={(e) =>
+            setFormData({ ...formData, website_hp: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          name="b_name_trap"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.b_name_trap}
+          onChange={(e) =>
+            setFormData({ ...formData, b_name_trap: e.target.value })
+          }
+        />
+      </div>
+
+      {/* Row 1: Name & Email */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label
@@ -191,12 +264,13 @@ export default function ContactForm({
             id="name"
             type="text"
             required
+            disabled={loading}
             value={formData.name}
             onChange={(e) =>
               setFormData({ ...formData, name: e.target.value })
             }
             placeholder="e.g. Vikram Sethi"
-            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all"
+            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all disabled:opacity-60"
           />
         </div>
 
@@ -211,34 +285,58 @@ export default function ContactForm({
             id="email"
             type="email"
             required
+            disabled={loading}
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
             placeholder="e.g. vikram@company.com"
-            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all"
+            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all disabled:opacity-60"
           />
         </div>
       </div>
 
-      {/* Business Name */}
-      <div className="space-y-2">
-        <label
-          htmlFor="businessName"
-          className="block text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold"
-        >
-          Business Name (Optional)
-        </label>
-        <input
-          id="businessName"
-          type="text"
-          value={formData.businessName}
-          onChange={(e) =>
-            setFormData({ ...formData, businessName: e.target.value })
-          }
-          placeholder="e.g. Sethi Consumer Products or Startup Project"
-          className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all"
-        />
+      {/* Row 2: Business Name & Phone / WhatsApp Number */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label
+            htmlFor="businessName"
+            className="block text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold"
+          >
+            Business / Organization (Optional)
+          </label>
+          <input
+            id="businessName"
+            type="text"
+            disabled={loading}
+            value={formData.businessName}
+            onChange={(e) =>
+              setFormData({ ...formData, businessName: e.target.value })
+            }
+            placeholder="e.g. Sethi Consumer Products"
+            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all disabled:opacity-60"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label
+            htmlFor="phone"
+            className="block text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold"
+          >
+            Phone / WhatsApp Number (Optional)
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            disabled={loading}
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            placeholder="e.g. +91 98765 43210"
+            className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all disabled:opacity-60"
+          />
+        </div>
       </div>
 
       {/* Service Selection */}
@@ -253,11 +351,13 @@ export default function ContactForm({
               <button
                 key={srv}
                 type="button"
+                disabled={loading}
                 onClick={() => setFormData({ ...formData, service: srv })}
-                className={`px-3.5 py-2.5 rounded-2xl text-xs font-medium text-left transition-all border ${isSelected
+                className={`px-3.5 py-2.5 rounded-2xl text-xs font-medium text-left transition-all border ${
+                  isSelected
                     ? "bg-foreground text-background border-foreground shadow-sm"
                     : "bg-[#FCFAF8] text-foreground/80 border-[rgba(35,31,32,0.1)] hover:bg-[#F6EEE2]"
-                  }`}
+                } disabled:opacity-60`}
               >
                 {srv}
               </button>
@@ -266,7 +366,7 @@ export default function ContactForm({
         </div>
       </div>
 
-      {/* Approximate Budget (Starting at ₹3,000) */}
+      {/* Approximate Budget */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold">
@@ -283,11 +383,13 @@ export default function ContactForm({
               <button
                 key={b}
                 type="button"
+                disabled={loading}
                 onClick={() => setFormData({ ...formData, budget: b })}
-                className={`px-3.5 py-2 rounded-full text-xs font-medium transition-all border ${isSelected
+                className={`px-3.5 py-2 rounded-full text-xs font-medium transition-all border ${
+                  isSelected
                     ? "bg-accent text-white border-accent shadow-sm"
                     : "bg-[#FCFAF8] text-foreground/80 border-[rgba(35,31,32,0.1)] hover:bg-[#F6EEE2]"
-                  }`}
+                } disabled:opacity-60`}
               >
                 {b}
               </button>
@@ -308,13 +410,15 @@ export default function ContactForm({
               <button
                 key={method}
                 type="button"
+                disabled={loading}
                 onClick={() =>
                   setFormData({ ...formData, preferredContact: method })
                 }
-                className={`px-4 py-2 rounded-full text-xs font-medium transition-all border ${isSelected
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all border ${
+                  isSelected
                     ? "bg-foreground text-background border-foreground"
                     : "bg-[#FCFAF8] text-foreground/80 border-[rgba(35,31,32,0.1)] hover:bg-[#F6EEE2]"
-                  }`}
+                } disabled:opacity-60`}
               >
                 {method}
               </button>
@@ -335,13 +439,76 @@ export default function ContactForm({
           id="description"
           rows={4}
           required
+          disabled={loading}
           value={formData.description}
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
           placeholder="Tell us about what you want to build, current challenges, technical preferences, and target timeline..."
-          className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all resize-y"
+          className="w-full px-4 py-3 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:border-accent focus:bg-white focus:outline-none transition-all resize-y disabled:opacity-60"
         />
+      </div>
+
+      {/* Consent & Compliance Section */}
+      <div className="space-y-4 pt-3 border-t border-[rgba(35,31,32,0.1)]">
+        <div className="p-4 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] text-xs text-text-secondary leading-relaxed flex items-start gap-3">
+          <ShieldCheck className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+          <p>
+            <strong className="text-foreground font-semibold">Consent & Transparency:</strong>{" "}
+            We collect your name, contact information, and project brief solely to evaluate
+            technical requirements, compute tailored proposals, and respond to your enquiry.
+            We never share or sell personal information to third-party marketers.
+          </p>
+        </div>
+
+        {/* Checkbox 1: Required Privacy Policy & Terms Acknowledgement (Not pre-checked) */}
+        <label className="flex items-start gap-3 cursor-pointer select-none group">
+          <input
+            type="checkbox"
+            required
+            disabled={loading}
+            checked={formData.privacyConsent}
+            onChange={(e) =>
+              setFormData({ ...formData, privacyConsent: e.target.checked })
+            }
+            className="w-4 h-4 mt-0.5 rounded border-[rgba(35,31,32,0.3)] text-accent focus:ring-accent accent-accent flex-shrink-0 cursor-pointer disabled:opacity-60"
+          />
+          <span className="text-xs text-foreground/90 leading-relaxed">
+            I agree to the collection and processing of my project enquiry details in accordance with DataCraft’s{" "}
+            <Link
+              href="/privacy-policy"
+              target="_blank"
+              className="text-accent underline hover:text-accent-hover font-semibold"
+            >
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/terms-and-conditions"
+              target="_blank"
+              className="text-accent underline hover:text-accent-hover font-semibold"
+            >
+              Terms & Conditions
+            </Link>
+            . *
+          </span>
+        </label>
+
+        {/* Checkbox 2: Optional Marketing Consent (Not pre-checked) */}
+        <label className="flex items-start gap-3 cursor-pointer select-none group">
+          <input
+            type="checkbox"
+            disabled={loading}
+            checked={formData.marketingConsent}
+            onChange={(e) =>
+              setFormData({ ...formData, marketingConsent: e.target.checked })
+            }
+            className="w-4 h-4 mt-0.5 rounded border-[rgba(35,31,32,0.3)] text-accent focus:ring-accent accent-accent flex-shrink-0 cursor-pointer disabled:opacity-60"
+          />
+          <span className="text-xs text-text-secondary leading-relaxed">
+            Keep me updated on studio announcements, digital strategy insights, and technology releases (optional).
+          </span>
+        </label>
       </div>
 
       {/* Submit Button */}

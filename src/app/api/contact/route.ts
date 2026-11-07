@@ -1,20 +1,122 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
-import { syncLeadToNotion, LeadPayload } from "@/lib/notion";
-import { sendLeadNotificationEmail } from "@/lib/email";
+import { syncLeadToNotion, LeadPayload, NotionSyncResult } from "@/lib/notion";
+import { sendLeadNotificationEmail, EmailDispatchResult } from "@/lib/email";
+import {
+  persistLeadToDurableQueue,
+  checkPersistentStorage,
+} from "@/lib/leadQueue";
 import { BRAND } from "@/data/studio";
 
-// In-memory cache for fast deduplication within serverless invocation lifetimes
-const recentSubmissions = new Map<string, { timestamp: number; referenceId: string }>();
+// -----------------------------------------------------------------------------
+// Rate Limiting & Abuse Prevention (In-Memory Sliding Window per IP)
+// -----------------------------------------------------------------------------
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+const ipRateLimits = new Map<string, RateLimitEntry>();
+const MAX_REQUESTS_PER_WINDOW = 15;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
+function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+  const now = Date.now();
+  const entry = ipRateLimits.get(ip);
+
+  // Clean old expired entries periodically
+  if (ipRateLimits.size > 1000) {
+    ipRateLimits.forEach((val, key) => {
+      if (val.resetAt <= now) ipRateLimits.delete(key);
+    });
+  }
+
+  if (!entry || entry.resetAt <= now) {
+    ipRateLimits.set(ip, {
+      count: 1,
+      resetAt: now + RATE_LIMIT_WINDOW_MS,
+    });
+    return { allowed: true };
+  }
+
+  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
+    const retryAfter = Math.ceil((entry.resetAt - now) / 1000);
+    return { allowed: false, retryAfter };
+  }
+
+  entry.count += 1;
+  return { allowed: true };
+}
+
+// -----------------------------------------------------------------------------
+// Idempotency & Duplicate Prevention (15-Minute Cooldown)
+// -----------------------------------------------------------------------------
+const recentSubmissions = new Map<
+  string,
+  { timestamp: number; referenceId: string; responseData: any }
+>();
 
 function generateDedupKey(email: string, description: string): string {
-  return `${email.trim().toLowerCase()}:::${description.trim().toLowerCase().slice(0, 80)}`;
+  const normEmail = (email || "").trim().toLowerCase();
+  const normDesc = (description || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .slice(0, 100);
+  return `${normEmail}:::${normDesc}`;
+}
+
+// -----------------------------------------------------------------------------
+// Text Sanitization Helper
+// -----------------------------------------------------------------------------
+function sanitizeString(str: any, maxLength = 1000): string {
+  if (typeof str !== "string") return "";
+  return str
+    .replace(/[<>]/g, "") // Strip dangerous HTML tags
+    .trim()
+    .slice(0, maxLength);
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    // 1. Request Payload Size Validation (< 32 KB)
+    const contentLength = req.headers.get("content-length");
+    if (contentLength && parseInt(contentLength, 10) > 32768) {
+      return NextResponse.json(
+        { error: "Payload too large. Please limit submissions to under 32 KB." },
+        { status: 413 }
+      );
+    }
+
+    // 2. Client IP Extraction & Rate Limiting
+    const forwarded = req.headers.get("x-forwarded-for");
+    const ip = forwarded
+      ? forwarded.split(",")[0].trim()
+      : req.headers.get("x-real-ip") || "unknown-ip";
+
+    const rateCheck = checkRateLimit(ip);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        {
+          error:
+            "Too many consultation requests from your network. Please wait a few moments before trying again, or reach us directly on WhatsApp.",
+        },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rateCheck.retryAfter || 600) },
+        }
+      );
+    }
+
+    // 3. Body Parsing
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid JSON request body." },
+        { status: 400 }
+      );
+    }
+
     const {
       name,
       email,
@@ -25,45 +127,93 @@ export async function POST(req: NextRequest) {
       budget,
       description,
       preferredContact,
+      privacyConsent,
+      website_hp, // Honeypot field 1
+      b_name_trap, // Honeypot field 2
     } = body;
 
-    const clientCompany = (businessName || company || "Not specified").trim();
-
-    // 1. Strict Schema Validation
-    if (!name || typeof name !== "string" || name.trim().length < 2) {
+    // 4. Honeypot Spam Verification
+    // If hidden bot fields are populated, silently drop spam request
+    if (
+      (website_hp && String(website_hp).trim().length > 0) ||
+      (b_name_trap && String(b_name_trap).trim().length > 0)
+    ) {
+      console.warn(`[SPAM_DETECTED:HONEYPOT] IP: ${ip}, Ref: ${email}`);
+      // Return 200 with realistic confirmation to mislead automated bots
       return NextResponse.json(
-        { error: "Please enter your full name (at least 2 characters)." },
+        {
+          success: true,
+          referenceId: `DATACRAFT-SPAM-BLOCKED`,
+          message: "Consultation request received.",
+        },
+        { status: 200 }
+      );
+    }
+
+    // 5. Strict Schema Validation
+    if (privacyConsent !== true) {
+      return NextResponse.json(
+        {
+          error:
+            "You must acknowledge and agree to the Privacy Policy and Terms & Conditions to submit an enquiry.",
+        },
         { status: 400 }
       );
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email.trim())) {
+    const cleanName = sanitizeString(name, 100);
+    if (!cleanName || cleanName.length < 2) {
+      return NextResponse.json(
+        { error: "Please enter your name (at least 2 characters)." },
+        { status: 400 }
+      );
+    }
+
+    const cleanEmail = sanitizeString(email, 100).toLowerCase();
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+    if (!cleanEmail || !emailRegex.test(cleanEmail)) {
       return NextResponse.json(
         { error: "Please provide a valid email address." },
         { status: 400 }
       );
     }
 
-    if (!description || typeof description !== "string" || description.trim().length < 10) {
+    // Phone format validation (optional, but must be valid if provided)
+    let cleanPhone: string | undefined = undefined;
+    if (phone && String(phone).trim().length > 0) {
+      const rawPhone = String(phone).trim();
+      const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{6,20}$/;
+      if (!phoneRegex.test(rawPhone)) {
+        return NextResponse.json(
+          { error: "Please provide a valid telephone or WhatsApp number with country code." },
+          { status: 400 }
+        );
+      }
+      cleanPhone = sanitizeString(rawPhone, 30);
+    }
+
+    const cleanDescription = sanitizeString(description, 3000);
+    if (!cleanDescription || cleanDescription.length < 10) {
       return NextResponse.json(
-        { error: "Please share a brief project summary (at least 10 characters)." },
+        { error: "Please provide a brief project summary (at least 10 characters)." },
         { status: 400 }
       );
     }
 
-    // 2. Duplicate Submission Prevention (15-minute cooldown for identical email + description)
-    const dedupKey = generateDedupKey(email, description);
+    const cleanCompany = sanitizeString(businessName || company || "", 150);
+    const cleanService = sanitizeString(service || "Website Development", 100);
+    const cleanBudget = sanitizeString(budget || "₹4,000 – ₹10,000", 100);
+    const cleanContactPref = sanitizeString(preferredContact || "WhatsApp", 50);
+
+    // 6. Idempotency & Duplicate Prevention
+    const dedupKey = generateDedupKey(cleanEmail, cleanDescription);
     const now = Date.now();
     const existing = recentSubmissions.get(dedupKey);
 
     if (existing && now - existing.timestamp < 15 * 60 * 1000) {
       console.warn(
-        `[DATACRAFT_LEAD_DEDUP] Duplicate submission detected for ${email}. Re-referencing ${existing.referenceId}.`
-      );
-
-      const waMessage = encodeURIComponent(
-        `Hi DataCraft, I previously submitted a consultation request.\n\n*Reference:* ${existing.referenceId}\n*Name:* ${name.trim()}\n*Email:* ${email.trim()}`
+        `[DATACRAFT_LEAD_DEDUP] Duplicate submission detected for ${cleanEmail}. Re-referencing ${existing.referenceId}.`
       );
 
       return NextResponse.json(
@@ -72,130 +222,114 @@ export async function POST(req: NextRequest) {
           duplicate: true,
           referenceId: existing.referenceId,
           message:
-            "Your consultation brief was already safely received. Our team will contact you shortly.",
-          whatsappUrl: `https://wa.me/918865804386?text=${waMessage}`,
+            "Your consultation brief was already safely received. Our team will review your requirements and reach out within 24 business hours.",
+          whatsappUrl: existing.responseData?.whatsappUrl,
         },
         { status: 200 }
       );
     }
 
-    // 3. Generate Unique Lead Reference ID
+    // 7. Generate Canonical Reference ID
     const referenceId = `DATACRAFT-${Date.now().toString(36).toUpperCase()}-${Math.floor(
       1000 + Math.random() * 9000
     )}`;
 
-    recentSubmissions.set(dedupKey, { timestamp: now, referenceId });
-
     const submission: LeadPayload = {
       referenceId,
       timestamp: new Date().toISOString(),
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone ? String(phone).trim() : undefined,
-      businessName: clientCompany,
-      service: service || "General Consultation",
-      budget: budget || "₹3,000 onwards",
-      preferredContact: preferredContact || "WhatsApp",
-      description: description.trim(),
+      name: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      businessName: cleanCompany || "Not specified",
+      service: cleanService,
+      budget: cleanBudget,
+      preferredContact: cleanContactPref,
+      description: cleanDescription,
+      ipAddress: ip,
+      source: "DataCraft Website Consultation Form",
     };
 
-    // 4. Structured Cloud Log Drain Persistence (Permanent & indexed in Vercel / CloudWatch / Datadog stdout)
-    console.log(`[DATACRAFT_CONSULTATION_REQUEST] ${JSON.stringify(submission)}`);
-
-    // 5. Independent Notion & Email Operations
-    // Both operations run independently without blocking one another or crashing the client request
-    const [notionResult, emailResult] = await Promise.all([
-      syncLeadToNotion(submission).catch((err) => ({
-        success: false,
-        status: "FAILED" as const,
-        pageId: undefined,
-        error: err.message || "Unexpected exception during Notion sync",
-      })),
-      sendLeadNotificationEmail(submission).catch((err) => ({
-        success: false,
-        status: "FAILED" as const,
-        messageId: undefined,
-        error: err.message || "Unexpected exception during email dispatch",
-      })),
+    // 8. Independent Parallel Operations (Notion CRM & Email Dispatch)
+    // Decoupled using Promise.allSettled: neither operation can crash or block the other
+    const [notionSettled, emailSettled] = await Promise.allSettled([
+      syncLeadToNotion(submission),
+      sendLeadNotificationEmail(submission),
     ]);
 
-    // 6. Local Persistence & Dead-Letter Queue (Preserve failed operations for retry)
-    try {
-      const dataDir = path.join(process.cwd(), "data");
-      await fs.mkdir(dataDir, { recursive: true });
+    const notionResult: NotionSyncResult =
+      notionSettled.status === "fulfilled"
+        ? notionSettled.value
+        : {
+            success: false,
+            status: "FAILED",
+            error:
+              notionSettled.reason?.message ||
+              "Unexpected exception in Notion service",
+          };
 
-      // Save to primary submissions ledger
-      const logFile = path.join(dataDir, "submissions.json");
-      let existingSubmissions = [];
-      try {
-        const fileData = await fs.readFile(logFile, "utf-8");
-        existingSubmissions = JSON.parse(fileData);
-      } catch {
-        existingSubmissions = [];
-      }
-      existingSubmissions.unshift({
-        ...submission,
-        notionSync: notionResult,
-        emailNotification: emailResult,
-      });
-      await fs.writeFile(logFile, JSON.stringify(existingSubmissions, null, 2), "utf-8");
+    const emailResult: EmailDispatchResult =
+      emailSettled.status === "fulfilled"
+        ? emailSettled.value
+        : {
+            success: false,
+            status: "FAILED",
+            error:
+              emailSettled.reason?.message ||
+              "Unexpected exception in Email service",
+          };
 
-      // If either operation failed or needs config, record in failed_submissions queue for automated retry
-      if (!notionResult.success || !emailResult.success) {
-        const failedFile = path.join(dataDir, "failed_submissions.json");
-        let failedList = [];
-        try {
-          const failedData = await fs.readFile(failedFile, "utf-8");
-          failedList = JSON.parse(failedData);
-        } catch {
-          failedList = [];
-        }
-        failedList.unshift({
-          submission,
-          failedAt: new Date().toISOString(),
-          notionStatus: notionResult.status,
-          notionError: notionResult.error,
-          emailStatus: emailResult.status,
-          emailError: emailResult.error,
-        });
-        await fs.writeFile(failedFile, JSON.stringify(failedList, null, 2), "utf-8");
-      }
-    } catch {
-      // Graceful fallback for serverless read-only filesystems (Vercel edge/lambda)
-      console.info("Serverless runtime detected. File writes omitted; stdout log captured.");
-    }
+    // 9. Durable Queue & Fallback Persistence
+    // Guarantees zero enquiry loss even if Notion and Email are both temporarily unavailable
+    await persistLeadToDurableQueue(submission, notionResult, emailResult);
 
-    // 7. Generate Pre-formatted Official WhatsApp Consultation Link (+91 88658 04386)
+    // 10. Generate Official WhatsApp Direct Action Link (+91 88658 04386)
     const waMessage = encodeURIComponent(
       `Hi DataCraft, I would like to book a consultation.\n\n*Reference:* ${referenceId}\n*Name:* ${submission.name}\n*Email:* ${submission.email}\n*Business:* ${submission.businessName}\n*Service:* ${submission.service}\n*Budget:* ${submission.budget}\n*Preferred Contact:* ${submission.preferredContact}\n*Scope:* ${submission.description}`
     );
+    const whatsappUrl = `https://wa.me/918865804386?text=${waMessage}`;
 
-    return NextResponse.json(
-      {
-        success: true,
-        referenceId,
-        message:
-          "Thank you for contacting DataCraft. Aditya and Shreya will review your requirements and reach out within 24 business hours.",
-        notion: {
-          status: notionResult.status,
-          pageId: notionResult.pageId,
-          error: notionResult.error,
-        },
-        email: {
-          status: emailResult.status,
-          messageId: emailResult.messageId,
-          error: emailResult.error,
-        },
-        whatsappUrl: `https://wa.me/918865804386?text=${waMessage}`,
+    const responsePayload = {
+      success: true,
+      referenceId,
+      message:
+        "Thank you for contacting DataCraft. Our team has received your project details and will reach out within 24 business hours.",
+      notion: {
+        status: notionResult.status,
+        pageId: notionResult.pageId,
+        error:
+          notionResult.status === "CONFIG_REQUIRED"
+            ? "NOTION_API_KEY pending configuration"
+            : notionResult.error
+            ? "Sync logged for background delivery"
+            : undefined,
       },
-      { status: 200 }
-    );
+      email: {
+        status: emailResult.status,
+        messageId: emailResult.messageId,
+        error:
+          emailResult.status === "CONFIG_REQUIRED"
+            ? "WEB3FORMS_ACCESS_KEY pending configuration"
+            : emailResult.error
+            ? "Email logged for background delivery"
+            : undefined,
+      },
+      whatsappUrl,
+    };
+
+    // Cache successful submission for idempotency
+    recentSubmissions.set(dedupKey, {
+      timestamp: now,
+      referenceId,
+      responseData: responsePayload,
+    });
+
+    return NextResponse.json(responsePayload, { status: 200 });
   } catch (err: any) {
-    console.error("Contact API fatal error:", err);
+    console.error("[CONTACT_API:UNEXPECTED_ERROR]", err);
     return NextResponse.json(
       {
         error:
-          "An unexpected error occurred while submitting your consultation request. Please try again or reach out directly.",
+          "An unexpected error occurred while transmitting your consultation request. Please try again or reach our team directly via WhatsApp.",
       },
       { status: 500 }
     );

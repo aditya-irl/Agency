@@ -1,18 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle, Mail, Phone } from "lucide-react";
-import { BRAND } from "@/data/studio";
-import { SERVICES } from "@/data/services";
+import { ArrowUpRight, MessageCircle, Mail, Phone, ShieldCheck } from "lucide-react";
+import { BRAND, LEGAL_LINKS } from "@/data/studio";
 import Logo from "@/components/Logo";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 
 export default function Footer() {
   return (
     <footer className="bg-[#1C191A] text-[#F6EEE2] pt-20 pb-12 border-t border-[#332C2E] mt-auto">
       <div className="editorial-container">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[rgba(246,238,226,0.1)]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-[rgba(246,238,226,0.1)]">
           {/* Brand Col */}
-          <div className="md:col-span-5 space-y-6">
+          <div className="md:col-span-4 space-y-6">
             <div className="flex items-center gap-3.5">
               <Logo variant="badge" size="lg" />
               <div className="flex flex-col">
@@ -39,7 +39,7 @@ export default function Footer() {
           {/* Quick Nav */}
           <div className="md:col-span-2 space-y-4">
             <h4 className="text-xs font-mono uppercase tracking-wider text-[#A59C92]">
-              Navigation
+              Studio
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -55,7 +55,7 @@ export default function Footer() {
                   href="/work"
                   className="text-[#D4C9BC] hover:text-white transition-colors"
                 >
-                  Work / Portfolio
+                  Selected Work
                 </Link>
               </li>
               <li>
@@ -79,35 +79,39 @@ export default function Footer() {
                   href="/contact"
                   className="text-[#D4C9BC] hover:text-white transition-colors"
                 >
-                  Contact & Inquiries
+                  Book Consultation
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="md:col-span-2 space-y-4">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#A59C92]">
-              Capabilities
+          {/* Legal Policies */}
+          <div className="md:col-span-3 space-y-4">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#A59C92] flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-accent" />
+              <span>Legal & Policies</span>
             </h4>
             <ul className="space-y-2.5 text-sm">
-              {SERVICES.map((srv) => (
-                <li key={srv.id}>
+              {LEGAL_LINKS.map((link) => (
+                <li key={link.href}>
                   <Link
-                    href={`/services#${srv.id}`}
+                    href={link.href}
                     className="text-[#D4C9BC] hover:text-white transition-colors"
                   >
-                    {srv.title}
+                    {link.label}
                   </Link>
                 </li>
               ))}
+              <li className="pt-1">
+                <CookieSettingsButton showIcon className="text-xs text-[#D4C9BC] hover:text-white" />
+              </li>
             </ul>
           </div>
 
           {/* Official Contact Details */}
           <div className="md:col-span-3 space-y-4">
             <h4 className="text-xs font-mono uppercase tracking-wider text-[#A59C92]">
-              Contact
+              Direct Contact
             </h4>
             <div className="space-y-3 text-xs sm:text-sm">
               {/* Action 1: Call DataCraft — +91 80062 05606 (Calling only) */}
@@ -176,11 +180,27 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A59C92]">
-          <p>© 2026 {BRAND.name}. All rights reserved.</p>
-          <p className="flex items-center gap-1 text-[#C4B9AD]">
-            Starting at ₹3,000 onwards · Crafted with editorial precision.
-          </p>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#A59C92]">
+          <p>© 2026 {BRAND.name} ({BRAND.fullName}). All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[#C4B9AD]">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy
+            </Link>
+            <span>·</span>
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+            <span>·</span>
+            <Link href="/cookie-policy" className="hover:text-white transition-colors">
+              Cookies
+            </Link>
+            <span>·</span>
+            <Link href="/disclaimer" className="hover:text-white transition-colors">
+              Disclaimer
+            </Link>
+            <span>·</span>
+            <CookieSettingsButton className="text-xs text-[#C4B9AD] hover:text-white" />
+          </div>
         </div>
       </div>
     </footer>

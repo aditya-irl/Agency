@@ -1,6 +1,10 @@
 /**
- * DataCraft — Lead Email Notification Service
- * Sends automated enquiry notifications to the studio founders (Adityak1149x@gmail.com).
+ * DataCraft Studio — Lead Email Notification Service (Web3Forms)
+ * 
+ * Delivers consultation enquiries directly to the founders (Adityak1149x@gmail.com)
+ * via the official Web3Forms API (https://api.web3forms.com/submit).
+ * 
+ * Server-side only: WEB3FORMS_ACCESS_KEY is strictly never exposed to client browsers.
  */
 
 import { LeadPayload } from "./notion";
@@ -13,7 +17,18 @@ export interface EmailDispatchResult {
   statusCode?: number;
 }
 
+export const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
+/**
+ * Generates an executive editorial HTML email template for studio inquiries.
+ */
 export function generateLeadEmailHtml(lead: LeadPayload): string {
+  const company = lead.businessName || "Individual / Not specified";
+  const phone = lead.phone || "Not provided";
+  const formattedDate = new Date(lead.timestamp || Date.now()).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
+
   return `
 <!DOCTYPE html>
 <html>
@@ -43,7 +58,7 @@ export function generateLeadEmailHtml(lead: LeadPayload): string {
   <div class="container">
     <div class="header">
       <h1>DataCraft — New Client Consultation</h1>
-      <p>Reference ID: ${lead.referenceId} · ${new Date(lead.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</p>
+      <p>Reference ID: ${lead.referenceId} · ${formattedDate} IST</p>
     </div>
     <div class="content">
       <div class="lead-meta">
@@ -56,8 +71,12 @@ export function generateLeadEmailHtml(lead: LeadPayload): string {
           <div class="value"><a href="mailto:${lead.email}" style="color: #C6532E; text-decoration: none;">${lead.email}</a></div>
         </div>
         <div class="row">
+          <div class="label">Contact Phone</div>
+          <div class="value">${phone}</div>
+        </div>
+        <div class="row">
           <div class="label">Business / Brand</div>
-          <div class="value">${lead.businessName || "Individual / Not specified"}</div>
+          <div class="value">${company}</div>
         </div>
         <div class="row">
           <div class="label">Service Required</div>
@@ -85,7 +104,7 @@ export function generateLeadEmailHtml(lead: LeadPayload): string {
       </div>
     </div>
     <div class="footer">
-      This notification was automatically dispatched from the official DataCraft studio website lead engine.
+      Dispatched securely via DataCraft Web3Forms Lead Engine.
     </div>
   </div>
 </body>
@@ -94,34 +113,65 @@ export function generateLeadEmailHtml(lead: LeadPayload): string {
 }
 
 /**
- * Sends an email notification for a new enquiry.
+ * Sends a consultation notification email via Web3Forms.
+ * Completely server-side. Guaranteed to never expose the access key to the client.
  */
-export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<EmailDispatchResult> {
+export async function sendLeadNotificationEmail(
+  lead: LeadPayload
+): Promise<EmailDispatchResult> {
+  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
   const recipient = process.env.NOTIFICATION_EMAIL || "Adityak1149x@gmail.com";
-  const apiKey = process.env.EMAIL_PROVIDER_API_KEY || process.env.RESEND_API_KEY;
   const subject = `New DataCraft Enquiry — ${lead.name}`;
 
-  if (!apiKey) {
+  // If WEB3FORMS_ACCESS_KEY is not configured, report clean configuration status
+  // without failing or throwing unhandled exceptions.
+  if (
+    !accessKey ||
+    accessKey.trim().length === 0 ||
+    accessKey.startsWith("your_")
+  ) {
     console.warn(
-      `[EMAIL_DISPATCH:CONFIG_REQUIRED] Reference: ${lead.referenceId}. EMAIL_PROVIDER_API_KEY is not defined in environment variables. Lead logged for manual delivery to ${recipient}.`
+      `[WEB3FORMS:CONFIG_REQUIRED] Ref: ${lead.referenceId}. WEB3FORMS_ACCESS_KEY is pending configuration. Lead preserved for delivery to ${recipient}.`
     );
     return {
       success: false,
       status: "CONFIG_REQUIRED",
-      error: "EMAIL_PROVIDER_API_KEY environment variable is not configured.",
+      error: "WEB3FORMS_ACCESS_KEY environment variable is not configured.",
     };
   }
 
-  const html = generateLeadEmailHtml(lead);
+  const structuredMessage = [
+    `=== DATACRAFT CONSULTATION BRIEF ===`,
+    `Reference ID   : ${lead.referenceId}`,
+    `Client Name    : ${lead.name}`,
+    `Client Email   : ${lead.email}`,
+    `Phone / WA     : ${lead.phone || "Not provided"}`,
+    `Business       : ${lead.businessName || "Not specified"}`,
+    `Service        : ${lead.service}`,
+    `Budget         : ${lead.budget}`,
+    `Contact Pref   : ${lead.preferredContact}`,
+    `Submitted At   : ${lead.timestamp}`,
+    `=====================================`,
+    `PROJECT SCOPE & REQUIREMENTS:`,
+    lead.description,
+  ].join("\n");
 
-  // Default provider: Resend API (standard industry standard for Next.js / Vercel applications)
-  const endpoint = "https://api.resend.com/emails";
-  const payload = {
-    from: "DataCraft Studio <onboarding@resend.dev>",
-    to: [recipient],
-    reply_to: lead.email,
+  const payload: Record<string, any> = {
+    access_key: accessKey.trim(),
     subject,
-    html,
+    from_name: "DataCraft Studio Lead Engine",
+    to_email: recipient,
+    replyto: lead.email,
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone || "Not provided",
+    business_name: lead.businessName || "Not specified",
+    service: lead.service,
+    budget: lead.budget,
+    preferred_contact: lead.preferredContact,
+    reference_id: lead.referenceId,
+    message: structuredMessage,
+    botcheck: "", // Built-in Web3Forms honeypot field
   };
 
   let attempts = 0;
@@ -130,35 +180,39 @@ export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<Emai
   while (attempts < maxAttempts) {
     attempts++;
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
-      if (response.ok) {
+      // Web3Forms returns JSON with { success: true/false, message: "..." }
+      if (response.ok && data.success === true) {
+        const messageId =
+          data.data?.id || `w3f-${lead.referenceId}`;
         console.log(
-          `[EMAIL_DISPATCH:SUCCESS] Notification delivered to ${recipient} (Message ID: ${data.id}) for Ref: ${lead.referenceId}`
+          `[WEB3FORMS:SUCCESS] Delivered to ${recipient} (Message ID: ${messageId}) for Ref: ${lead.referenceId}`
         );
         return {
           success: true,
           status: "SUCCESS",
-          messageId: data.id,
+          messageId,
           statusCode: response.status,
         };
       }
 
       console.error(
-        `[EMAIL_DISPATCH:FAILED] Attempt ${attempts} returned ${response.status}:`,
-        data
+        `[WEB3FORMS:FAILED] Attempt ${attempts} returned status ${response.status}:`,
+        data.message || data
       );
 
-      if (response.status >= 500) {
+      // Retry on 429 or 5xx server issues
+      if (response.status === 429 || response.status >= 500) {
         if (attempts < maxAttempts) {
           await new Promise((r) => setTimeout(r, 1000 * attempts));
           continue;
@@ -168,11 +222,16 @@ export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<Emai
       return {
         success: false,
         status: "FAILED",
-        error: data.message || `Email service responded with HTTP ${response.status}`,
+        error:
+          data.message ||
+          `Web3Forms API responded with status ${response.status}`,
         statusCode: response.status,
       };
     } catch (err: any) {
-      console.error(`[EMAIL_DISPATCH:NETWORK_ERROR] Attempt ${attempts}:`, err.message);
+      console.error(
+        `[WEB3FORMS:NETWORK_ERROR] Attempt ${attempts}:`,
+        err.message
+      );
       if (attempts < maxAttempts) {
         await new Promise((r) => setTimeout(r, 1000 * attempts));
         continue;
@@ -180,7 +239,7 @@ export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<Emai
       return {
         success: false,
         status: "FAILED",
-        error: err.message || "Network error while connecting to email provider",
+        error: err.message || "Network error while connecting to Web3Forms API",
       };
     }
   }
@@ -188,7 +247,6 @@ export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<Emai
   return {
     success: false,
     status: "FAILED",
-    error: "Exceeded maximum retry attempts for email notification.",
+    error: "Exceeded maximum retry attempts for Web3Forms email notification.",
   };
 }
-

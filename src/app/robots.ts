@@ -7,7 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    sitemap: "https://datacraft.studio/sitemap.xml",
+    sitemap: "https://www.datacrafts.in/sitemap.xml",
   };
 }
-

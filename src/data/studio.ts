@@ -5,6 +5,7 @@ export const BRAND = {
   tagline: "Crafting Digital. Building Possibilities.",
   positioning:
     "DataCraft is a digital studio helping businesses transform ideas into websites, e-commerce experiences and custom software.",
+  websiteUrl: "https://www.datacrafts.in",
   established: "2024",
   geography: "India + International",
   primaryEmail: "Adityak1149x@gmail.com",
@@ -110,3 +111,11 @@ export const BRAND = {
     },
   ],
 };
+
+export const LEGAL_LINKS = [
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-and-conditions", label: "Terms & Conditions" },
+  { href: "/cookie-policy", label: "Cookie Policy" },
+  { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/refund-and-cancellation", label: "Refund & Cancellation" },
+];

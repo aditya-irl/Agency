@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import CookieConsent from "@/components/CookieConsent";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
 import { BRAND } from "@/data/studio";
 
 const manrope = Manrope({
@@ -31,10 +33,10 @@ export const metadata: Metadata = {
   authors: [
     { name: "Aditya Kumar" },
     { name: "Shreya" },
-    { name: "DataCraft", url: "https://datacraft.studio" },
+    { name: "DataCraft", url: "https://www.datacrafts.in" },
   ],
   creator: "DataCraft",
-  metadataBase: new URL("https://datacraft.studio"),
+  metadataBase: new URL("https://www.datacrafts.in"),
   icons: {
     icon: [
       { url: "/images/logo_badge.png", sizes: "512x512", type: "image/png" },
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
     title: `${BRAND.name} — We turn ambitious ideas into digital experiences.`,
     description:
       "From high-performing websites to custom business applications, DataCraft designs and builds digital products that help businesses move forward.",
-    url: "https://datacraft.studio",
+    url: "https://www.datacrafts.in",
     siteName: BRAND.name,
     locale: "en_US",
     type: "website",
@@ -79,6 +81,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+  },
 };
 
 export default function RootLayout({
@@ -101,12 +106,14 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <AnalyticsProvider />
         <SmoothScroll />
         <Navbar />
         <main id="main-content" className="flex-1 pt-24 md:pt-28">
           {children}
         </main>
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

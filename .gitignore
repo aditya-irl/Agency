@@ -22,8 +22,9 @@ dist/
 *.key
 
 # Local Data Ledgers & Submissions (Never commit client inquiry data)
-data/submissions.json
-data/failed_submissions.json
+/data/
+data/
+*.json.log
 
 # Debug logs
 npm-debug.log*

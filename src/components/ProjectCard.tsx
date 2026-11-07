@@ -92,7 +92,7 @@ export default function ProjectCard({
 
         {/* Technical Showcase Frame (Attachment 1: Exact CRM Dashboard) */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 relative">
             <DesktopMockup
               src={project.screenshots.desktop}
               alt={`${project.name} Executive Operations Command Dashboard`}
@@ -100,6 +100,14 @@ export default function ProjectCard({
               theme="dark"
               priority={priority}
             />
+            {project.screenshots.mobile && (
+              <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-32 md:w-36 z-10 transition-transform duration-300 group-hover:-translate-y-2">
+                <MobileMockup
+                  src={project.screenshots.mobile}
+                  alt={`${project.name} Mobile Operations`}
+                />
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
