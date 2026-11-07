@@ -46,7 +46,7 @@ export default function HeroShowcase() {
         </div>
 
         {/* Browser Viewport: Maverick Physicist Screenshot */}
-        <div className="relative aspect-[1440/900] w-full rounded-b-xl sm:rounded-b-2xl overflow-hidden bg-[#181516]">
+        <div className="relative aspect-[2560/1412] w-full rounded-b-xl sm:rounded-b-2xl overflow-hidden bg-[#181516]">
           <Image
             src="/images/maverick_physicist.webp"
             alt="Maverick Physicist live website interface developed by DataCraft"
