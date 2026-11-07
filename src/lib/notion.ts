@@ -233,3 +233,4 @@ export async function syncLeadToNotion(lead: LeadPayload): Promise<NotionSyncRes
     error: "Exceeded maximum retry attempts for Notion API sync.",
   };
 }
+

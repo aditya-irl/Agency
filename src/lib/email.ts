@@ -191,3 +191,4 @@ export async function sendLeadNotificationEmail(lead: LeadPayload): Promise<Emai
     error: "Exceeded maximum retry attempts for email notification.",
   };
 }
+
