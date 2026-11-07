@@ -35,6 +35,15 @@ export const metadata: Metadata = {
   ],
   creator: "DataCraft",
   metadataBase: new URL("https://datacraft.studio"),
+  icons: {
+    icon: [
+      { url: "/images/logo_badge.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/images/logo_badge.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: `${BRAND.name} — We turn ambitious ideas into digital experiences.`,
     description:

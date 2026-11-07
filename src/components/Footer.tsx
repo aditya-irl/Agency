@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, MessageCircle, Mail, Phone } from "lucide-react";
 import { BRAND } from "@/data/studio";
 import { SERVICES } from "@/data/services";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -12,13 +13,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[rgba(246,238,226,0.1)]">
           {/* Brand Col */}
           <div className="md:col-span-5 space-y-6">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white font-bold text-sm">
-                D
+            <div className="flex items-center gap-3.5">
+              <Logo variant="badge" size="lg" />
+              <div className="flex flex-col">
+                <span className="font-extrabold text-2xl tracking-tight text-white leading-tight">
+                  {BRAND.name}
+                </span>
+                <span className="text-[11px] font-mono tracking-widest uppercase text-[#A59C92]">
+                  Software Solutions
+                </span>
               </div>
-              <span className="font-extrabold text-2xl tracking-tight text-white">
-                {BRAND.name}
-              </span>
             </div>
             <p className="text-base text-accent font-medium">
               “{BRAND.tagline}”

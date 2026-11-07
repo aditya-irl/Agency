@@ -18,6 +18,7 @@ import ProjectCard from "@/components/ProjectCard";
 import ServiceCard from "@/components/ServiceCard";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import HeroShowcase from "@/components/HeroShowcase";
+import Logo from "@/components/Logo";
 
 export default function HomePage() {
   const [asquareProject, aurifiedProject, crmProject] = MAIN_PROJECTS;
@@ -99,7 +100,10 @@ export default function HomePage() {
         <div className="rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.12)] p-8 sm:p-12 md:p-16 shadow-card">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <span className="badge-pill">Studio Foundation</span>
+              <div className="flex items-center gap-3">
+                <Logo variant="badge" size="md" />
+                <span className="badge-pill">Studio Foundation</span>
+              </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
                 Small studio. Big ideas. Thoughtful execution.
               </h2>

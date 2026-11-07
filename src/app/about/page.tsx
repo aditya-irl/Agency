@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import Logo from "@/components/Logo";
 
 export const metadata: Metadata = {
   title: "About DataCraft | Two Founders. One Shared Vision.",
@@ -29,7 +30,15 @@ export default function AboutPage() {
     <div className="editorial-container space-y-20 md:space-y-28 pb-24">
       {/* Header */}
       <div className="space-y-6 max-w-4xl pt-6 md:pt-10">
-        <span className="badge-pill">Studio Profile</span>
+        <div className="flex items-center gap-4">
+          <Logo variant="badge" size="lg" priority />
+          <div>
+            <span className="badge-pill">Studio Profile</span>
+            <div className="text-xs font-mono uppercase tracking-wider text-text-secondary mt-1">
+              DataCrafts Software Solutions
+            </div>
+          </div>
+        </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
           Two founders. One shared vision.
         </h1>

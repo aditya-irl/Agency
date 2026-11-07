@@ -1,5 +1,7 @@
 export const BRAND = {
-  name: "DataCraft",
+  name: "DataCrafts",
+  shortName: "DataCraft",
+  fullName: "DataCrafts Software Solutions",
   tagline: "Crafting Digital. Building Possibilities.",
   positioning:
     "DataCraft is a digital studio helping businesses transform ideas into websites, e-commerce experiences and custom software.",

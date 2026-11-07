@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X, MessageCircle, Phone } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,14 +48,14 @@ export default function Navbar() {
         }`}
       >
         <div className="editorial-container flex items-center justify-between">
-          {/* Brand Logo: DataCraft */}
+          {/* Brand Logo: DataCrafts */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 text-foreground focus-visible:outline-none"
+            className="group flex items-center gap-3 text-foreground focus-visible:outline-none"
             aria-label={`${BRAND.name} Homepage`}
           >
-            <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background font-bold text-sm tracking-tighter transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
-              D
+            <div className="transition-transform duration-300 group-hover:scale-105">
+              <Logo variant="badge" size="md" priority />
             </div>
             <div className="flex flex-col">
               <span className="font-extrabold text-lg sm:text-xl tracking-tight leading-none text-foreground">
@@ -133,10 +134,8 @@ export default function Navbar() {
       >
         <div>
           <div className="flex items-center justify-between pb-6 border-b border-[rgba(35,31,32,0.1)]">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-foreground flex items-center justify-center text-background font-bold text-xs">
-                D
-              </div>
+            <div className="flex items-center gap-2.5">
+              <Logo variant="badge" size="sm" />
               <span className="font-bold text-base">{BRAND.name}</span>
             </div>
             <button

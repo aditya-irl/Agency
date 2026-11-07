@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 215" fill="none">
+  <!-- Purple Chart Bar 1 -->
+  <polygon points="2,181 40,161 40,208 2,208" fill="#814BFE" />
+  <!-- Purple Chart Bar 2 -->
+  <polygon points="55,151 93,132 93,208 55,208" fill="#814BFE" />
+  <!-- D Mark -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="
+    M 16 1
+    L 175 1
+    C 222 1 260 48 260 105
+    C 260 162 222 208 175 208
+    L 107 208
+    L 107 115
+    L 34 115
+    L 107 73
+    L 107 44
+    L 60 44
+    L 16 1
+    Z
+    M 146 73
+    L 146 135
+    C 146 135 155 165 178 165
+    C 202 165 217 138 217 105
+    C 217 72 202 45 178 45
+    C 155 45 146 73 146 73
+    Z" fill="currentColor" />
+</svg>
