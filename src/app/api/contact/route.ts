@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { syncLeadToNotion, LeadPayload } from "@/lib/notion";
 import { sendLeadNotificationEmail } from "@/lib/email";
+import { BRAND } from "@/data/studio";
 
 // In-memory cache for fast deduplication within serverless invocation lifetimes
 const recentSubmissions = new Map<string, { timestamp: number; referenceId: string }>();
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
           referenceId: existing.referenceId,
           message:
             "Your consultation brief was already safely received. Our team will contact you shortly.",
-          whatsappUrl: `https://wa.me/919412835869?text=${waMessage}`,
+          whatsappUrl: `https://wa.me/918865804386?text=${waMessage}`,
         },
         { status: 200 }
       );
@@ -164,7 +165,7 @@ export async function POST(req: NextRequest) {
       console.info("Serverless runtime detected. File writes omitted; stdout log captured.");
     }
 
-    // 7. Generate Pre-formatted Official WhatsApp Consultation Link (+91 94128 35869)
+    // 7. Generate Pre-formatted Official WhatsApp Consultation Link (+91 88658 04386)
     const waMessage = encodeURIComponent(
       `Hi DataCraft, I would like to book a consultation.\n\n*Reference:* ${referenceId}\n*Name:* ${submission.name}\n*Email:* ${submission.email}\n*Business:* ${submission.businessName}\n*Service:* ${submission.service}\n*Budget:* ${submission.budget}\n*Preferred Contact:* ${submission.preferredContact}\n*Scope:* ${submission.description}`
     );
@@ -185,7 +186,7 @@ export async function POST(req: NextRequest) {
           messageId: emailResult.messageId,
           error: emailResult.error,
         },
-        whatsappUrl: `https://wa.me/919412835869?text=${waMessage}`,
+        whatsappUrl: `https://wa.me/918865804386?text=${waMessage}`,
       },
       { status: 200 }
     );

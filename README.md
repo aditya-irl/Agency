@@ -55,9 +55,9 @@ Built strictly around the designated color palette:
 * **Founders**:
   * **Aditya Kumar**: Co-Founder — Development & Technology
   * **Shreya**: Co-Founder — Business & Creative Collaboration
-* **Official Studio Contact**:
-  * **Phone**: `+91 94128 35869` (“Call DataCraft”)
-  * **WhatsApp Consultation**: `https://wa.me/919412835869`
+* **Official Studio Contact Actions**:
+  * **1. Call DataCraft (Calling Only)**: `+91 80062 05606` (`tel:+918006205606` · Calling only, never used for WhatsApp)
+  * **2. Call / WhatsApp**: `+91 88658 04386` (`tel:+918865804386` & `https://wa.me/918865804386`)
   * **Official Email**: `Adityak1149x@gmail.com`
 * **Commercial Baseline**: Quality Digital Solutions Starting at ₹3,000 onwards (*Final pricing depends on project requirements, functionality and scope*).
 * **Zero invented social media profiles**. Direct founder collaboration with no intermediary layers.

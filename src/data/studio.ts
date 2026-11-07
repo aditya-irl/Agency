@@ -8,10 +8,31 @@ export const BRAND = {
   established: "2024",
   geography: "India + International",
   primaryEmail: "Adityak1149x@gmail.com",
-  officialPhone: "+91 94128 35869",
-  officialPhoneDisplay: "+91 94128 35869",
-  officialWhatsAppUrl:
-    "https://wa.me/919412835869?text=Hi%20DataCraft%2C%20I%20would%20like%20to%20book%20a%20consultation%20for%20my%20project.",
+
+  // -------------------------------------------------------------
+  // CONTACT NUMBER 1: Calling only (NEVER use for WhatsApp)
+  // -------------------------------------------------------------
+  callingOnlyPhone: "+91 80062 05606",
+  callingOnlyPhoneRaw: "+918006205606",
+  callingOnlyPhoneTel: "tel:+918006205606",
+  callingOnlyActionLabel: "Call DataCraft — +91 80062 05606",
+
+  // -------------------------------------------------------------
+  // CONTACT NUMBER 2: Calling + WhatsApp
+  // -------------------------------------------------------------
+  callWhatsappPhone: "+91 88658 04386",
+  callWhatsappPhoneRaw: "+918865804386",
+  callWhatsappPhoneTel: "tel:+918865804386",
+  callWhatsappUrl: "https://wa.me/918865804386",
+  callWhatsappActionLabel: "Call / WhatsApp — +91 88658 04386",
+
+  // Global references & aliases
+  officialPhone: "+91 80062 05606",
+  officialPhoneDisplay: "+91 80062 05606",
+  officialWhatsAppUrl: "https://wa.me/918865804386",
+  officialWhatsAppUrlWithMessage:
+    "https://wa.me/918865804386?text=Hi%20DataCraft%2C%20I%20would%20like%20to%20book%20a%20consultation%20for%20my%20project.",
+
   startingPrice: "₹3,000 onwards",
   startingPriceMessage: "Quality Digital Solutions. Starting at ₹3,000.",
   startingPriceSubtext:

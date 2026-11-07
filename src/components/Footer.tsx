@@ -104,53 +104,74 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Official Contact Details (No individual founder phone numbers) */}
+          {/* Official Contact Details */}
           <div className="md:col-span-3 space-y-4">
             <h4 className="text-xs font-mono uppercase tracking-wider text-[#A59C92]">
               Contact
             </h4>
-            <ul className="space-y-3 text-xs sm:text-sm">
-              <li>
+            <div className="space-y-3 text-xs sm:text-sm">
+              {/* Action 1: Call DataCraft — +91 80062 05606 (Calling only) */}
+              <div className="p-3 rounded-xl bg-[#282325] border border-[#3E383A] space-y-1">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-[#A59C92]">
+                  Calling Only
+                </div>
                 <a
-                  href={`tel:${BRAND.officialPhone.replace(/\s+/g, "")}`}
-                  className="inline-flex items-center gap-2 text-[#D4C9BC] hover:text-white transition-colors font-mono"
+                  href={BRAND.callingOnlyPhoneTel}
+                  className="flex items-center gap-2 text-white hover:text-accent transition-colors font-mono font-semibold"
                 >
-                  <Phone className="w-4 h-4 text-accent" />
-                  <span>{BRAND.officialPhoneDisplay}</span>
+                  <Phone className="w-3.5 h-3.5 text-accent" />
+                  <span>Call: {BRAND.callingOnlyPhone}</span>
                 </a>
-              </li>
-              <li>
+              </div>
+
+              {/* Action 2: Call / WhatsApp — +91 88658 04386 (Calling + WhatsApp) */}
+              <div className="p-3 rounded-xl bg-[#282325] border border-[#3E383A] space-y-2">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-emerald-400">
+                  Calling + WhatsApp
+                </div>
+                <div className="font-mono font-semibold text-white text-xs sm:text-sm">
+                  {BRAND.callWhatsappPhone}
+                </div>
+                <div className="flex items-center gap-2 pt-1 border-t border-[#3E383A]">
+                  <a
+                    href={BRAND.callWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs font-semibold hover:bg-emerald-900/60 transition-colors"
+                  >
+                    <MessageCircle className="w-3 h-3" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={BRAND.callWhatsappPhoneTel}
+                    className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-[#342E30] text-white text-xs font-semibold hover:bg-accent transition-colors"
+                  >
+                    <Phone className="w-3 h-3 text-accent" />
+                    <span>Call</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Email & Consultation */}
+              <div className="pt-1 space-y-2">
                 <a
                   href={`mailto:${BRAND.primaryEmail}`}
-                  className="inline-flex items-center gap-2 text-[#D4C9BC] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-[#D4C9BC] hover:text-white transition-colors text-xs"
                 >
-                  <Mail className="w-4 h-4 text-accent" />
+                  <Mail className="w-3.5 h-3.5 text-accent" />
                   <span>{BRAND.primaryEmail}</span>
                 </a>
-              </li>
-              <li className="pt-2">
-                <a
-                  href={BRAND.officialWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 rounded-xl bg-[#282325] border border-[#3E383A] text-[#FFFDF6] hover:border-accent hover:bg-[#342D30] transition-all"
-                >
-                  <span className="font-semibold text-xs sm:text-sm">
-                    Book a Consultation
-                  </span>
-                  <MessageCircle className="w-4 h-4 text-accent" />
-                </a>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
-                >
-                  <span>Let’s Discuss Your Project</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </li>
-            </ul>
+                <div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
+                  >
+                    <span>Let’s Discuss Your Project</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

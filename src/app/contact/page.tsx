@@ -54,35 +54,9 @@ function ContactPageInner() {
             </div>
 
             <div className="space-y-3.5">
-              {/* WhatsApp Consultation */}
+              {/* Action 1: Call DataCraft — +91 80062 05606 (Calling only) */}
               <a
-                href={BRAND.officialWhatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-start gap-4 p-4 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] hover:border-emerald-500/50 hover:bg-emerald-50/40 transition-all"
-              >
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-foreground group-hover:text-emerald-950">
-                      WhatsApp Consultation
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 text-text-secondary group-hover:text-emerald-700" />
-                  </div>
-                  <p className="text-xs text-text-secondary mt-0.5">
-                    Fast-track project discussion & instant quote scoping
-                  </p>
-                  <span className="text-xs font-mono font-medium text-emerald-800 mt-1 inline-block">
-                    {BRAND.officialPhoneDisplay}
-                  </span>
-                </div>
-              </a>
-
-              {/* Call DataCraft */}
-              <a
-                href={`tel:${BRAND.officialPhone.replace(/\s+/g, "")}`}
+                href={BRAND.callingOnlyPhoneTel}
                 className="group flex items-start gap-4 p-4 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] hover:border-accent/50 hover:bg-accent/5 transition-all"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#F6EEE2] text-accent flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
@@ -96,13 +70,56 @@ function ContactPageInner() {
                     <ArrowUpRight className="w-4 h-4 text-text-secondary group-hover:text-accent" />
                   </div>
                   <p className="text-xs text-text-secondary mt-0.5">
-                    Official DataCraft voice & consultation line
+                    Calling only · Direct studio line
                   </p>
-                  <span className="text-xs font-mono font-medium text-foreground mt-1 inline-block">
-                    {BRAND.officialPhoneDisplay}
+                  <span className="text-xs font-mono font-bold text-foreground mt-1 inline-block">
+                    {BRAND.callingOnlyPhone}
                   </span>
                 </div>
               </a>
+
+              {/* Action 2: Call / WhatsApp — +91 88658 04386 (Calling + WhatsApp) */}
+              <div className="p-4 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] hover:border-emerald-500/50 hover:bg-emerald-50/20 transition-all space-y-3">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-bold text-foreground">
+                        Call / WhatsApp
+                      </span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-medium">
+                        Calling + WhatsApp
+                      </span>
+                    </div>
+                    <p className="text-xs text-text-secondary mt-0.5">
+                      Direct voice line & instant WhatsApp consultation
+                    </p>
+                    <span className="text-xs font-mono font-bold text-emerald-900 mt-1 inline-block">
+                      {BRAND.callWhatsappPhone}
+                    </span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[rgba(35,31,32,0.06)]">
+                  <a
+                    href={BRAND.callWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-semibold hover:bg-emerald-100 transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={BRAND.callWhatsappPhoneTel}
+                    className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground text-xs font-semibold hover:border-accent hover:text-accent transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-accent" />
+                    <span>Voice Call</span>
+                  </a>
+                </div>
+              </div>
 
               {/* Primary Email Direct */}
               <a

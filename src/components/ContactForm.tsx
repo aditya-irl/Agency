@@ -127,14 +127,14 @@ export default function ContactForm({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-semibold text-xs sm:text-sm hover:bg-accent-hover transition-colors shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Continue on WhatsApp</span>
+            <span>Call / WhatsApp — +91 88658 04386</span>
           </a>
           <a
-            href={`tel:${BRAND.officialPhone.replace(/\s+/g, "")}`}
+            href="tel:+918006205606"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FCFAF8] border border-[rgba(35,31,32,0.15)] text-foreground font-semibold text-xs sm:text-sm hover:border-accent transition-colors"
           >
             <PhoneCall className="w-4 h-4 text-accent" />
-            <span>Call DataCraft ({BRAND.officialPhoneDisplay})</span>
+            <span>Call DataCraft — +91 80062 05606</span>
           </a>
         </div>
         <div className="pt-2">

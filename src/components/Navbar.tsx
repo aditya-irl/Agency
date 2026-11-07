@@ -93,8 +93,26 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Primary CTA & Mobile Hamburger */}
-          <div className="flex items-center gap-3">
+          {/* Primary CTA & Quick Contact */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <a
+              href={BRAND.callingOnlyPhoneTel}
+              className="hidden xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[rgba(35,31,32,0.12)] bg-[#FFFDF6] text-xs font-semibold text-foreground hover:border-accent hover:text-accent transition-colors shadow-subtle"
+              title={BRAND.callingOnlyActionLabel}
+            >
+              <Phone className="w-3 h-3 text-accent" />
+              <span>Call: {BRAND.callingOnlyPhone}</span>
+            </a>
+            <a
+              href={BRAND.callWhatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[rgba(35,31,32,0.12)] bg-[#FFFDF6] text-xs font-semibold text-foreground hover:border-emerald-600 hover:text-emerald-700 transition-colors shadow-subtle"
+              title="Call / WhatsApp — +91 88658 04386"
+            >
+              <MessageCircle className="w-3 h-3 text-emerald-600" />
+              <span>Call / WhatsApp</span>
+            </a>
             <Link
               href="/contact"
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-xs sm:text-sm font-semibold hover:bg-accent transition-colors duration-200 shadow-sm focus-visible:outline-none"
@@ -170,28 +188,57 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Unified Official Consultation Links */}
+          {/* Unified Official Consultation Actions */}
           <div className="mt-8 p-4 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2.5">
             <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold block">
-              Official Consultation Line
+              Direct Contact Lines
             </span>
             <div className="flex flex-col gap-2 pt-1 text-xs">
+              {/* Action 1: Call DataCraft — +91 80062 05606 (Calling only) */}
               <a
-                href={`tel:${BRAND.officialPhone.replace(/\s+/g, "")}`}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[rgba(35,31,32,0.08)] text-foreground font-medium"
+                href={BRAND.callingOnlyPhoneTel}
+                className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[rgba(35,31,32,0.08)] text-foreground font-medium hover:border-accent"
               >
-                <span>Call DataCraft ({BRAND.officialPhoneDisplay})</span>
-                <Phone className="w-3.5 h-3.5 text-accent" />
+                <div className="flex flex-col text-left">
+                  <span className="font-bold">Call DataCraft</span>
+                  <span className="text-[11px] font-mono text-text-secondary">{BRAND.callingOnlyPhone}</span>
+                </div>
+                <div className="flex items-center gap-1 text-[10px] font-mono font-medium text-accent px-2 py-0.5 rounded-md bg-[#FCEAE3]">
+                  <span>Call Only</span>
+                  <Phone className="w-3 h-3" />
+                </div>
               </a>
-              <a
-                href={BRAND.officialWhatsAppUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[rgba(35,31,32,0.08)] text-foreground font-medium"
-              >
-                <span>WhatsApp Consultation</span>
-                <MessageCircle className="w-3.5 h-3.5 text-accent" />
-              </a>
+
+              {/* Action 2: Call / WhatsApp — +91 88658 04386 (Calling + WhatsApp) */}
+              <div className="p-2.5 rounded-xl bg-white border border-[rgba(35,31,32,0.08)] space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col text-left">
+                    <span className="font-bold">Call / WhatsApp</span>
+                    <span className="text-[11px] font-mono text-emerald-800">{BRAND.callWhatsappPhone}</span>
+                  </div>
+                  <span className="text-[10px] font-mono font-medium text-emerald-800 px-2 py-0.5 rounded-md bg-emerald-50">
+                    Voice + Chat
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-1.5 pt-1 border-t border-[rgba(35,31,32,0.06)]">
+                  <a
+                    href={BRAND.callWhatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-900 text-[11px] font-semibold hover:bg-emerald-100"
+                  >
+                    <MessageCircle className="w-3 h-3 text-emerald-700" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={BRAND.callWhatsappPhoneTel}
+                    className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-[#FCFAF8] border border-[rgba(35,31,32,0.1)] text-foreground text-[11px] font-semibold hover:border-accent"
+                  >
+                    <Phone className="w-3 h-3 text-accent" />
+                    <span>Voice Call</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

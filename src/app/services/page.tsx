@@ -227,20 +227,22 @@ export default function ServicesPage() {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
           <a
-            href={BRAND.officialWhatsAppUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#282325] border border-[#3E383A] text-white font-semibold text-sm hover:bg-[#342D30] transition-colors"
-          >
-            <MessageCircle className="w-4 h-4 text-accent" />
-            <span>Discuss Your Project</span>
-          </a>
-          <a
-            href={`tel:${BRAND.officialPhone.replace(/\s+/g, "")}`}
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#282325] border border-[#3E383A] text-white font-semibold text-sm hover:bg-[#342D30] transition-colors"
+            href={BRAND.callingOnlyPhoneTel}
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#282325] border border-[#3E383A] text-white font-semibold text-sm hover:bg-[#342D30] hover:border-accent transition-colors"
+            title="Call DataCraft — +91 80062 05606"
           >
             <PhoneCall className="w-4 h-4 text-accent" />
-            <span>Call DataCraft</span>
+            <span>Call DataCraft — +91 80062 05606</span>
+          </a>
+          <a
+            href={BRAND.callWhatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-emerald-950/70 border border-emerald-800 text-emerald-300 font-semibold text-sm hover:bg-emerald-900/80 transition-colors"
+            title="Call / WhatsApp — +91 88658 04386"
+          >
+            <MessageCircle className="w-4 h-4 text-emerald-400" />
+            <span>Call / WhatsApp — +91 88658 04386</span>
           </a>
         </div>
       </div>
