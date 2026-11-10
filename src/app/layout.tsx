@@ -56,10 +56,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/asquare_homepage.jpg",
-        width: 1024,
-        height: 567,
-        alt: "DataCraft - Premium Digital Studio",
+        url: "/audit/preview.PNG",
+        width: 1789,
+        height: 879,
+        alt: "DataCraft website preview",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
     description:
       "Founder-led digital studio building websites, e-commerce storefronts, and custom software.",
-    images: ["/images/asquare_homepage.jpg"],
+    images: ["/audit/preview.PNG"],
   },
   robots: {
     index: true,
