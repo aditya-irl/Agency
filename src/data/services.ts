@@ -63,10 +63,11 @@ export const SERVICES: Service[] = [
     shortDescription:
       "Bespoke software platforms, administrative dashboards, and internal business tools.",
     fullDescription:
-      "Off-the-shelf software rarely fits unique business processes. We design and build bespoke web applications, interactive customer portals, internal CRM systems, and administrative control panels that automate repetitive tasks and give management complete operational visibility.",
+      "Off-the-shelf software rarely fits unique business processes. We design and build bespoke web applications, interactive customer portals, CRM systems, and ERP-style operational modules that automate repetitive tasks and give management clearer visibility.",
     deliverables: [
       "Executive & operational business dashboards",
       "Custom CRM & lead management systems",
+      "Custom ERP modules for inventory and operational workflows",
       "Client portals & secure customer accounts",
       "Inventory, order & field operations tracking",
       "Role-based access control (RBAC) & admin panels",
@@ -119,4 +120,3 @@ export const SERVICES: Service[] = [
     ctaText: "Automate Your Workflows",
   },
 ];
-

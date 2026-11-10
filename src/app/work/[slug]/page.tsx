@@ -19,6 +19,7 @@ import {
 import { MAIN_PROJECTS, EXPERIMENTAL_PROJECTS, Project } from "@/data/projects";
 import { DesktopMockup, MobileMockup } from "@/components/DeviceMockup";
 import ImageLightbox from "@/components/ImageLightbox";
+import { createPageMetadata } from "@/lib/seo";
 
 const ALL_STUDY_PROJECTS = [...MAIN_PROJECTS, ...EXPERIMENTAL_PROJECTS];
 
@@ -36,17 +37,21 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const project = ALL_STUDY_PROJECTS.find((p) => p.slug === params.slug);
-  if (!project) return { title: "Project Not Found | DataCraft" };
+  if (!project) {
+    return {
+      title: "Project Not Found | DataCrafts",
+      robots: { index: false, follow: true },
+    };
+  }
 
-  return {
-    title: `${project.name} Case Study | DataCraft`,
+  return createPageMetadata({
+    title: `${project.name} — ${project.category} | DataCrafts`,
     description: project.description,
-    openGraph: {
-      title: `${project.name} — ${project.category} | DataCraft`,
-      description: project.description,
-      images: [project.screenshots.desktop],
-    },
-  };
+    path: `/work/${project.slug}`,
+    image: project.screenshots.desktop,
+    imageAlt: `${project.name} project preview`,
+    type: "article",
+  });
 }
 
 export default function CaseStudyPage({ params }: PageProps) {

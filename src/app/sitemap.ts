@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
-import { MAIN_PROJECTS } from "@/data/projects";
-import { LEGAL_LINKS } from "@/data/studio";
+import { ALL_PUBLIC_PROJECTS } from "@/data/projects";
+import { LOCATION_PAGES } from "@/data/locations";
+import { BRAND, LEGAL_LINKS } from "@/data/studio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.datacrafts.in";
+  const baseUrl = BRAND.websiteUrl;
 
   const staticPages = [
     "",
@@ -18,11 +19,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1.0 : 0.8,
   }));
 
-  const projectPages = MAIN_PROJECTS.map((p) => ({
+  const projectPages = ALL_PUBLIC_PROJECTS.map((p) => ({
     url: `${baseUrl}/work/${p.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.9,
+  }));
+
+  const locationPages = LOCATION_PAGES.map((page) => ({
+    url: `${baseUrl}/${page.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
   }));
 
   const legalPages = LEGAL_LINKS.map((link) => ({
@@ -32,5 +40,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.4,
   }));
 
-  return [...staticPages, ...projectPages, ...legalPages];
+  return [...staticPages, ...projectPages, ...locationPages, ...legalPages];
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, MessageCircle, Mail, Phone, ShieldCheck } from "lucide-react";
+import { LOCATION_PAGES } from "@/data/locations";
 import { BRAND, LEGAL_LINKS } from "@/data/studio";
 import Logo from "@/components/Logo";
 import CookieSettingsButton from "@/components/CookieSettingsButton";
@@ -82,6 +83,19 @@ export default function Footer() {
                   Book Consultation
                 </Link>
               </li>
+              <li className="pt-2 font-mono text-[10px] uppercase tracking-wider text-[#A59C92]">
+                Service areas
+              </li>
+              {LOCATION_PAGES.map((location) => (
+                <li key={location.slug}>
+                  <Link
+                    href={`/${location.slug}`}
+                    className="text-[#D4C9BC] hover:text-white transition-colors"
+                  >
+                    {location.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

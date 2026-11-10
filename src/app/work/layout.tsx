@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Work & Case Studies | DataCraft",
   description:
     "Explore DataCraft's portfolio of brand showcases, Shopify e-commerce stores, and custom software systems.",
-};
+  path: "/work",
+});
 
 export default function WorkLayout({
   children,
@@ -13,4 +14,3 @@ export default function WorkLayout({
 }) {
   return <>{children}</>;
 }
-

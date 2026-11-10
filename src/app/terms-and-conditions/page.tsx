@@ -1,16 +1,16 @@
 import React from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Scale, CheckCircle2, AlertTriangle, FileText } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions — DataCrafts Software Solutions",
-  description:
-    "Review the commercial, intellectual property, payment, and operational terms governing digital services provided by DataCraft.",
-  alternates: {
-    canonical: "https://www.datacrafts.in/terms-and-conditions",
-  },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Terms & Conditions — DataCrafts Software Solutions",
+    description:
+      "Review the commercial, intellectual property, payment, and operational terms governing digital services provided by DataCraft.",
+    path: "/terms-and-conditions",
+  }),
   robots: {
     index: true,
     follow: true,
@@ -208,4 +208,3 @@ export default function TermsAndConditionsPage() {
     </div>
   );
 }
-

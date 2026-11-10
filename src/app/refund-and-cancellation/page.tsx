@@ -1,16 +1,16 @@
 import React from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { RefreshCw, CheckCircle2, AlertCircle, Mail, HelpCircle } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Refund & Cancellation Policy — DataCrafts Software Solutions",
-  description:
-    "Review DataCraft’s structured cancellation procedures, advance deposit treatment, out-of-pocket expense handling, and refund resolution timeline.",
-  alternates: {
-    canonical: "https://www.datacrafts.in/refund-and-cancellation",
-  },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Refund & Cancellation Policy — DataCrafts Software Solutions",
+    description:
+      "Review DataCraft’s structured cancellation procedures, advance deposit treatment, out-of-pocket expense handling, and refund resolution timeline.",
+    path: "/refund-and-cancellation",
+  }),
   robots: {
     index: true,
     follow: true,
@@ -185,4 +185,3 @@ export default function RefundAndCancellationPage() {
     </div>
   );
 }
-

@@ -1,16 +1,16 @@
 import React from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Mail, Phone, MessageCircle, ArrowLeft, Lock, FileText, CheckCircle2 } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — DataCrafts Software Solutions",
-  description:
-    "Learn how DataCraft collects, uses, protects, and retains your project enquiry information in compliance with modern data privacy standards.",
-  alternates: {
-    canonical: "https://www.datacrafts.in/privacy-policy",
-  },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Privacy Policy — DataCrafts Software Solutions",
+    description:
+      "Learn how DataCraft collects, uses, protects, and retains your project enquiry information in compliance with modern data privacy standards.",
+    path: "/privacy-policy",
+  }),
   robots: {
     index: true,
     follow: true,
@@ -217,4 +217,3 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
-

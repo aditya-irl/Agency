@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { BRAND } from "@/data/studio";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    sitemap: "https://www.datacrafts.in/sitemap.xml",
+    sitemap: `${BRAND.websiteUrl}/sitemap.xml`,
   };
 }

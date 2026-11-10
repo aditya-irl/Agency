@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import type { Metadata } from "next";
 import {
   ArrowUpRight,
   MessageCircle,
@@ -16,12 +15,14 @@ import {
 } from "lucide-react";
 import { BRAND } from "@/data/studio";
 import Logo from "@/components/Logo";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About DataCraft | Two Founders. One Shared Vision.",
   description:
     "Meet Aditya Kumar and Shreya, the co-founders of DataCraft. A founder-led digital studio building websites, e-commerce stores and custom software.",
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   const [aditya, shreya] = BRAND.founders;

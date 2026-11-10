@@ -12,6 +12,14 @@ import {
   Calculator,
 } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+  description:
+    "DataCrafts is a founder-led digital studio building business websites, e-commerce experiences and custom software for growing businesses.",
+  path: "/",
+});
 import { MAIN_PROJECTS } from "@/data/projects";
 import { SERVICES } from "@/data/services";
 import ProjectCard from "@/components/ProjectCard";

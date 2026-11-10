@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import type { Metadata } from "next";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -15,12 +14,14 @@ import {
 import { SERVICES } from "@/data/services";
 import { BRAND } from "@/data/studio";
 import ScopeEstimator from "@/components/ScopeEstimator";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Services & Capabilities | DataCraft",
   description:
-    "Explore DataCraft's five core disciplines: Website Development, E-Commerce, Custom Software Development, Mobile & PWA, and Automation & Integrations. Starting at ₹3,000.",
-};
+    "Explore DataCrafts website development, e-commerce, custom software, CRM and ERP workflows, mobile products, and business automation services.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   const serviceIcons = [Code2, ShoppingBag, Database, Smartphone, Cpu];

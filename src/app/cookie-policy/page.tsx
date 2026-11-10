@@ -1,17 +1,17 @@
 import React from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Cookie, ShieldCheck, Sliders, ExternalLink } from "lucide-react";
 import { BRAND } from "@/data/studio";
 import CookieSettingsButton from "@/components/CookieSettingsButton";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Cookie Policy — DataCrafts Software Solutions",
-  description:
-    "Understand the types of cookies used by DataCraft, how we protect your privacy, and how to control your tracking preferences.",
-  alternates: {
-    canonical: "https://www.datacrafts.in/cookie-policy",
-  },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Cookie Policy — DataCrafts Software Solutions",
+    description:
+      "Understand the types of cookies used by DataCraft, how we protect your privacy, and how to control your tracking preferences.",
+    path: "/cookie-policy",
+  }),
   robots: {
     index: true,
     follow: true,
@@ -219,4 +219,3 @@ export default function CookiePolicyPage() {
     </div>
   );
 }
-

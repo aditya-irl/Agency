@@ -1,6 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowLeft, Home } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | DataCrafts",
+  description: "The page you requested could not be found.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   return (
@@ -37,4 +47,3 @@ export default function NotFound() {
     </div>
   );
 }
-

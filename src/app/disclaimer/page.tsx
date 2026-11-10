@@ -1,16 +1,16 @@
 import React from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertCircle, CheckCircle2, ShieldAlert } from "lucide-react";
 import { BRAND } from "@/data/studio";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Website & Portfolio Disclaimer — DataCrafts Software Solutions",
-  description:
-    "Review DataCraft’s professional disclaimer regarding case study representations, indicative starting pricing, and third-party platform dependencies.",
-  alternates: {
-    canonical: "https://www.datacrafts.in/disclaimer",
-  },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Website & Portfolio Disclaimer — DataCrafts Software Solutions",
+    description:
+      "Review DataCraft’s professional disclaimer regarding case study representations, indicative starting pricing, and third-party platform dependencies.",
+    path: "/disclaimer",
+  }),
   robots: {
     index: true,
     follow: true,
@@ -139,4 +139,3 @@ export default function DisclaimerPage() {
     </div>
   );
 }
-
