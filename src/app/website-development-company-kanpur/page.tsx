@@ -8,6 +8,13 @@ export const metadata = createPageMetadata({
   title: location.title,
   description: location.description,
   path: `/${location.slug}`,
+  keywords: location.keywords,
+  geo: {
+    latitude: location.geo.latitude,
+    longitude: location.geo.longitude,
+    placename: "Kanpur, Uttar Pradesh, India",
+    region: "IN-UP",
+  },
 });
 
 export default function KanpurWebsiteDevelopmentPage() {

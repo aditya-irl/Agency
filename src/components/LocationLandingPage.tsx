@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react
 import ContactForm from "@/components/ContactForm";
 import { LOCATION_PAGES, type LocationPage } from "@/data/locations";
 import { BRAND } from "@/data/studio";
+import { MAIN_PROJECTS } from "@/data/projects";
 import { serializeJsonLd } from "@/lib/seo";
 
 interface LocationLandingPageProps {
@@ -20,6 +21,53 @@ export default function LocationLandingPage({
     "text",
     `Hi DataCrafts, I would like to discuss a website or software project for my business in ${location.name}.`
   );
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": `${pageUrl}#localbusiness`,
+    name: `DataCrafts — Website & Software Development in ${location.name}`,
+    description: location.description,
+    url: pageUrl,
+    telephone: BRAND.callingOnlyPhoneRaw,
+    email: BRAND.primaryEmail,
+    priceRange: "₹3,000 - ₹1,50,000",
+    image: `${SITE_URL}/audit/preview.PNG`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: location.addressLocality,
+      addressRegion: location.addressRegion,
+      postalCode: location.postalCode,
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: location.geo.latitude,
+      longitude: location.geo.longitude,
+    },
+    areaServed: location.areasServed.map((name) => ({
+      "@type": "Place",
+      name,
+    })),
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "09:00",
+        closes: "20:00",
+      },
+    ],
+    parentOrganization: {
+      "@id": `${SITE_URL}/#organization`,
+    },
+  };
 
   const serviceSchema = {
     "@context": "https://schema.org",
@@ -69,8 +117,25 @@ export default function LocationLandingPage({
     ],
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: location.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(localBusinessSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceSchema) }}
@@ -78,6 +143,10 @@ export default function LocationLandingPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqSchema) }}
       />
 
       <div className="editorial-container space-y-16 pb-24 md:space-y-24">
@@ -131,232 +200,133 @@ export default function LocationLandingPage({
                 href={whatsappUrl.toString()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[rgba(35,31,32,0.18)] bg-[#FFFDF6] px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-emerald-700 hover:text-emerald-800"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-700 bg-emerald-950/70 px-5 py-3 text-sm font-semibold text-emerald-300 transition-colors hover:bg-emerald-900/80"
               >
-                <MessageCircle className="h-4 w-4" />
-                Enquire on WhatsApp
+                <MessageCircle className="h-4 w-4 text-emerald-400" />
+                Chat on WhatsApp
               </a>
             </div>
           </div>
-          <aside className="rounded-3xl bg-[#231F20] p-7 text-[#FFFDF6] md:col-span-4 md:p-8">
-            <span className="font-mono text-xs uppercase tracking-[0.16em] text-[#D4C9BC]">
-              A practical starting point
-            </span>
-            <p className="mt-4 text-xl font-semibold leading-snug">
-              Start with the business problem. Build only what helps solve it.
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-[#D4C9BC]">
-              Work directly with DataCrafts founders to define the audience,
-              scope, priorities and next steps for your project.
-            </p>
-            <Link
-              href="/about"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#F1A78C]"
-            >
-              Meet the studio
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </aside>
         </header>
 
-        <section aria-labelledby="services-heading" className="space-y-8">
+        <section aria-labelledby="challenges-heading" className="space-y-6">
+          <div className="max-w-3xl space-y-3">
+            <span className="badge-pill">Common digital challenges</span>
+            <h2
+              id="challenges-heading"
+              className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
+            >
+              Practical ways we approach digital growth in {location.name}
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {location.challenges.map((challenge) => (
+              <div
+                key={challenge.title}
+                className="rounded-3xl border border-[rgba(35,31,32,0.1)] bg-[#FFFDF6] p-6 shadow-sm"
+              >
+                <h3 className="text-lg font-bold text-foreground">
+                  {challenge.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-text-secondary">
+                  {challenge.context}
+                </p>
+                <div className="mt-4 border-t border-[rgba(35,31,32,0.08)] pt-4 text-xs font-semibold uppercase tracking-wider text-accent">
+                  How we solve it
+                </div>
+                <p className="mt-1 text-sm leading-relaxed text-foreground">
+                  {challenge.approach}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="services-heading" className="space-y-6">
           <div className="max-w-3xl space-y-3">
             <span className="badge-pill">Capabilities</span>
             <h2
               id="services-heading"
               className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
             >
-              Digital services for businesses in {location.name}
+              Services we provide for {location.name} projects
             </h2>
-            <p className="leading-relaxed text-text-secondary">
-              Choose a focused improvement or combine services into a connected
-              project. We’ll recommend an approach after understanding your
-              requirements.
-            </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {location.services.map((service, index) => (
-              <article
+          <div className="grid gap-6 sm:grid-cols-2">
+            {location.services.map((service) => (
+              <div
                 key={service.name}
-                className="rounded-3xl border border-[rgba(35,31,32,0.1)] bg-[#FFFDF6] p-6 md:p-8"
+                className="rounded-3xl border border-[rgba(35,31,32,0.1)] bg-[#FFFDF6] p-7 shadow-sm"
               >
-                <span className="font-mono text-xs text-accent">
-                  0{index + 1}
-                </span>
-                <h3 className="mt-3 text-xl font-bold tracking-tight text-foreground">
+                <h3 className="text-xl font-bold text-foreground">
                   {service.name}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-text-secondary">
                   {service.description}
                 </p>
                 <Link
-                  href={`/contact?service=${encodeURIComponent(service.contactService)}`}
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
+                  href={`#enquiry`}
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
                 >
-                  Discuss this service
+                  Discuss this capability
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-              </article>
-            ))}
-          </div>
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-accent"
-          >
-            Explore all DataCrafts services
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </section>
-
-        <section
-          aria-labelledby="challenges-heading"
-          className="rounded-[2rem] bg-[#FFFDF6] p-6 md:p-10"
-        >
-          <div className="max-w-3xl space-y-3">
-            <span className="badge-pill">Built around real workflows</span>
-            <h2
-              id="challenges-heading"
-              className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
-            >
-              Common digital challenges—and thoughtful ways to address them
-            </h2>
-          </div>
-          <div className="mt-8 divide-y divide-[rgba(35,31,32,0.1)]">
-            {location.challenges.map((challenge, index) => (
-              <article
-                key={challenge.title}
-                className="grid gap-4 py-6 md:grid-cols-12 md:gap-8"
-              >
-                <div className="md:col-span-4">
-                  <span className="font-mono text-xs text-accent">
-                    CHALLENGE 0{index + 1}
-                  </span>
-                  <h3 className="mt-2 text-lg font-bold text-foreground">
-                    {challenge.title}
-                  </h3>
-                </div>
-                <p className="text-sm leading-relaxed text-text-secondary md:col-span-4">
-                  {challenge.context}
-                </p>
-                <p className="text-sm leading-relaxed text-foreground md:col-span-4">
-                  {challenge.approach}
-                </p>
-              </article>
+              </div>
             ))}
           </div>
         </section>
 
-        <section aria-labelledby="industries-heading" className="space-y-8">
+        <section aria-labelledby="industries-heading" className="space-y-6">
           <div className="max-w-3xl space-y-3">
-            <span className="badge-pill">Useful applications</span>
+            <span className="badge-pill">Industry experience</span>
             <h2
               id="industries-heading"
               className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
             >
-              Where a well-planned digital product can help
+              Who we work with in {location.name} and across Uttar Pradesh
             </h2>
-            <p className="leading-relaxed text-text-secondary">
-              These are example use cases, not claims about specific local
-              clients. The right solution depends on your customers and the way
-              your business operates.
-            </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {location.industries.map((industry) => (
-              <article
-                key={industry.name}
-                className="border-t-2 border-accent pt-5"
+          <div className="grid gap-6 md:grid-cols-3">
+            {location.industries.map((ind) => (
+              <div
+                key={ind.name}
+                className="rounded-3xl border border-[rgba(35,31,32,0.1)] bg-[#FCFAF8] p-6"
               >
-                <h3 className="text-lg font-bold text-foreground">
-                  {industry.name}
+                <h3 className="text-base font-bold text-foreground">
+                  {ind.name}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-                  {industry.examples}
+                <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                  {ind.examples}
                 </p>
-              </article>
+              </div>
             ))}
           </div>
         </section>
 
-        <section
-          aria-labelledby="process-heading"
-          className="tech-section rounded-[2rem] p-6 md:p-10"
-        >
-          <div className="max-w-3xl space-y-3">
-            <span className="badge-pill border-[#494244] bg-[#292426] text-[#F6EEE2]">
-              Clear collaboration
-            </span>
-            <h2
-              id="process-heading"
-              className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
-            >
-              From first conversation to launch
-            </h2>
-          </div>
-          <ol className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {BRAND.process.map((step) => (
-              <li key={step.step} className="border-t border-[#494244] pt-4">
-                <span className="font-mono text-xs text-[#F1A78C]">
-                  {step.step} / {step.phase}
-                </span>
-                <h3 className="mt-3 text-lg font-bold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#D4C9BC]">
-                  {step.details}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section aria-labelledby="work-heading" className="space-y-6">
+        <section aria-labelledby="projects-heading" className="space-y-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl space-y-3">
-              <span className="badge-pill">Selected work</span>
+            <div className="max-w-2xl space-y-2">
+              <span className="badge-pill">Selected Work</span>
               <h2
-                id="work-heading"
+                id="projects-heading"
                 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
               >
-                See how we approach digital projects
+                Real client systems built for scale
               </h2>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                Examples from the studio portfolio. They are shared as work
-                samples, not as claims of clients based in {location.name}.
-              </p>
             </div>
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-accent"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
             >
-              View all work
+              View all case studies
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                name: "Business website",
-                description:
-                  "A product-led brand experience with a considered responsive presentation.",
-                href: "/work/asquare-beverages",
-              },
-              {
-                name: "E-commerce storefront",
-                description:
-                  "A Shopify store structured for product discovery and online purchasing.",
-                href: "/work/aurified",
-              },
-              {
-                name: "Custom CRM platform",
-                description:
-                  "A tailored application interface for operational and customer workflows.",
-                href: "/work/finance-crm",
-              },
-            ].map((project) => (
+          <div className="grid gap-6 md:grid-cols-3">
+            {MAIN_PROJECTS.map((project) => (
               <Link
-                key={project.href}
-                href={project.href}
+                key={project.slug}
+                href={`/work/${project.slug}`}
                 className="group rounded-3xl border border-[rgba(35,31,32,0.1)] bg-[#FFFDF6] p-6 transition-colors hover:border-accent/50"
               >
                 <h3 className="text-lg font-bold text-foreground group-hover:text-accent">

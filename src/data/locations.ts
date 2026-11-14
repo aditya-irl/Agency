@@ -3,6 +3,14 @@ export interface LocationPage {
   name: string;
   regionLabel: string;
   areasServed: string[];
+  postalCode: string;
+  addressLocality: string;
+  addressRegion: string;
+  geo: {
+    latitude: number;
+    longitude: number;
+  };
+  keywords: string[];
   title: string;
   description: string;
   heading: string;
@@ -32,10 +40,39 @@ export const LOCATION_PAGES: LocationPage[] = [
     slug: "website-development-company-auraiya",
     name: "Auraiya",
     regionLabel: "Auraiya, Uttar Pradesh · UP-79",
-    areasServed: ["Auraiya", "Uttar Pradesh", "India"],
+    areasServed: [
+      "Auraiya",
+      "Dibiyapur",
+      "Bidhuna",
+      "Ajitmal",
+      "Phaphund",
+      "Etawah",
+      "Kanpur Dehat",
+      "Uttar Pradesh",
+      "India",
+    ],
+    postalCode: "206122",
+    addressLocality: "Auraiya",
+    addressRegion: "Uttar Pradesh",
+    geo: {
+      latitude: 26.4674,
+      longitude: 79.5186,
+    },
+    keywords: [
+      "Website Development Company in Auraiya",
+      "Web Designer in Auraiya",
+      "Website Designer Auraiya UP",
+      "Software Development Company Auraiya",
+      "Shopify Store Developer Auraiya",
+      "Custom Software Auraiya",
+      "Billing and CRM Software Auraiya",
+      "Web Development Studio Dibiyapur",
+      "Website Banwane Wala Auraiya",
+      "Best Website Agency Auraiya",
+    ],
     title: "Website Development Company in Auraiya | DataCrafts",
     description:
-      "DataCrafts builds mobile-friendly business websites, e-commerce stores and custom software for businesses in Auraiya, Uttar Pradesh.",
+      "DataCrafts builds mobile-friendly business websites, e-commerce stores and custom software for businesses in Auraiya, Dibiyapur and Uttar Pradesh.",
     heading: "Website development for growing businesses in Auraiya",
     introduction: [
       "A clear, dependable website helps customers understand what a business offers before they call, visit or request a quote. DataCrafts plans and builds custom business websites, online stores and practical software for organizations serving Auraiya.",
@@ -133,8 +170,38 @@ export const LOCATION_PAGES: LocationPage[] = [
   {
     slug: "website-development-company-kanpur",
     name: "Kanpur",
-    regionLabel: "Kanpur City · Uttar Pradesh",
-    areasServed: ["Kanpur", "Kanpur Nagar", "Uttar Pradesh", "India"],
+    regionLabel: "Kanpur City · Uttar Pradesh · UP-78",
+    areasServed: [
+      "Kanpur",
+      "Kanpur Nagar",
+      "Panki",
+      "Fazalganj",
+      "Rania",
+      "Jajmau",
+      "Kalyanpur",
+      "Swaroop Nagar",
+      "Chakeri",
+      "Uttar Pradesh",
+      "India",
+    ],
+    postalCode: "208001",
+    addressLocality: "Kanpur",
+    addressRegion: "Uttar Pradesh",
+    geo: {
+      latitude: 26.4499,
+      longitude: 80.3319,
+    },
+    keywords: [
+      "Website Development Company in Kanpur",
+      "Web Designer in Kanpur",
+      "Best Web Development Agency Kanpur",
+      "Custom Software Developer Kanpur",
+      "CRM and ERP Software Kanpur",
+      "Shopify E-commerce Development Kanpur",
+      "Industrial Website Design Kanpur",
+      "Website Developer Fazalganj Panki Kanpur",
+      "B2B Portal Development Kanpur",
+    ],
     title: "Website Development Company in Kanpur | DataCrafts",
     description:
       "Custom website development, e-commerce and business software for Kanpur companies—from product-led manufacturers to service businesses.",
@@ -245,6 +312,22 @@ export const LOCATION_PAGES: LocationPage[] = [
       "Faridabad",
       "National Capital Region",
       "India",
+    ],
+    postalCode: "201301",
+    addressLocality: "Noida",
+    addressRegion: "Delhi NCR",
+    geo: {
+      latitude: 28.5355,
+      longitude: 77.3910,
+    },
+    keywords: [
+      "Website Development Company in Delhi NCR",
+      "Web Design Agency Noida",
+      "Custom Software Development Gurugram",
+      "Next.js Development Agency Delhi",
+      "Shopify Plus Developer Delhi NCR",
+      "Full Stack Agency Delhi Noida Gurugram",
+      "B2B Web Application Development NCR",
     ],
     title: "Website Development Company in Delhi NCR | DataCrafts",
     description:

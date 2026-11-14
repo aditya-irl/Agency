@@ -8,7 +8,7 @@ import CookieConsent from "@/components/CookieConsent";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import { LOCATION_PAGES } from "@/data/locations";
 import { BRAND } from "@/data/studio";
-import { serializeJsonLd } from "@/lib/seo";
+import { serializeJsonLd, generateGlobalStructuredData } from "@/lib/seo";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -18,20 +18,29 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+  title: {
+    default: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+    template: `%s | ${BRAND.name}`,
+  },
   description:
-    "DataCrafts is a founder-led digital studio building business websites, e-commerce experiences and custom software for growing businesses.",
+    "DataCrafts is a founder-led digital studio building high-performance business websites, Shopify stores, and custom software in Auraiya, Kanpur, Delhi NCR, and across India.",
   keywords: [
-    "DataCraft",
-    "Digital Studio",
-    "Web Development Studio",
-    "Shopify E-commerce Development",
+    "DataCrafts",
+    "DataCrafts Software Solutions",
+    "Digital Studio India",
+    "Website Development Company in Auraiya",
+    "Web Designer in Auraiya",
+    "Website Development Company in Kanpur",
+    "Software Development Company in Auraiya UP",
+    "Shopify E-commerce Development Uttar Pradesh",
     "Custom Software Engineering",
     "CRM and ERP Development",
-    "Next.js Development",
-    "Business Automation",
+    "Next.js Development Agency",
+    "Business Automation India",
     "Bespoke Website Design",
     "Founder-Led Studio",
+    "Website Development Delhi NCR",
+    "Website Banwane Wala",
   ],
   authors: [
     { name: "Aditya Kumar" },
@@ -39,7 +48,12 @@ export const metadata: Metadata = {
     { name: "DataCraft", url: "https://www.datacrafts.in" },
   ],
   creator: "DataCraft",
+  category: "technology",
+  classification: "Web & Software Development Agency",
   metadataBase: new URL("https://www.datacrafts.in"),
+  alternates: {
+    canonical: "https://www.datacrafts.in",
+  },
   icons: {
     icon: [
       { url: "/images/logo_badge.png", sizes: "512x512", type: "image/png" },
@@ -55,7 +69,7 @@ export const metadata: Metadata = {
       "From high-performing websites to custom business applications, DataCraft designs and builds digital products that help businesses move forward.",
     url: "https://www.datacrafts.in",
     siteName: BRAND.name,
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
     images: [
       {
@@ -87,44 +101,21 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
+  other: {
+    "geo.region": "IN-UP",
+    "geo.placename": "Auraiya, Uttar Pradesh, India",
+    "geo.position": "26.4674;79.5186",
+    ICBM: "26.4674, 79.5186",
+    "DC.title": `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+    "DC.creator": BRAND.fullName,
+    "DC.language": "en-IN",
+  },
 };
 
-const organizationId = `${BRAND.websiteUrl}/#organization`;
-const globalStructuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": organizationId,
-      name: BRAND.fullName,
-      alternateName: BRAND.name,
-      url: BRAND.websiteUrl,
-      logo: `${BRAND.websiteUrl}/images/logo_mark.png`,
-      email: BRAND.primaryEmail,
-      telephone: BRAND.callWhatsappPhoneRaw,
-      areaServed: Array.from(
-        new Set(LOCATION_PAGES.flatMap((location) => location.areasServed))
-      ),
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "business enquiries",
-        telephone: BRAND.callWhatsappPhoneRaw,
-        email: BRAND.primaryEmail,
-        availableLanguage: ["English", "Hindi"],
-      },
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${BRAND.websiteUrl}/#website`,
-      url: BRAND.websiteUrl,
-      name: BRAND.name,
-      inLanguage: "en-IN",
-      publisher: {
-        "@id": organizationId,
-      },
-    },
-  ],
-};
+const allAreasServed = Array.from(
+  new Set(LOCATION_PAGES.flatMap((location) => location.areasServed))
+);
+const globalStructuredData = generateGlobalStructuredData(allAreasServed);
 
 export default function RootLayout({
   children,
