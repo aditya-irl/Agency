@@ -80,11 +80,11 @@ export default function ProjectCard({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full border border-[#484042] text-[#D4C9BC] font-medium text-sm hover:bg-[#282325] hover:text-white transition-colors"
-                title="Open live preview"
+                className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-[#484042] text-[#E0D5C9] font-semibold text-sm hover:bg-[#282325] hover:text-white hover:border-[#6B5E62] transition-colors"
+                title="Open live production preview"
               >
-                <ExternalLink className="w-4 h-4" />
-                <span className="sr-only">Live preview</span>
+                <span>Live Demo</span>
+                <ExternalLink className="w-3.5 h-3.5 text-[#C6532E]" />
               </a>
             )}
           </div>
@@ -241,10 +241,10 @@ export default function ProjectCard({
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full border border-[rgba(35,31,32,0.15)] text-foreground font-medium text-sm hover:bg-[rgba(35,31,32,0.05)] transition-colors"
+              className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-[rgba(35,31,32,0.18)] text-foreground font-semibold text-sm hover:bg-[rgba(35,31,32,0.06)] hover:border-accent transition-colors"
             >
               <span>Live Site</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 text-accent" />
             </a>
           )}
         </div>

@@ -5,7 +5,12 @@ import Link from "next/link";
 import { Calculator, ArrowUpRight, Check, Sparkles } from "lucide-react";
 import { BRAND } from "@/data/studio";
 
-export default function ScopeEstimator() {
+interface ScopeEstimatorProps {
+  id?: string;
+  scrollTarget?: string;
+}
+
+export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps = {}) {
   const [projectType, setProjectType] = useState<
     "starter" | "website" | "ecommerce" | "software" | "automation"
   >("starter");
@@ -88,7 +93,7 @@ export default function ScopeEstimator() {
   )}`;
 
   return (
-    <div className="rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.14)] p-6 sm:p-10 md:p-12 shadow-card space-y-8">
+    <div id={id} className="rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.14)] p-6 sm:p-10 md:p-12 shadow-card space-y-8 scroll-mt-24">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[rgba(35,31,32,0.1)]">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -211,11 +216,16 @@ export default function ScopeEstimator() {
           </div>
 
           <div className="space-y-3 pt-2">
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 px-2.5 py-1 rounded-full w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Includes Free 30-Min Technical Discovery Call</span>
+            </div>
+
             <Link
-              href={inquiryUrl}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full bg-accent text-white font-semibold text-xs sm:text-sm hover:bg-accent-hover transition-colors shadow-sm"
+              href={scrollTarget || inquiryUrl}
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full bg-accent text-white font-semibold text-xs sm:text-sm hover:bg-accent-hover active:scale-98 transition-all shadow-sm"
             >
-              <span>Book a Consultation</span>
+              <span>Book Consultation for this Scope</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
             <p className="text-[11px] text-[#A59C92] text-center leading-relaxed">

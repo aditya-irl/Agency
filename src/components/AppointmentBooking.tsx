@@ -238,6 +238,20 @@ export default function AppointmentBooking({
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
               Schedule a dedicated discovery call with our founders. Choose your preferred day and time slot—no obligation, pure architectural clarity.
             </p>
+
+            {/* Live Social Proof / Availability Micro-Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 font-semibold shadow-subtle">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                <span>Next Slot: Tomorrow · 100% Free</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
+                <span>WhatsApp Response: &lt; 15 mins</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
+                <span>Zero Vendor Lock-in</span>
+              </span>
+            </div>
           </div>
 
           {/* =========================================================

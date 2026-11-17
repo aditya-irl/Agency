@@ -28,6 +28,8 @@ import ProcessTimeline from "@/components/ProcessTimeline";
 import HeroShowcase from "@/components/HeroShowcase";
 import Logo from "@/components/Logo";
 import AppointmentBooking from "@/components/AppointmentBooking";
+import ScopeEstimator from "@/components/ScopeEstimator";
+import HomeFAQ from "@/components/HomeFAQ";
 
 export default function HomePage() {
   const [asquareProject, aurifiedProject, crmProject] = MAIN_PROJECTS;
@@ -62,35 +64,47 @@ export default function HomePage() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
                 href="/work"
-                className="inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-foreground text-background font-semibold text-sm hover:bg-accent transition-all duration-200 shadow-sm group"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-foreground text-background font-semibold text-sm hover:bg-accent transition-all duration-200 shadow-sm group"
               >
                 <span>Explore Our Work</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
                 href="#book-consultation"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#FFFDF6] border border-[rgba(35,31,32,0.18)] text-foreground font-semibold text-sm hover:bg-[rgba(35,31,32,0.06)] transition-all duration-200"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-all duration-200 shadow-sm"
               >
                 <span>Book a Consultation</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="#cost-calculator"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-[#FFFDF6] border border-[rgba(35,31,32,0.18)] text-foreground font-semibold text-xs hover:border-accent hover:text-accent transition-all duration-200"
+              >
+                <Calculator className="w-4 h-4 text-accent" />
+                <span>Calculate Cost in 30s</span>
               </Link>
             </div>
 
             {/* Micro Credibility & Pricing Bar */}
-            <div className="pt-6 border-t border-[rgba(35,31,32,0.1)] flex flex-wrap items-center gap-y-3 gap-x-8 text-xs text-text-secondary">
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-accent" />
+            <div className="pt-6 border-t border-[rgba(35,31,32,0.1)] flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-text-secondary">
+              <div className="flex items-center gap-1.5 font-medium text-foreground">
+                <Check className="w-3.5 h-3.5 text-accent" />
                 <span>{BRAND.startingPrice}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-accent" />
+              <div className="flex items-center gap-1.5 font-medium text-foreground">
+                <Check className="w-3.5 h-3.5 text-accent" />
                 <span>Direct Founder Collaboration</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-accent" />
-                <span>Custom Built · Zero Bloated Templates</span>
+              <div className="flex items-center gap-1.5 font-medium text-foreground">
+                <Check className="w-3.5 h-3.5 text-accent" />
+                <span>100% Code Ownership</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-emerald-800 font-semibold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                <span>Next Slot: Tomorrow (Free)</span>
               </div>
             </div>
           </div>
@@ -168,9 +182,9 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================
-          3. PREMIUM PRICING INTRODUCTION SECTION (₹3,000 STARTING)
+          3. PREMIUM PRICING INTRODUCTION & INTERACTIVE ESTIMATOR
           ======================================================== */}
-      <section className="editorial-container">
+      <section className="editorial-container space-y-8">
         <div className="rounded-3xl bg-[#FFFDF6] border border-[#C6532E]/30 p-8 sm:p-12 shadow-card space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[rgba(35,31,32,0.1)]">
             <div className="space-y-3 max-w-2xl">
@@ -252,6 +266,9 @@ export default function HomePage() {
             </span>
           </div>
         </div>
+
+        {/* Interactive Scope & Cost Calculator */}
+        <ScopeEstimator id="cost-calculator" scrollTarget="#book-consultation" />
       </section>
 
       {/* ========================================================
@@ -374,7 +391,12 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================
-          7. ON-SITE "BOOK A FREE CONSULTATION" APPOINTMENT SYSTEM
+          7. FREQUENTLY ASKED QUESTIONS & RICH SCHEMA
+          ======================================================== */}
+      <HomeFAQ />
+
+      {/* ========================================================
+          8. ON-SITE "BOOK A FREE CONSULTATION" APPOINTMENT SYSTEM
           ======================================================== */}
       <div className="editorial-container">
         <AppointmentBooking id="book-consultation" />

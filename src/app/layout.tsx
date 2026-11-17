@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import CookieConsent from "@/components/CookieConsent";
+import MobileQuickActions from "@/components/MobileQuickActions";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 import { LOCATION_PAGES } from "@/data/locations";
 import { BRAND } from "@/data/studio";
@@ -150,6 +151,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <MobileQuickActions />
         <CookieConsent />
       </body>
     </html>
