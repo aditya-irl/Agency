@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { BRAND } from "@/data/studio";
 import ContactForm from "@/components/ContactForm";
+import AppointmentBooking from "@/components/AppointmentBooking";
 
 function ContactPageInner() {
   const searchParams = useSearchParams();
@@ -31,6 +32,14 @@ function ContactPageInner() {
           Aditya and Shreya will review your brief and respond directly within 24
           business hours.
         </p>
+        <div className="pt-2">
+          <a
+            href="#book-appointment"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-50 border border-violet-200 text-xs font-semibold text-violet-900 hover:bg-violet-100 transition-colors shadow-subtle"
+          >
+            <span>Prefer a scheduled call? Pick a date & time slot below ↓</span>
+          </a>
+        </div>
       </div>
 
       {/* Main Grid: Form + Official Studio Contacts */}
@@ -180,6 +189,9 @@ function ContactPageInner() {
           </div>
         </div>
       </div>
+
+      {/* On-Site Free Consultation Slot Booking */}
+      <AppointmentBooking id="book-appointment" defaultService={preselectedService} />
     </div>
   );
 }

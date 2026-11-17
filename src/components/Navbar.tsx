@@ -117,8 +117,8 @@ export default function Navbar() {
               <span>WhatsApp</span>
             </a>
             <Link
-              href="/contact"
-              onClick={() => trackCtaClick("Book a Consultation", "/contact")}
+              href="/#book-consultation"
+              onClick={() => trackCtaClick("Book a Consultation", "/#book-consultation")}
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-xs sm:text-sm font-semibold hover:bg-accent transition-colors duration-200 shadow-sm focus-visible:outline-none"
             >
               <span>Book a Consultation</span>
@@ -233,8 +233,11 @@ export default function Navbar() {
 
         <div className="space-y-3 pt-6 border-t border-[rgba(35,31,32,0.1)]">
           <Link
-            href="/contact"
-            onClick={() => trackCtaClick("Book a Consultation", "/contact")}
+            href="/#book-consultation"
+            onClick={() => {
+              setIsOpen(false);
+              trackCtaClick("Book a Consultation", "/#book-consultation");
+            }}
             className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors"
           >
             <span>Book a Consultation</span>

@@ -27,6 +27,7 @@ import ServiceCard from "@/components/ServiceCard";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import HeroShowcase from "@/components/HeroShowcase";
 import Logo from "@/components/Logo";
+import AppointmentBooking from "@/components/AppointmentBooking";
 
 export default function HomePage() {
   const [asquareProject, aurifiedProject, crmProject] = MAIN_PROJECTS;
@@ -70,7 +71,7 @@ export default function HomePage() {
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <Link
-                href="/contact"
+                href="#book-consultation"
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-[#FFFDF6] border border-[rgba(35,31,32,0.18)] text-foreground font-semibold text-sm hover:bg-[rgba(35,31,32,0.06)] transition-all duration-200"
               >
                 <span>Book a Consultation</span>
@@ -136,7 +137,7 @@ export default function HomePage() {
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
-                  href="/contact"
+                  href="#book-consultation"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background text-xs font-semibold hover:bg-accent transition-colors"
                 >
                   <span>Book a Consultation</span>
@@ -373,7 +374,14 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================
-          7. FINAL CTA (UNIFIED CONSULTATION & OFFICIAL LINE)
+          7. ON-SITE "BOOK A FREE CONSULTATION" APPOINTMENT SYSTEM
+          ======================================================== */}
+      <div className="editorial-container">
+        <AppointmentBooking id="book-consultation" />
+      </div>
+
+      {/* ========================================================
+          8. FINAL CTA (UNIFIED CONSULTATION & OFFICIAL LINE)
           ======================================================== */}
       <section className="editorial-container">
         <div className="rounded-4xl bg-[#181516] text-[#FFFDF6] border border-[#383234] p-8 sm:p-12 md:p-16 lg:p-20 relative overflow-hidden shadow-2xl">
@@ -396,7 +404,7 @@ export default function HomePage() {
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <Link
-                href="/contact"
+                href="#book-consultation"
                 className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-sm"
               >
                 <span>Book a Consultation</span>
