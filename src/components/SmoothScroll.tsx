@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
+import Lenis from "lenis";
 
 /**
- * Controlled Desktop Mouse-Wheel Scrolling
- * - Reduces distance traveled by approximately 50% (0.5x scaling) per mouse-wheel notch.
- * - Interpolates with smooth exponential ease-out to eliminate abrupt stops.
- * - Never interferes with trackpad momentum, touch gestures, keyboard navigation, or inner scroll containers.
- * - Respects prefers-reduced-motion and fine-pointer media queries.
+ * Global Smooth Scrolling with 50% Reduced Velocity (0.5x speed multiplier)
+ * - wheelMultiplier: 0.5 (moves at 50% normal scroll velocity for mouse-wheel and trackpad)
+ * - touchMultiplier: 0.5 (50% velocity for touch gestures)
+ * - syncTouch: false (ensures native mobile touch gestures remain responsive without jank)
+ * - Smooth exponential deceleration curve
+ * - Safe for sticky headers, modals, inner scrollable containers, and anchor links
+ * - Honors prefers-reduced-motion
  */
 export default function SmoothScroll() {
   useEffect(() => {
@@ -16,129 +19,83 @@ export default function SmoothScroll() {
       return;
     }
 
-    // 2. Only apply on fine-pointer (mouse) desktop environments
-    if (!window.matchMedia("(pointer: fine)").matches) {
-      return;
-    }
-
-    let isRunning = false;
-    let targetY = window.scrollY;
-    let currentY = window.scrollY;
-    let rafId: number | null = null;
-
-    // Synchronize coordinates whenever the user navigates via keyboard, scrollbar, or hash links
-    const handleNativeScrollSync = () => {
-      if (!isRunning) {
-        currentY = window.scrollY;
-        targetY = window.scrollY;
-      }
-    };
-    window.addEventListener("scroll", handleNativeScrollSync, { passive: true });
-
-    const getMaxScroll = () =>
-      Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-
-    const step = () => {
-      const diff = targetY - currentY;
-      if (Math.abs(diff) > 0.5) {
-        // Organic ease-out factor (~0.14) provides natural physics deceleration
-        currentY += diff * 0.14;
-        window.scrollTo(0, currentY);
-        rafId = requestAnimationFrame(step);
-      } else {
-        // Settled exactly at destination
-        currentY = targetY;
-        window.scrollTo(0, targetY);
-        isRunning = false;
-        if (rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      }
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      // Ignore if user has active modifier keys (e.g. Ctrl/Cmd + Wheel for browser zoom)
-      if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) {
-        return;
-      }
-
-      // Ignore inputs, textareas, selects, or editable regions
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.tagName === "SELECT" ||
-          target.isContentEditable)
-      ) {
-        return;
-      }
-
-      // Avoid trapping inner scrollable containers (e.g. modal dialogs, code blocks)
-      let el = target;
-      while (el && el !== document.body && el !== document.documentElement) {
-        const style = window.getComputedStyle(el);
-        const overflowY = style.overflowY;
+    // 2. Initialize Lenis with 0.5x velocity multiplier
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
+      wheelMultiplier: 0.5,
+      touchMultiplier: 0.5,
+      syncTouch: false, // Ensures native mobile touch scrolling remains responsive without jank
+      prevent: (node) => {
+        // Prevent scroll hijacking inside interactive elements and scrollable containers
+        if (!node) return false;
         if (
-          (overflowY === "auto" || overflowY === "scroll") &&
-          el.scrollHeight > el.clientHeight
+          node.tagName === "INPUT" ||
+          node.tagName === "TEXTAREA" ||
+          node.tagName === "SELECT" ||
+          node.isContentEditable ||
+          node.hasAttribute("data-lenis-prevent")
         ) {
-          return;
+          return true;
         }
-        el = el.parentElement;
-      }
 
-      // Trackpad vs. Physical Mouse Wheel Differentiation:
-      // - Trackpads produce continuous, high-frequency, fractional deltas or tiny deltas (< 36px),
-      //   and frequently have slight horizontal drift (deltaX != 0).
-      // - Physical mouse wheels produce discrete, integer jumps (e.g., deltaMode === 1 for Firefox,
-      //   or integer deltaY >= 36 with deltaX === 0).
-      const isLineMode = e.deltaMode === 1; // Firefox lines mode
-      const isIntegerDelta = Number.isInteger(e.deltaY);
-      const isLargeStep = Math.abs(e.deltaY) >= 36;
-      const isZeroDeltaX = Math.abs(e.deltaX) < 1;
+        // Inner scrollable containers (e.g. modals, drawers, code blocks)
+        let el: HTMLElement | null = node;
+        while (el && el !== document.body && el !== document.documentElement) {
+          const style = window.getComputedStyle(el);
+          const overflowY = style.overflowY;
+          if (
+            (overflowY === "auto" || overflowY === "scroll") &&
+            el.scrollHeight > el.clientHeight
+          ) {
+            return true;
+          }
+          el = el.parentElement;
+        }
 
-      const isPhysicalMouseWheel =
-        isLineMode || (isIntegerDelta && isLargeStep && isZeroDeltaX);
+        return false;
+      },
+    });
 
-      // If it is a trackpad gesture, let native browser kinetic scrolling handle it completely
-      if (!isPhysicalMouseWheel) {
-        return;
-      }
+    // 3. Smooth requestAnimationFrame loop
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
-      // Physical mouse wheel detected: prevent the harsh, abrupt default jump
-      e.preventDefault();
-
-      // Normalize delta (1 line in Firefox ~ 36px)
-      const rawDelta = isLineMode ? e.deltaY * 36 : e.deltaY;
-
-      // Apply ~0.5x scaling (50% less distance per notch)
-      const scaledDelta = rawDelta * 0.5;
-
-      // Clamp target within valid document bounds
-      const maxScroll = getMaxScroll();
-      targetY = Math.min(Math.max(0, targetY + scaledDelta), maxScroll);
-
-      // Kick off smooth RAF interpolation loop if not already running
-      if (!isRunning) {
-        isRunning = true;
-        currentY = window.scrollY;
-        rafId = requestAnimationFrame(step);
+    // 4. Smooth Anchor Link Navigation (accounts for fixed / sticky navbar)
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest("a");
+      if (!target) return;
+      const href = target.getAttribute("href");
+      if (href && href.startsWith("#") && href.length > 1) {
+        const el = document.querySelector(href);
+        if (el) {
+          e.preventDefault();
+          lenis.scrollTo(el as HTMLElement, {
+            offset: -90, // Sticky navbar height clearance
+            duration: 1.2,
+          });
+        }
       }
     };
+    document.addEventListener("click", handleAnchorClick);
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
+    // 5. Expose instance globally for programmatic control if needed
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
 
     return () => {
-      window.removeEventListener("scroll", handleNativeScrollSync);
-      window.removeEventListener("wheel", handleWheel);
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
+      document.removeEventListener("click", handleAnchorClick);
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 
   return null;
 }
-
