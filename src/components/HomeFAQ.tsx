@@ -9,7 +9,7 @@ export const HOME_FAQS = [
   {
     question: "How much does a website or software project cost at DataCrafts?",
     answer:
-      "Our baseline solutions start at ₹3,000 for single-page showcases and landing pages. Complete multi-page brand websites typically range from ₹10,000 to ₹30,000, while custom Shopify e-commerce stores and specialized web platforms are priced by exact milestones. We provide itemized, transparent scopes with zero hidden fees.",
+      "Our solutions start at ₹3,000 for single-page showcases. Multi-page business websites start from ₹8,000, full-featured Shopify e-commerce stores start from ₹15,000 onwards, and custom software or web applications start from ₹20,000 onwards. All estimates are negotiable and calibrated to your exact business requirements with zero hidden charges.",
     actionText: "Try our Interactive Scope Estimator",
     actionHref: "#cost-calculator",
   },

@@ -223,8 +223,9 @@ export default function HomePage() {
               <p className="text-xs text-text-secondary">
                 Conversion-focused landing page for products, campaigns, or local businesses.
               </p>
-              <div className="text-xs font-mono font-bold text-foreground pt-1">
-                From ₹3,000 onwards
+              <div className="text-xs font-mono font-bold text-foreground pt-1 flex items-center justify-between">
+                <span>From ₹3,000 onwards</span>
+                <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Negotiable</span>
               </div>
             </div>
 
@@ -238,8 +239,9 @@ export default function HomePage() {
               <p className="text-xs text-text-secondary">
                 Complete corporate presence with product catalogues, inquiries, and brand story.
               </p>
-              <div className="text-xs font-mono font-bold text-foreground pt-1">
-                Custom Scope
+              <div className="text-xs font-mono font-bold text-foreground pt-1 flex items-center justify-between">
+                <span>From ₹8,000 onwards</span>
+                <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Negotiable</span>
               </div>
             </div>
 
@@ -253,8 +255,15 @@ export default function HomePage() {
               <p className="text-xs text-text-secondary">
                 Online retail storefronts, CRM dashboards, and operational web platforms.
               </p>
-              <div className="text-xs font-mono font-bold text-foreground pt-1">
-                Tailored Proposal
+              <div className="text-xs font-mono font-bold text-foreground pt-1 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span>Shopify Store: From ₹15,000</span>
+                  <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Negotiable</span>
+                </div>
+                <div className="flex items-center justify-between text-text-secondary text-[11px]">
+                  <span>Custom Software: From ₹20,000</span>
+                  <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Negotiable</span>
+                </div>
               </div>
             </div>
           </div>

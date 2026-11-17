@@ -33,7 +33,7 @@ export default function ContactForm({
     phone: "",
     businessName: "",
     service: initialService || "Website Development",
-    budget: initialBudget || "₹4,000 – ₹10,000 (Starter / Landing Page)",
+    budget: initialBudget || "₹3,000 – ₹8,000 (Starter / Landing Page)",
     preferredContact: "WhatsApp",
     description: "",
     privacyConsent: false,
@@ -57,11 +57,11 @@ export default function ContactForm({
   ];
 
   const budgetOptions = [
-    "₹4,000 – ₹10,000 (Starter / Landing Page)",
-    "₹10,000 – ₹30,000 (Business Website)",
-    "₹10,000 – ₹45,000 (Shopify E-Commerce Store)",
-    "₹75,000 – ₹1,50,000+ (Custom Software)",
-    "Flexible / Custom Scope",
+    "₹3,000 – ₹8,000 (Starter / Landing Page)",
+    "₹8,000 – ₹18,000 (Business Website)",
+    "₹15,000 – ₹28,000 (Shopify E-Commerce Store)",
+    "₹20,000 – ₹45,000 (Custom Software / Web App)",
+    "Flexible / Custom Scope (Negotiable)",
   ];
 
   const contactMethods = ["WhatsApp", "Phone Call", "Email"];

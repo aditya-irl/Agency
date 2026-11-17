@@ -29,7 +29,7 @@ export default function ServicesPage() {
   const faqs = [
     {
       q: "How does DataCraft structure pricing and engagements?",
-      a: "Our digital solutions start at ₹3,000 onwards for focused landing showcases. For multi-page business websites, Shopify stores, and custom software systems, we provide transparent fixed-fee milestone proposals tailored to your scope.",
+      a: "Our digital solutions start at ₹3,000 onwards for focused landing showcases, ₹8,000 for multi-page websites, ₹15,000 for Shopify stores, and ₹20,000 for custom software. All pricing is negotiable and tailored to your milestones with zero hidden fees.",
     },
     {
       q: "Do you build on generic WordPress or pre-made templates?",

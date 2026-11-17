@@ -30,40 +30,40 @@ export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps
     {
       id: "website",
       label: "Brand Website / Showcase",
-      basePrice: 150,
-      baseInr: 12000,
+      basePrice: 100,
+      baseInr: 8000,
       baseWeeks: 2,
     },
     {
       id: "ecommerce",
       label: "Shopify / E-Commerce Store",
-      basePrice: 350,
-      baseInr: 28000,
-      baseWeeks: 3,
+      basePrice: 200,
+      baseInr: 15000,
+      baseWeeks: 2,
     },
     {
       id: "software",
       label: "Custom Software / Web App",
-      basePrice: 800,
-      baseInr: 65000,
-      baseWeeks: 5,
+      basePrice: 260,
+      baseInr: 20000,
+      baseWeeks: 3,
     },
     {
       id: "automation",
       label: "Automation & API Pipeline",
-      basePrice: 100,
-      baseInr: 8000,
+      basePrice: 65,
+      baseInr: 5000,
       baseWeeks: 1,
     },
   ];
 
   const availableFeatures = [
     { id: "Mobile-First Responsive Layout", inr: 0 },
-    { id: "Custom Visual Identity & Typography", inr: 2500 },
-    { id: "Distributor / Lead Capture Funnel", inr: 2000 },
-    { id: "Payment & Local Checkouts (UPI / Razorpay)", inr: 4500 },
-    { id: "WhatsApp Business API Automation", inr: 5000 },
-    { id: "Role-Based Access & Admin Panel", inr: 15000 },
+    { id: "Custom Visual Identity & Typography", inr: 1500 },
+    { id: "Distributor / Lead Capture Funnel", inr: 1200 },
+    { id: "Payment & Local Checkouts (UPI / Razorpay)", inr: 2000 },
+    { id: "WhatsApp Business API Automation", inr: 2500 },
+    { id: "Role-Based Access & Admin Panel", inr: 4500 },
   ];
 
   const toggleFeature = (f: string) => {
@@ -89,7 +89,7 @@ export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps
   const inquiryUrl = `/contact?service=${encodeURIComponent(
     currentType.label
   )}&budget=${encodeURIComponent(
-    `₹${totalInr.toLocaleString("en-IN")}`
+    `₹${totalInr.toLocaleString("en-IN")} onwards (Negotiable)`
   )}`;
 
   return (
@@ -190,17 +190,23 @@ export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps
             <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-bold">
               Project Estimate
             </span>
-            <h4 className="text-lg font-bold text-white">
-              Estimated Investment
+            <h4 className="text-lg font-bold text-white flex items-center gap-2">
+              <span>Estimated Cost</span>
+              <span className="text-xs font-mono font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2 py-0.5 rounded-full">
+                Negotiable
+              </span>
             </h4>
           </div>
 
           <div className="space-y-1 pb-4 border-b border-[#332C2E]">
-            <div className="text-3xl font-extrabold text-white">
-              ₹{totalInr.toLocaleString("en-IN")} onwards
+            <div className="text-2xl sm:text-3xl font-extrabold text-white flex items-baseline gap-2 flex-wrap">
+              <span>₹{totalInr.toLocaleString("en-IN")} onwards</span>
+              <span className="text-xs font-semibold text-accent font-sans bg-[#2A2325] px-2 py-0.5 rounded border border-[#48393C]">
+                Negotiable
+              </span>
             </div>
             <div className="text-xs font-mono text-[#D4C9BC]">
-              Starting at ₹3,000 · Transparent Milestone Billing
+              Starting at ₹3,000 · Highly Negotiable based on your exact scope
             </div>
           </div>
 
