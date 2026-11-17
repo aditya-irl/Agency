@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
-  Sparkles,
   Phone,
   Building,
   User,
@@ -230,8 +229,7 @@ export default function AppointmentBooking({
         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           {/* Section Header */}
           <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-xs font-semibold text-violet-900 shadow-subtle">
-              <Sparkles className="w-3.5 h-3.5 text-violet-600" />
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-xs font-semibold text-violet-900 shadow-subtle">
               <span>Free 30-Minute Technical Consultation</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
