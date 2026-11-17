@@ -215,10 +215,10 @@ export default function AppointmentBooking({
 
   return (
     <section id={id} className={`scroll-mt-28 ${className}`}>
-      <div className="rounded-3xl bg-[#FFFDF6] border border-violet-900/15 p-6 sm:p-10 md:p-14 shadow-card relative overflow-hidden">
-        {/* Subtle Ambient Violet Glow */}
+      <div className="rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.12)] p-6 sm:p-10 md:p-14 shadow-card relative overflow-hidden">
+        {/* Subtle Ambient Warm Terracotta Glow */}
         <div
-          className="absolute -top-24 -right-24 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none"
+          className="absolute -top-24 -right-24 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"
           aria-hidden="true"
         />
         <div
@@ -229,7 +229,7 @@ export default function AppointmentBooking({
         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           {/* Section Header */}
           <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-xs font-semibold text-violet-900 shadow-subtle">
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#FCEAE3] border border-accent/25 text-xs font-semibold text-accent shadow-subtle">
               <span>Free 30-Minute Technical Consultation</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
@@ -245,10 +245,10 @@ export default function AppointmentBooking({
                 <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                 <span>Next Slot: Tomorrow · 100% Free</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCFAF8] text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
                 <span>WhatsApp Response: &lt; 15 mins</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCFAF8] text-text-secondary border border-[rgba(35,31,32,0.12)] font-medium shadow-subtle">
                 <span>Zero Vendor Lock-in</span>
               </span>
             </div>
@@ -302,7 +302,7 @@ export default function AppointmentBooking({
 
                 <div>
                   <span className="block text-text-secondary text-xs">Service</span>
-                  <span className="font-semibold text-violet-900">{confirmedBooking.service}</span>
+                  <span className="font-semibold text-accent">{confirmedBooking.service}</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[rgba(35,31,32,0.06)]">
@@ -327,7 +327,7 @@ export default function AppointmentBooking({
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-6 py-2.5 rounded-full border border-[rgba(35,31,32,0.15)] bg-white text-xs font-semibold text-foreground hover:border-violet-600 hover:text-violet-600 transition-colors"
+                  className="px-6 py-2.5 rounded-full border border-[rgba(35,31,32,0.15)] bg-white text-xs font-semibold text-foreground hover:border-accent hover:text-accent transition-colors"
                 >
                   Book Another Session
                 </button>
@@ -355,7 +355,7 @@ export default function AppointmentBooking({
                 {/* 1. Full Name (Required) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-name" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-violet-600" />
+                    <User className="w-3.5 h-3.5 text-accent" />
                     <span>Full Name *</span>
                   </label>
                   <input
@@ -365,14 +365,14 @@ export default function AppointmentBooking({
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Aditya Kumar"
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all"
                   />
                 </div>
 
                 {/* 2. Phone / WhatsApp Number (Required, 10-digit Indian mobile) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-phone" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-violet-600" />
+                    <Phone className="w-3.5 h-3.5 text-accent" />
                     <span>Phone / WhatsApp Number *</span>
                   </label>
                   <div className="relative flex items-center">
@@ -387,7 +387,7 @@ export default function AppointmentBooking({
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="88658 04386"
                       maxLength={14}
-                      className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm font-mono focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all"
+                      className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground placeholder:text-text-secondary/50 text-sm font-mono focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all"
                     />
                   </div>
                   <span className="text-[11px] text-text-secondary block">
@@ -398,7 +398,7 @@ export default function AppointmentBooking({
                 {/* 3. Business / Company Name (Optional) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-business" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <Building className="w-3.5 h-3.5 text-violet-600" />
+                    <Building className="w-3.5 h-3.5 text-accent" />
                     <span>Business / Company Name <span className="text-text-secondary/60 lowercase font-normal">(optional)</span></span>
                   </label>
                   <input
@@ -407,14 +407,14 @@ export default function AppointmentBooking({
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                     placeholder="Acme Technologies / Retail Brand"
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all"
                   />
                 </div>
 
                 {/* 4. Service Needed (Required Dropdown) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-service" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-violet-600" />
+                    <Layers className="w-3.5 h-3.5 text-accent" />
                     <span>Service Needed *</span>
                   </label>
                   <select
@@ -422,7 +422,7 @@ export default function AppointmentBooking({
                     required
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground text-sm focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all cursor-pointer"
                   >
                     {SERVICES_OPTIONS.map((srv) => (
                       <option key={srv} value={srv}>
@@ -435,7 +435,7 @@ export default function AppointmentBooking({
                 {/* 5. Preferred Date (Date Picker, disable past dates) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-date" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-violet-600" />
+                    <Calendar className="w-3.5 h-3.5 text-accent" />
                     <span>Preferred Date *</span>
                   </label>
                   <input
@@ -445,14 +445,14 @@ export default function AppointmentBooking({
                     min={todayStr}
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground text-sm font-mono focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground text-sm font-mono focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all cursor-pointer"
                   />
                 </div>
 
                 {/* 6. Preferred Time Slot (Dropdown) */}
                 <div className="space-y-1.5">
                   <label htmlFor="apt-slot" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-violet-600" />
+                    <Clock className="w-3.5 h-3.5 text-accent" />
                     <span>Preferred Time Slot *</span>
                   </label>
                   <select
@@ -460,7 +460,7 @@ export default function AppointmentBooking({
                     required
                     value={formData.timeSlot}
                     onChange={(e) => setFormData({ ...formData, timeSlot: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground text-sm focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all cursor-pointer"
                   >
                     {TIME_SLOTS.map((slot) => (
                       <option key={slot} value={slot}>
@@ -474,7 +474,7 @@ export default function AppointmentBooking({
               {/* 7. Project Brief / Notes (Optional Textarea) */}
               <div className="space-y-1.5">
                 <label htmlFor="apt-notes" className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-violet-600" />
+                  <FileText className="w-3.5 h-3.5 text-accent" />
                   <span>Project Brief / Notes <span className="text-text-secondary/60 lowercase font-normal">(optional)</span></span>
                 </label>
                 <textarea
@@ -483,7 +483,7 @@ export default function AppointmentBooking({
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="Share a short summary of your project idea, current bottlenecks, or desired launch date..."
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.12)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-violet-600 focus:ring-2 focus:ring-violet-600/10 transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white border border-[rgba(35,31,32,0.14)] text-foreground placeholder:text-text-secondary/50 text-sm focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all resize-none"
                 />
               </div>
 
@@ -492,7 +492,7 @@ export default function AppointmentBooking({
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-violet-600 text-white font-semibold text-sm hover:bg-violet-700 active:scale-[0.99] transition-all shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover active:scale-[0.99] transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {status === "loading" ? (
                     <>
