@@ -115,7 +115,7 @@ export default function CaseStudyPage({ params }: PageProps) {
           </div>
 
           <span
-            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold border ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
               project.statusType === "completed"
                 ? "bg-emerald-50 text-emerald-900 border-emerald-200"
                 : project.statusType === "in_progress"
@@ -125,9 +125,11 @@ export default function CaseStudyPage({ params }: PageProps) {
                 : "bg-rose-50 text-rose-900 border-rose-200"
             }`}
           >
-            {project.statusType === "paused" && (
+            {project.statusType === "completed" ? (
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+            ) : project.statusType === "paused" ? (
               <ShieldAlert className="w-3.5 h-3.5 text-amber-700" />
-            )}
+            ) : null}
             <span>{project.statusBadge}</span>
           </span>
         </div>
@@ -195,13 +197,13 @@ export default function CaseStudyPage({ params }: PageProps) {
 
       {/* Confidentiality & Enterprise Framing Notice for CRM */}
       {isCrm && (
-        <div className="rounded-2xl bg-amber-50/90 border border-amber-300 p-6 flex flex-col sm:flex-row items-start gap-4">
-          <ShieldAlert className="w-6 h-6 text-amber-700 flex-shrink-0 mt-0.5" />
+        <div className="rounded-2xl bg-emerald-50/80 border border-emerald-200 p-6 flex flex-col sm:flex-row items-start gap-4">
+          <CheckCircle2 className="w-6 h-6 text-emerald-700 flex-shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <h3 className="font-bold text-sm text-amber-950">
-              Confidential Enterprise System (Status: Paused Prototype)
+            <h3 className="font-bold text-sm text-emerald-950">
+              Confidential Enterprise System (Status: Completed)
             </h3>
-            <p className="text-xs md:text-sm text-amber-900/90 leading-relaxed">
+            <p className="text-xs md:text-sm text-emerald-900/90 leading-relaxed">
               This custom software platform was engineered for a private finance company
               based in Auraiya, Uttar Pradesh to centralize customer onboarding, loan management,
               EMI calculations, payment allocation, field recovery operations, reporting, and

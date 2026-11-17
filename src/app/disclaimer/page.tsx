@@ -67,7 +67,7 @@ export default function DisclaimerPage() {
           <ul className="space-y-2 text-sm text-foreground/85">
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-1" />
-              <span><strong>Status Transparency:</strong> Each project displays its authentic development status (e.g. <em>“Live Website”</em>, <em>“In Progress”</em>, or <em>“Prototyped / Paused”</em>).</span>
+              <span><strong>Status Transparency:</strong> Each project displays its verified development status (e.g. <em>“Completed”</em>).</span>
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-1" />

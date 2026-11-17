@@ -9,6 +9,7 @@ import {
   ShieldAlert,
   AlertCircle,
   FlaskConical,
+  CheckCircle2,
 } from "lucide-react";
 import { MAIN_PROJECTS, EXPERIMENTAL_PROJECTS } from "@/data/projects";
 import { DesktopMockup, MobileMockup } from "@/components/DeviceMockup";
@@ -17,7 +18,7 @@ export default function WorkPage() {
   const [filter, setFilter] = useState("all");
 
   const categories = [
-    { id: "all", label: "All Active Projects" },
+    { id: "all", label: "All Completed Projects" },
     { id: "brand", label: "Brand Websites" },
     { id: "ecommerce", label: "Shopify / E-commerce" },
     { id: "software", label: "Custom Software & Web Apps" },
@@ -93,8 +94,8 @@ export default function WorkPage() {
                           </span>
                         </div>
 
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-950/70 text-amber-200 border border-amber-800/80">
-                          <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/70 text-emerald-300 border border-emerald-800/80">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                           <span>{project.statusBadge}</span>
                         </span>
                       </div>
@@ -203,13 +204,14 @@ export default function WorkPage() {
                       </div>
 
                       <span
-                        className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${
                           project.statusType === "in_progress"
                             ? "bg-blue-50 text-blue-900 border-blue-200"
                             : "bg-emerald-50 text-emerald-900 border-emerald-200"
                         }`}
                       >
-                        {project.statusBadge}
+                        <CheckCircle2 className="w-3 h-3 text-emerald-700" />
+                        <span>{project.statusBadge}</span>
                       </span>
                     </div>
 
@@ -340,8 +342,9 @@ export default function WorkPage() {
                 <span className="font-mono text-xs font-bold text-accent">
                   {exp.category}
                 </span>
-                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
-                  {exp.statusBadge}
+                <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 inline-flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-700" />
+                  <span>{exp.statusBadge}</span>
                 </span>
               </div>
 
