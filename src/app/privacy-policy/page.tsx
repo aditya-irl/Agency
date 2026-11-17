@@ -71,8 +71,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc pl-5 space-y-1 text-sm font-mono text-text-secondary">
             <li>Primary Email: {BRAND.primaryEmail}</li>
-            <li>Direct Telephone: {BRAND.callingOnlyPhone} (Calling Only)</li>
-            <li>Consultation & WhatsApp: {BRAND.callWhatsappPhone} (Calling + WhatsApp)</li>
+            <li>Direct Telephone & WhatsApp: {BRAND.officialPhone} (Official Business Line)</li>
           </ul>
         </section>
 

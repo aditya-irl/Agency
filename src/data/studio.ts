@@ -11,28 +11,26 @@ export const BRAND = {
   primaryEmail: "Adityak1149x@gmail.com",
 
   // -------------------------------------------------------------
-  // CONTACT NUMBER 1: Calling only (NEVER use for WhatsApp)
+  // PERMANENT OFFICIAL BUSINESS NUMBER: Calling + WhatsApp
   // -------------------------------------------------------------
-  callingOnlyPhone: "+91 80062 05606",
-  callingOnlyPhoneRaw: "+918006205606",
-  callingOnlyPhoneTel: "tel:+918006205606",
-  callingOnlyActionLabel: "Call DataCraft — +91 80062 05606",
-
-  // -------------------------------------------------------------
-  // CONTACT NUMBER 2: Calling + WhatsApp
-  // -------------------------------------------------------------
+  officialPhone: "+91 88658 04386",
+  officialPhoneRaw: "+918865804386",
+  officialPhoneTel: "tel:+918865804386",
+  officialPhoneDisplay: "+91 88658 04386",
   callWhatsappPhone: "+91 88658 04386",
   callWhatsappPhoneRaw: "+918865804386",
   callWhatsappPhoneTel: "tel:+918865804386",
   callWhatsappUrl: "https://wa.me/918865804386",
   callWhatsappActionLabel: "Call / WhatsApp — +91 88658 04386",
-
-  // Global references & aliases
-  officialPhone: "+91 80062 05606",
-  officialPhoneDisplay: "+91 80062 05606",
   officialWhatsAppUrl: "https://wa.me/918865804386",
   officialWhatsAppUrlWithMessage:
     "https://wa.me/918865804386?text=Hi%20DataCraft%2C%20I%20would%20like%20to%20book%20a%20consultation%20for%20my%20project.",
+
+  // Backwards-compatibility aliases (all mapped to permanent business number)
+  callingOnlyPhone: "+91 88658 04386",
+  callingOnlyPhoneRaw: "+918865804386",
+  callingOnlyPhoneTel: "tel:+918865804386",
+  callingOnlyActionLabel: "Call DataCraft — +91 88658 04386",
 
   startingPrice: "₹3,000 onwards",
   startingPriceMessage: "Quality Digital Solutions. Starting at ₹3,000.",

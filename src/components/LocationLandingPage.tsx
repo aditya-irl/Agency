@@ -29,7 +29,7 @@ export default function LocationLandingPage({
     name: `DataCrafts — Website & Software Development in ${location.name}`,
     description: location.description,
     url: pageUrl,
-    telephone: BRAND.callingOnlyPhoneRaw,
+    telephone: BRAND.officialPhoneRaw,
     email: BRAND.primaryEmail,
     priceRange: "₹3,000 - ₹1,50,000",
     image: `${SITE_URL}/audit/preview.PNG`,

@@ -171,15 +171,15 @@ export default function ContactForm({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-semibold text-xs sm:text-sm hover:bg-accent-hover transition-colors shadow-sm"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Call / WhatsApp — +91 88658 04386</span>
+            <span>Connect on WhatsApp — {BRAND.officialPhone}</span>
           </a>
           <a
-            href="tel:+918006205606"
-            onClick={() => trackPhoneClick("+918006205606", "consultation_success")}
+            href={BRAND.officialPhoneTel}
+            onClick={() => trackPhoneClick(BRAND.officialPhone, "consultation_success")}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FCFAF8] border border-[rgba(35,31,32,0.15)] text-foreground font-semibold text-xs sm:text-sm hover:border-accent transition-colors"
           >
             <PhoneCall className="w-4 h-4 text-accent" />
-            <span>Call DataCraft — +91 80062 05606</span>
+            <span>Call — {BRAND.officialPhone}</span>
           </a>
         </div>
         <div className="pt-2">

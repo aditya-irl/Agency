@@ -131,7 +131,7 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         logo: `${BRAND.websiteUrl}/images/logo_mark.png`,
         image: `${BRAND.websiteUrl}/audit/preview.PNG`,
         email: BRAND.primaryEmail,
-        telephone: BRAND.callingOnlyPhoneRaw,
+        telephone: BRAND.officialPhoneRaw,
         foundingDate: BRAND.established,
         founders: BRAND.founders.map((founder) => ({
           "@type": "Person",
@@ -143,16 +143,8 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         contactPoint: [
           {
             "@type": "ContactPoint",
-            contactType: "customer service",
-            telephone: BRAND.callingOnlyPhoneRaw,
-            email: BRAND.primaryEmail,
-            areaServed: "IN",
-            availableLanguage: ["English", "Hindi"],
-          },
-          {
-            "@type": "ContactPoint",
-            contactType: "sales and consultations",
-            telephone: BRAND.callWhatsappPhoneRaw,
+            contactType: "customer service and sales",
+            telephone: BRAND.officialPhoneRaw,
             email: BRAND.primaryEmail,
             areaServed: "IN",
             availableLanguage: ["English", "Hindi"],
@@ -169,7 +161,7 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         alternateName: BRAND.name,
         description: BRAND.positioning,
         url: BRAND.websiteUrl,
-        telephone: BRAND.callingOnlyPhoneRaw,
+        telephone: BRAND.officialPhoneRaw,
         email: BRAND.primaryEmail,
         image: `${BRAND.websiteUrl}/audit/preview.PNG`,
         priceRange: "₹3,000 - ₹1,50,000",

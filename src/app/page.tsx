@@ -143,22 +143,22 @@ export default function HomePage() {
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
                 <a
-                  href={BRAND.callingOnlyPhoneTel}
+                  href={BRAND.officialPhoneTel}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FCFAF8] border border-[rgba(35,31,32,0.15)] text-xs font-semibold text-foreground hover:border-accent transition-colors"
-                  title="Call DataCraft — +91 80062 05606"
+                  title={`Call DataCraft — ${BRAND.officialPhone}`}
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-accent" />
-                  <span>Call DataCraft — +91 80062 05606</span>
+                  <span>Call: {BRAND.officialPhone}</span>
                 </a>
                 <a
-                  href={BRAND.callWhatsappUrl}
+                  href={BRAND.officialWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-900 hover:bg-emerald-100 transition-colors"
-                  title="Call / WhatsApp — +91 88658 04386"
+                  title={`WhatsApp — ${BRAND.officialPhone}`}
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Call / WhatsApp — +91 88658 04386</span>
+                  <span>WhatsApp</span>
                 </a>
               </div>
             </div>
@@ -403,27 +403,27 @@ export default function HomePage() {
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <a
-                href={BRAND.callingOnlyPhoneTel}
+                href={BRAND.officialPhoneTel}
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-[#282325] border border-[#3E383A] text-white font-semibold text-sm hover:bg-[#342D30] hover:border-accent transition-colors"
-                title="Call DataCraft — +91 80062 05606"
+                title={`Call DataCraft — ${BRAND.officialPhone}`}
               >
                 <PhoneCall className="w-4 h-4 text-accent" />
-                <span>Call DataCraft — +91 80062 05606</span>
+                <span>Call: {BRAND.officialPhone}</span>
               </a>
               <a
-                href={BRAND.callWhatsappUrl}
+                href={BRAND.officialWhatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-emerald-950/70 border border-emerald-800 text-emerald-300 font-semibold text-sm hover:bg-emerald-900/80 transition-colors"
-                title="Call / WhatsApp — +91 88658 04386"
+                title={`WhatsApp — ${BRAND.officialPhone}`}
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
-                <span>Call / WhatsApp — +91 88658 04386</span>
+                <span>WhatsApp: {BRAND.officialPhone}</span>
               </a>
             </div>
 
             <p className="text-xs text-[#A59C92] pt-2">
-              Calling only: +91 80062 05606 · WhatsApp & Voice: +91 88658 04386 · Direct response within 24 business hours
+              Official Business Desk: {BRAND.officialPhone} (Voice Calling & WhatsApp) · Direct response within 24 business hours
             </p>
           </div>
         </div>
