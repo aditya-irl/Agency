@@ -127,6 +127,17 @@ export default function RootLayout({
     <html lang="en" className={manrope.variable}>
       <head>
         <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-NZSWGTVV"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: serializeJsonLd(globalStructuredData),
