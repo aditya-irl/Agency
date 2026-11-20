@@ -8,9 +8,9 @@ export default function ProcessTimeline() {
       <div className="hidden lg:block absolute top-[52px] left-[5%] right-[5%] h-0.5 bg-[rgba(35,31,32,0.12)] z-0" />
 
       {/* Grid: 4 items (horizontal on desktop, vertical on mobile) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
+      <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10 list-none p-0 m-0">
         {BRAND.process.map((p, idx) => (
-          <div
+          <li
             key={p.step}
             className="group rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.1)] p-7 shadow-subtle hover:border-[rgba(35,31,32,0.22)] hover:shadow-card transition-all duration-300 flex flex-col justify-between"
           >
@@ -27,7 +27,10 @@ export default function ProcessTimeline() {
 
               {/* Title & Description */}
               <div className="space-y-2 mt-2">
-                <h3 className="text-xl font-bold tracking-tight text-foreground">
+                <h3
+                  id={`process-step-${p.step.toLowerCase()}`}
+                  className="text-xl font-bold tracking-tight text-foreground"
+                >
                   {p.title}
                 </h3>
                 <p className="text-sm font-semibold text-accent leading-snug">
@@ -43,9 +46,9 @@ export default function ProcessTimeline() {
             <div className="mt-6 pt-4 border-t border-[rgba(35,31,32,0.06)] text-[11px] font-mono text-text-secondary">
               Milestone {idx + 1} of 4
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }

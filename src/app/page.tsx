@@ -15,9 +15,9 @@ import { BRAND } from "@/data/studio";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+  title: "DataCrafts — Website Development, Shopify & Custom Software Studio",
   description:
-    "DataCrafts is a founder-led digital studio building business websites, e-commerce experiences and custom software for growing businesses.",
+    "DataCrafts builds high-performance websites, Shopify stores, and custom software. Founder-led engineering studio in India. Web solutions starting at ₹3,000.",
   path: "/",
 });
 import { MAIN_PROJECTS } from "@/data/projects";
@@ -49,17 +49,21 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold tracking-tight text-foreground leading-[1.08]">
-                We turn ambitious ideas into{" "}
+              <h1
+                id="hero-heading"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold tracking-tight text-foreground leading-[1.08]"
+              >
+                We build high-performance{" "}
                 <span className="relative inline-block text-accent italic font-serif">
-                  digital
-                </span>{" "}
-                experiences.
+                  websites
+                </span>
+                , Shopify stores & custom software.
               </h1>
-              <p className="text-lg md:text-xl text-text-secondary max-w-xl font-normal leading-relaxed pt-2">
-                From high-performing websites to custom business applications,
-                we design and build digital products that help businesses move
-                forward.
+              <p
+                id="speakable-summary"
+                className="text-lg md:text-xl text-text-secondary max-w-xl font-normal leading-relaxed pt-2"
+              >
+                Founder-led digital studio engineering responsive websites, e-commerce storefronts, and custom software systems starting from ₹3,000 onwards.
               </p>
             </div>
 
@@ -127,13 +131,16 @@ export default function HomePage() {
                 <Logo variant="badge" size="md" />
                 <span className="badge-pill">Studio Foundation</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
-                Small studio. Big ideas. Thoughtful execution.
+              <h2
+                id="what-is-datacrafts"
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight"
+              >
+                What is DataCrafts? Founder-led digital studio with thoughtful execution.
               </h2>
             </div>
             <div className="lg:col-span-7 space-y-6 text-base md:text-lg text-text-secondary leading-relaxed">
-              <p>
-                DataCraft is a founder-led creative technology studio founded by{" "}
+              <p id="speakable-intro">
+                <strong>DataCrafts is a</strong> founder-led website development and custom software engineering studio founded by{" "}
                 <strong className="text-foreground font-semibold">
                   Aditya
                 </strong>{" "}
@@ -146,9 +153,17 @@ export default function HomePage() {
               <p>
                 We don’t pretend to be an oversized agency with fictional
                 departments or layers of account managers. When you partner with
-                DataCraft, you communicate directly with the makers who plan,
+                DataCrafts, you communicate directly with the makers who plan,
                 design, and engineer your product.
               </p>
+              <div className="flex items-center gap-2 text-xs font-mono text-text-secondary">
+                <time
+                  dateTime="2024-11-20"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCFAF8] border border-[rgba(35,31,32,0.1)]"
+                >
+                  <span>Verified & Updated: November 2024</span>
+                </time>
+              </div>
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
                   href="#book-consultation"
@@ -191,7 +206,10 @@ export default function HomePage() {
               <span className="badge-pill bg-[#FCEAE3] text-[#C6532E] border-[#C6532E]/30">
                 Transparent Pricing
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+              <h2
+                id="datacrafts-pricing-plans"
+                className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground"
+              >
                 Digital Solutions Starting at ₹3,000
               </h2>
               <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
@@ -213,11 +231,14 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
-            <div className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2">
+            <div
+              id="pricing-starter"
+              className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2"
+            >
               <span className="font-mono text-xs font-bold text-accent">
                 01 · Starter / Landing
               </span>
-              <h3 className="font-bold text-foreground text-sm">
+              <h3 id="starter-website-plan" className="font-bold text-foreground text-sm">
                 Single-Page Showcase
               </h3>
               <p className="text-xs text-text-secondary">
@@ -229,11 +250,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2">
+            <div
+              id="pricing-business"
+              className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2"
+            >
               <span className="font-mono text-xs font-bold text-accent">
                 02 · Full Brand Presence
               </span>
-              <h3 className="font-bold text-foreground text-sm">
+              <h3 id="business-website-plan" className="font-bold text-foreground text-sm">
                 Multi-Page Business Website
               </h3>
               <p className="text-xs text-text-secondary">
@@ -245,11 +269,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2">
+            <div
+              id="pricing-commerce"
+              className="p-5 rounded-2xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.08)] space-y-2"
+            >
               <span className="font-mono text-xs font-bold text-accent">
                 03 · Commerce & Apps
               </span>
-              <h3 className="font-bold text-foreground text-sm">
+              <h3 id="commerce-software-plan" className="font-bold text-foreground text-sm">
                 Shopify Stores & Custom Software
               </h3>
               <p className="text-xs text-text-secondary">
@@ -274,6 +301,59 @@ export default function HomePage() {
               <strong>Note:</strong> {BRAND.startingPriceNote}
             </span>
           </div>
+
+          {/* Semantic Comparison Table for GEO & Featured Snippets */}
+          <div className="pt-6 border-t border-[rgba(35,31,32,0.1)] space-y-4">
+            <h3 id="website-package-comparison" className="text-lg font-bold text-foreground">
+              Website Development Packages & Pricing Comparison
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse border border-[rgba(35,31,32,0.12)] bg-[#FCFAF8] rounded-xl overflow-hidden">
+                <thead>
+                  <tr className="bg-[#F6EEE2] border-b border-[rgba(35,31,32,0.12)] font-mono text-foreground">
+                    <th scope="col" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-bold">Package Tier</th>
+                    <th scope="col" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-bold">Starting Price</th>
+                    <th scope="col" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-bold">Typical Timeline</th>
+                    <th scope="col" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-bold">Key Deliverables</th>
+                    <th scope="col" className="p-3 font-bold">Best For</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[rgba(35,31,32,0.08)]">
+                  <tr>
+                    <th scope="row" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-semibold text-foreground">Starter Landing Page</th>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)] font-mono text-accent font-bold">₹3,000 onwards</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">3–5 Days</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">1-page responsive layout, contact capture, SEO setup</td>
+                    <td className="p-3">Ad campaigns, product launches, local service providers</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-semibold text-foreground">Multi-Page Business Website</th>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)] font-mono text-accent font-bold">₹8,000 onwards</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">1–2 Weeks</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">Multi-page architecture, CMS/catalog, speed optimization</td>
+                    <td className="p-3">Corporate firms, manufacturers, consultants & studios</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-semibold text-foreground">Shopify E-Commerce Store</th>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)] font-mono text-accent font-bold">₹15,000 onwards</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">2–3 Weeks</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">Custom Shopify theme, payments/UPI, product setup</td>
+                    <td className="p-3">D2C retail brands, merchandise shops, boutiques</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="p-3 border-r border-[rgba(35,31,32,0.1)] font-semibold text-foreground">Custom Software & Web Apps</th>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)] font-mono text-accent font-bold">₹20,000 onwards</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">3–5 Weeks</td>
+                    <td className="p-3 border-r border-[rgba(35,31,32,0.1)]">Role-based dashboards, APIs, database integration</td>
+                    <td className="p-3">Fintech, operations teams, logistics, custom workflows</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p id="speakable-pricing" className="text-xs text-text-secondary leading-relaxed">
+              All DataCrafts website development packages include mobile responsiveness, on-page SEO optimization, high-speed hosting setup, and 100% full source code ownership. Pricing is flexible and negotiable to match client requirements.
+            </p>
+          </div>
         </div>
 
         {/* Interactive Scope & Cost Calculator */}
@@ -287,7 +367,10 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[rgba(35,31,32,0.1)]">
           <div className="space-y-3">
             <span className="badge-pill">Portfolio Showcase</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
+            <h2
+              id="selected-work-heading"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground"
+            >
               Selected client work.
             </h2>
             <p className="text-text-secondary text-base md:text-lg max-w-xl">
@@ -332,8 +415,11 @@ export default function HomePage() {
               {BRAND.startingPrice}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-            Everything your business needs to grow digitally.
+          <h2
+            id="what-services-does-datacrafts-provide"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground"
+          >
+            What Services Does DataCrafts Provide for Growing Businesses?
           </h2>
           <p className="text-text-secondary text-base md:text-lg">
             We provide five focused digital services. Every build is designed for
@@ -357,7 +443,10 @@ export default function HomePage() {
                   Consultation
                 </span>
               </div>
-              <h3 className="mt-6 text-xl md:text-2xl font-bold tracking-tight text-white">
+              <h3
+                id="service-title-advisory"
+                className="mt-6 text-xl md:text-2xl font-bold tracking-tight text-white"
+              >
                 Technical Architecture & Code Audits
               </h3>
               <p className="mt-3 text-sm text-[#D4C9BC] leading-relaxed">
@@ -385,8 +474,11 @@ export default function HomePage() {
       <section className="editorial-container">
         <div className="space-y-4 max-w-2xl pb-12 border-b border-[rgba(35,31,32,0.1)]">
           <span className="badge-pill">Methodology</span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-            Good work starts with a good process.
+          <h2
+            id="how-to-build-website"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground"
+          >
+            How to Build a Custom Website with DataCrafts: Step-by-Step Delivery Process
           </h2>
           <p className="text-text-secondary text-base md:text-lg">
             A structured four-stage delivery model engineered to eliminate
@@ -424,7 +516,10 @@ export default function HomePage() {
               <span>{BRAND.startingPriceMessage}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+            <h2
+              id="final-cta-heading"
+              className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1]"
+            >
               Let’s build something meaningful.
             </h2>
 

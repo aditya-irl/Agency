@@ -24,7 +24,7 @@ function ContactPageInner() {
       {/* Header */}
       <div className="space-y-4 max-w-3xl pt-6 md:pt-10">
         <span className="badge-pill">Initiate Collaboration</span>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+        <h1 id="contact-title" className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
           Let’s build something meaningful.
         </h1>
         <p className="text-lg md:text-xl text-text-secondary leading-relaxed">
@@ -54,9 +54,9 @@ function ContactPageInner() {
           <div className="rounded-3xl bg-[#FFFDF6] border border-[rgba(35,31,32,0.12)] p-7 md:p-8 shadow-card space-y-6">
             <div className="space-y-1">
               <span className="badge-pill">Direct Channels</span>
-              <h3 className="text-xl font-bold tracking-tight text-foreground">
+              <h2 id="contact-channels" className="text-xl font-bold tracking-tight text-foreground">
                 Official Studio Desk
-              </h3>
+              </h2>
               <p className="text-xs text-text-secondary">
                 Connect directly with the DataCraft studio team for project scoping, inquiries, and fast-track consultation.
               </p>

@@ -232,6 +232,7 @@ export default function ContactForm({
         <input
           type="text"
           name="website_hp"
+          aria-label="Do not fill this field"
           tabIndex={-1}
           autoComplete="off"
           value={formData.website_hp}
@@ -242,6 +243,7 @@ export default function ContactForm({
         <input
           type="text"
           name="b_name_trap"
+          aria-label="Do not enter business trap here"
           tabIndex={-1}
           autoComplete="off"
           value={formData.b_name_trap}

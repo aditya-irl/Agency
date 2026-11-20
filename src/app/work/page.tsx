@@ -38,7 +38,7 @@ export default function WorkPage() {
       {/* Header */}
       <div className="space-y-4 max-w-3xl pt-6 md:pt-10">
         <span className="badge-pill">Portfolio Index</span>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
+        <h1 id="work-title" className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
           Selected work. Real digital experiences.
         </h1>
         <p className="text-lg md:text-xl text-text-secondary leading-relaxed">

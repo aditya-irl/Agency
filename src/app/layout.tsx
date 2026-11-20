@@ -20,11 +20,11 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+    default: `${BRAND.name} — Website Development, Shopify & Custom Software Studio`,
     template: `%s | ${BRAND.name}`,
   },
   description:
-    "DataCrafts is a founder-led digital studio building high-performance business websites, Shopify stores, and custom software in Auraiya, Kanpur, Delhi NCR, and across India.",
+    "DataCrafts is a founder-led website development and custom software studio building high-performance business websites, Shopify stores, and web applications starting at ₹3,000.",
   keywords: [
     "DataCrafts",
     "DataCrafts Software Solutions",
@@ -57,15 +57,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/logo_badge.png", sizes: "512x512", type: "image/png" },
+      { url: "/images/logo_badge.webp", sizes: "512x512", type: "image/webp" },
       { url: "/favicon.ico", sizes: "any" },
     ],
     apple: [
-      { url: "/images/logo_badge.png", sizes: "180x180", type: "image/png" },
+      { url: "/images/logo_badge.webp", sizes: "180x180", type: "image/webp" },
     ],
   },
   openGraph: {
-    title: `${BRAND.name} — We turn ambitious ideas into digital experiences.`,
+    title: `${BRAND.name} — Website Development, Shopify & Custom Software Studio`,
     description:
       "From high-performing websites to custom business applications, DataCraft designs and builds digital products that help businesses move forward.",
     url: "https://www.datacrafts.in",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/audit/preview.PNG",
+        url: "/audit/preview.webp",
         width: 1789,
         height: 879,
         alt: "DataCraft website preview",
@@ -83,10 +83,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name} — Crafting Digital. Building Possibilities.`,
+    title: `${BRAND.name} — Website Development, Shopify & Custom Software Studio`,
     description:
-      "Founder-led digital studio building websites, e-commerce storefronts, and custom software.",
-    images: ["/audit/preview.PNG"],
+      "Founder-led digital studio building websites, e-commerce storefronts, and custom software starting at ₹3,000.",
+    images: ["/audit/preview.webp"],
   },
   robots: {
     index: true,
@@ -147,6 +147,7 @@ gtag('js', new Date());`,
           rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23231F20%22/><text y=%22.72em%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2258%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22%23C6532E%22>D</text></svg>"
         />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </head>
       <body className="font-sans min-h-screen flex flex-col bg-background text-foreground antialiased selection:bg-accent selection:text-white">
         <a

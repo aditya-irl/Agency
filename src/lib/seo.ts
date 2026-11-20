@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BRAND } from "@/data/studio";
 
-const DEFAULT_OG_IMAGE = "/audit/preview.PNG";
+const DEFAULT_OG_IMAGE = "/audit/preview.webp";
 const DEFAULT_OG_IMAGE_ALT = "DataCrafts digital studio website preview";
 
 export interface GeoLocationInput {
@@ -128,11 +128,23 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         name: BRAND.fullName,
         alternateName: [BRAND.name, BRAND.shortName],
         url: BRAND.websiteUrl,
-        logo: `${BRAND.websiteUrl}/images/logo_mark.png`,
-        image: `${BRAND.websiteUrl}/audit/preview.PNG`,
+        logo: `${BRAND.websiteUrl}/images/logo_mark.webp`,
+        image: `${BRAND.websiteUrl}/audit/preview.webp`,
         email: BRAND.primaryEmail,
         telephone: BRAND.officialPhoneRaw,
         foundingDate: BRAND.established,
+        datePublished: "2024-01-01T08:00:00+05:30",
+        dateModified: "2024-11-20T12:00:00+05:30",
+        slogan: "Crafting Digital. Building Possibilities.",
+        knowsAbout: [
+          "Website Development",
+          "Shopify E-Commerce",
+          "Custom Software Engineering",
+          "CRM and ERP Platforms",
+          "Next.js and React",
+          "Search Engine Optimization (SEO)",
+          "Business Process Automation",
+        ],
         founders: BRAND.founders.map((founder) => ({
           "@type": "Person",
           name: founder.name,
@@ -163,10 +175,21 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         url: BRAND.websiteUrl,
         telephone: BRAND.officialPhoneRaw,
         email: BRAND.primaryEmail,
-        image: `${BRAND.websiteUrl}/audit/preview.PNG`,
-        priceRange: "₹3,000 - ₹1,50,000",
+        image: `${BRAND.websiteUrl}/audit/preview.webp`,
+        priceRange: "₹3,000 - ₹50,000",
         currenciesAccepted: "INR, USD",
         paymentAccepted: "UPI, Net Banking, Credit Card, Bank Transfer",
+        hasMap: "https://maps.google.com/?q=Auraiya,Uttar+Pradesh,India",
+        datePublished: "2024-01-01T08:00:00+05:30",
+        dateModified: "2024-11-20T12:00:00+05:30",
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: [
+            "#speakable-intro",
+            "#speakable-summary",
+            "#speakable-pricing",
+          ],
+        },
         address: {
           "@type": "PostalAddress",
           streetAddress: "Auraiya City",
@@ -209,7 +232,7 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
                 "@type": "Service",
                 name: "Custom Website Design and Development",
                 description:
-                  "High-converting, responsive business websites engineered with Next.js, React, and Tailwind CSS.",
+                  "High-converting, responsive business websites engineered with Next.js, React, and Tailwind CSS starting from ₹3,000.",
                 url: `${BRAND.websiteUrl}/services`,
               },
             },
@@ -219,7 +242,7 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
                 "@type": "Service",
                 name: "Shopify E-Commerce Store Development",
                 description:
-                  "Tailor-made Shopify storefronts, product catalogues, payment gateways, and checkout flows.",
+                  "Tailor-made Shopify storefronts, product catalogues, payment gateways, and checkout flows starting from ₹15,000.",
                 url: `${BRAND.websiteUrl}/services`,
               },
             },
@@ -229,7 +252,7 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
                 "@type": "Service",
                 name: "Custom Software, CRM and ERP Platform Engineering",
                 description:
-                  "Bespoke internal systems, finance management, customer onboarding, and EMI recovery platforms.",
+                  "Bespoke internal systems, finance management, customer onboarding, and operational platforms starting from ₹20,000.",
                 url: `${BRAND.websiteUrl}/services`,
               },
             },
@@ -259,6 +282,41 @@ export function generateGlobalStructuredData(areasServedList: string[]) {
         publisher: {
           "@id": organizationId,
         },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${BRAND.websiteUrl}/work?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${BRAND.websiteUrl}/#breadcrumbs`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: BRAND.websiteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Work & Portfolio",
+            item: `${BRAND.websiteUrl}/work`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Services & Capabilities",
+            item: `${BRAND.websiteUrl}/services`,
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Contact & Consultation",
+            item: `${BRAND.websiteUrl}/contact`,
+          },
+        ],
       },
     ],
   };

@@ -27,7 +27,10 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
         {/* Title & Tagline */}
         <div className="mt-6 space-y-2">
-          <h3 className="text-xl md:text-2xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
+          <h3
+            id={`service-title-${service.id}`}
+            className="text-xl md:text-2xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors"
+          >
             {service.title}
           </h3>
           <p className="text-sm font-medium text-accent leading-snug">
@@ -41,9 +44,9 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
         {/* Deliverables Checklist */}
         <div className="mt-6 pt-6 border-t border-[rgba(35,31,32,0.06)] space-y-2.5">
-          <h4 className="text-xs font-mono uppercase tracking-wider text-text-secondary">
+          <p className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold">
             Deliverables
-          </h4>
+          </p>
           <ul className="space-y-2">
             {service.deliverables.slice(0, 4).map((item, i) => (
               <li

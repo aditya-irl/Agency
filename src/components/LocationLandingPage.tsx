@@ -32,7 +32,7 @@ export default function LocationLandingPage({
     telephone: BRAND.officialPhoneRaw,
     email: BRAND.primaryEmail,
     priceRange: "₹3,000 - ₹1,50,000",
-    image: `${SITE_URL}/audit/preview.PNG`,
+    image: `${SITE_URL}/audit/preview.webp`,
     address: {
       "@type": "PostalAddress",
       addressLocality: location.addressLocality,

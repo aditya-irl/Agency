@@ -44,7 +44,7 @@ export const MAIN_PROJECTS: Project[] = [
     slug: "asquare-beverages",
     name: "ASQUARE BEVERAGES",
     client: "Asquare Beverages",
-    category: "Brand Website / Product Showcase",
+    category: "Business Website / Product Showcase",
     industry: "Packaged Drinking Water & Beverages",
     year: "2024",
     location: "Kakor / Kanpur, Uttar Pradesh, India",
@@ -57,10 +57,10 @@ export const MAIN_PROJECTS: Project[] = [
     tagline:
       "A product-focused digital presence showcasing bottled water purity, packaging craft, and regional distribution.",
     description:
-      "A product-focused digital presence for a packaged drinking water brand, showcasing its products, brand identity, quality standards and business information.",
+      "A responsive business website developed for an established regional packaged drinking water producer, detailing multi-stage filtration methods, bottle volume specifications, and commercial distributor pipelines.",
     features: [
       "Product showcase & volume specifications",
-      "Brand storytelling (#KillTheThirst narrative)",
+      "Purification process narrative (#KillTheThirst)",
       "Multi-stage purification presentation (Sand, Carbon, RO, UV, Ozone)",
       "Responsive design across desktop & handheld devices",
       "Mobile-friendly navigation and distributor inquiry funnel",
@@ -68,13 +68,13 @@ export const MAIN_PROJECTS: Project[] = [
     ],
     highlights: [
       "Product showcase & interactive SKU presentation",
-      "Brand storytelling highlighting water treatment stages",
+      "Filtration process breakdown highlighting water treatment stages",
       "Mobile-friendly navigation and distributor inquiry funnel",
       "Responsive design engineered for fast mobile load times",
     ],
-    tags: ["Brand Website", "Product Showcase", "React", "Mobile-First", "Tailwind CSS"],
+    tags: ["Business Website", "Product Showcase", "React", "Mobile-First", "Tailwind CSS"],
     overview:
-      "Asquare Beverages operates out of Kakor / Kanpur, Uttar Pradesh, manufacturing and distributing high-grade packaged drinking water. DataCraft designed and engineered a clean, modern digital presence that establishes immediate credibility with corporate buyers, hospitality partners, and regional distributors while telling the brand’s story of purity and clinical water filtration.",
+      "Asquare Beverages operates out of Kakor / Kanpur, Uttar Pradesh, manufacturing and distributing high-grade packaged drinking water. DataCraft designed and engineered a clean, modern digital presence that establishes immediate credibility with corporate buyers, hospitality partners, and regional distributors while communicating clinical water filtration standards.",
     businessRequirements: [
       "Build a modern product-focused digital home that differentiates Asquare from regional commoditized bottlers.",
       "Prominently showcase packaging volumes (250ml, 500ml, 1L, 2L, and bulk supply).",
@@ -82,7 +82,7 @@ export const MAIN_PROJECTS: Project[] = [
       "Facilitate fast distributor inquiries via direct touch-friendly action buttons.",
     ],
     challenges: [
-      "Designing a brand presence that feels consumer-inviting while catering directly to B2B distributors and event procurement managers.",
+      "Designing a digital presence that feels consumer-inviting while catering directly to B2B distributors and event procurement managers.",
       "Ensuring high performance on mobile devices in regional industrial corridors.",
     ],
     ourApproach: [
@@ -91,7 +91,7 @@ export const MAIN_PROJECTS: Project[] = [
       "Integrated direct inquiry triggers at key decision points throughout the visitor journey.",
     ],
     designDecisions: [
-      "Large hero showcase featuring the signature Asquare bottle asset and brand motto.",
+      "Large hero showcase featuring the signature Asquare bottle asset and purity motto.",
       "Clear visual badge system for certification and quality indicators.",
       "Streamlined layout that avoids clutter and puts the products front and center.",
     ],
@@ -101,7 +101,7 @@ export const MAIN_PROJECTS: Project[] = [
         description: "Clear presentation of all SKU packaging variations from single-serve bottles to 20L commercial dispensers.",
       },
       {
-        title: "Brand Storytelling & Process Timeline",
+        title: "Purification Narrative & Process Timeline",
         description: "Visual breakdown of multi-stage water filtration ensuring consumer confidence in hygiene and safety.",
       },
       {
@@ -120,9 +120,9 @@ export const MAIN_PROJECTS: Project[] = [
       { category: "Deployment", technologies: ["Vercel Edge Network", "Custom SSL", "DNS Acceleration"] },
     ],
     screenshots: {
-      desktop: "/images/asquare_homepage.jpg", // ATTACHMENT 2: Exact user uploaded image
-      mobile: "/screenshots/asquare_mobile.png", // Actual mobile capture
-      caption: "Asquare Beverages homepage: original desktop preview featuring brand hero, product bottle, and distributor action.",
+      desktop: "/images/asquare_homepage.webp", // Modern WebP format
+      mobile: "/screenshots/asquare_mobile.webp", // Modern WebP format
+      caption: "Asquare Beverages homepage: responsive desktop preview featuring hero bottle presentation and distributor inquiry action.",
     },
   },
   {
@@ -205,8 +205,8 @@ export const MAIN_PROJECTS: Project[] = [
       { category: "Checkout", technologies: ["Shopify Hosted Checkout", "UPI / Razorpay Gateway", "SMS Updates"] },
     ],
     screenshots: {
-      desktop: "/screenshots/aurified_desktop.png",
-      mobile: "/screenshots/aurified_mobile.png",
+      desktop: "/screenshots/aurified_desktop.webp",
+      mobile: "/screenshots/aurified_mobile.webp",
       caption: "Aurified storefront: responsive desktop home and mobile product browsing experience.",
     },
   },
@@ -318,7 +318,7 @@ export const MAIN_PROJECTS: Project[] = [
       { category: "Infrastructure", technologies: ["Vercel Edge Network", "PWA Service Workers", "IndexedDB"] },
     ],
     screenshots: {
-      desktop: "/images/crm_dashboard.jpg", // ATTACHMENT 1: Exact user uploaded image
+      desktop: "/images/crm_dashboard.webp", // Modern WebP format
       mobile: "/screenshots/crm_mobile.webp", // Newly attached CRM mobile screenshot
       caption: "Finance CRM Platform: original executive dashboard screenshot showing live portfolio command, collection efficiency, and channel distribution.",
     },
@@ -393,7 +393,7 @@ export const EXPERIMENTAL_PROJECTS: Project[] = [
       { category: "Data Storage", technologies: ["IndexedDB", "Offline Storage Sync"] },
     ],
     screenshots: {
-      desktop: "/screenshots/crm_loans.png",
+      desktop: "/screenshots/crm_loans.webp",
       caption: "Archival component prototype: mobile inventory table & data views.",
     },
   },

@@ -102,9 +102,11 @@ export default function HeroShowcase() {
                 href="https://aurified.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-secondary hover:text-accent"
+                className="text-text-secondary hover:text-accent flex items-center gap-1"
                 title="Visit Aurified live storefront"
+                aria-label="Visit Aurified live storefront"
               >
+                <span className="sr-only">Visit Aurified live storefront</span>
                 <ArrowUpRight className="w-2.5 h-2.5" />
               </a>
             </div>

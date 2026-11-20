@@ -232,7 +232,7 @@ export default function AppointmentBooking({
             <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#FCEAE3] border border-accent/25 text-xs font-semibold text-accent shadow-subtle">
               <span>Free 30-Minute Technical Consultation</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
+            <h2 id="appointment-booking-heading" className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
               Book a Free Consultation
             </h2>
             <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
@@ -267,7 +267,7 @@ export default function AppointmentBooking({
                 <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-semibold inline-block">
                   Slot Reserved & Notified
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+                <h3 id="appointment-confirmed-heading" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
                   Appointment Confirmed!
                 </h3>
                 <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
@@ -339,9 +339,23 @@ export default function AppointmentBooking({
               ACTIVE APPOINTMENT FORM
               ========================================================= */}
           {status !== "success" && (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              id="appointment-form"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              {...({
+                toolname: "bookConsultation",
+                tooldescription: "Schedule a free 30-minute consultation with DataCrafts founders",
+              } as any)}
+            >
               {/* Web3Forms Honeypot Anti-Spam */}
-              <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
+              <input
+                type="checkbox"
+                name="botcheck"
+                aria-label="Spam verification honeypot"
+                className="hidden"
+                style={{ display: "none" }}
+              />
 
               {/* Error Notice */}
               {errorMessage && (
@@ -360,6 +374,7 @@ export default function AppointmentBooking({
                   </label>
                   <input
                     id="apt-name"
+                    name="name"
                     type="text"
                     required
                     value={formData.name}
@@ -381,6 +396,7 @@ export default function AppointmentBooking({
                     </span>
                     <input
                       id="apt-phone"
+                      name="phone"
                       type="tel"
                       required
                       value={formData.phone}
@@ -403,6 +419,7 @@ export default function AppointmentBooking({
                   </label>
                   <input
                     id="apt-business"
+                    name="business"
                     type="text"
                     value={formData.businessName}
                     onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
@@ -419,6 +436,7 @@ export default function AppointmentBooking({
                   </label>
                   <select
                     id="apt-service"
+                    name="service"
                     required
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
@@ -440,6 +458,7 @@ export default function AppointmentBooking({
                   </label>
                   <input
                     id="apt-date"
+                    name="date"
                     type="date"
                     required
                     min={todayStr}
@@ -457,6 +476,7 @@ export default function AppointmentBooking({
                   </label>
                   <select
                     id="apt-slot"
+                    name="timeSlot"
                     required
                     value={formData.timeSlot}
                     onChange={(e) => setFormData({ ...formData, timeSlot: e.target.value })}
@@ -479,6 +499,7 @@ export default function AppointmentBooking({
                 </label>
                 <textarea
                   id="apt-notes"
+                  name="notes"
                   rows={3}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}

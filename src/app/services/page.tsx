@@ -55,7 +55,7 @@ export default function ServicesPage() {
             {BRAND.startingPriceMessage}
           </span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+        <h1 id="services-title" className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
           Everything your business needs to grow digitally.
         </h1>
         <p className="text-lg md:text-xl text-text-secondary leading-relaxed">

@@ -102,7 +102,7 @@ export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps
               {BRAND.startingPriceMessage}
             </span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+          <h3 id="estimator-title" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
             Digital Solutions Starting at ₹3,000
           </h3>
           <p className="text-sm text-text-secondary max-w-xl">
@@ -190,12 +190,12 @@ export default function ScopeEstimator({ id, scrollTarget }: ScopeEstimatorProps
             <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-bold">
               Project Estimate
             </span>
-            <h4 className="text-lg font-bold text-white flex items-center gap-2">
+            <p id="estimator-cost" className="text-lg font-bold text-white flex items-center gap-2">
               <span>Estimated Cost</span>
               <span className="text-xs font-mono font-semibold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2 py-0.5 rounded-full">
                 Negotiable
               </span>
-            </h4>
+            </p>
           </div>
 
           <div className="space-y-1 pb-4 border-b border-[#332C2E]">

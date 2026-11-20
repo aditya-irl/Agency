@@ -54,7 +54,10 @@ export default function ProjectCard({
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white group-hover:text-[#C6532E] transition-colors">
+              <h3
+                id={`project-title-${project.slug}`}
+                className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white group-hover:text-[#C6532E] transition-colors"
+              >
                 {project.name}
               </h3>
               <p className="text-xs font-mono text-[#A59C92]">
@@ -112,9 +115,9 @@ export default function ProjectCard({
 
           <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
             <div className="p-6 rounded-2xl bg-[#231F20] border border-[#3D3739] space-y-4">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-[#C6532E] font-semibold">
+              <p className="text-xs font-mono uppercase tracking-wider text-[#C6532E] font-semibold">
                 Engineered Capabilities
-              </h4>
+              </p>
               <ul className="space-y-2.5 text-xs sm:text-sm text-[#D4C9BC]">
                 {project.features.slice(0, 5).map((f, i) => (
                   <li key={i} className="flex items-start gap-2">
@@ -187,7 +190,10 @@ export default function ProjectCard({
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-accent transition-colors">
+            <h3
+              id={`project-title-${project.slug}`}
+              className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground group-hover:text-accent transition-colors"
+            >
               {project.name}
             </h3>
             <p className="text-xs font-mono text-text-secondary">
@@ -202,9 +208,9 @@ export default function ProjectCard({
 
         {/* Highlights */}
         <div className="space-y-2 pt-1">
-          <h4 className="text-xs font-mono uppercase tracking-wider text-text-secondary">
+          <p className="text-xs font-mono uppercase tracking-wider text-text-secondary font-semibold">
             Project Deliverables
-          </h4>
+          </p>
           <ul className="space-y-2 text-xs md:text-sm text-foreground/85">
             {project.features.slice(0, 4).map((h, idx) => (
               <li key={idx} className="flex items-start gap-2">

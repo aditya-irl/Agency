@@ -40,7 +40,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+        <h1 id="about-title" className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
           Two founders. One shared vision.
         </h1>
         <p className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-3xl">
@@ -55,7 +55,7 @@ export default function AboutPage() {
       <section className="space-y-8">
         <div className="space-y-2">
           <span className="badge-pill">Leadership</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+          <h2 id="about-founders" className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
             Meet the Founders
           </h2>
           <p className="text-sm text-text-secondary">
