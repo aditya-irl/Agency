@@ -113,7 +113,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero Visual: Overlapping Real Desktop (Maverick Physicist) & Mobile (Aurified) Mockups */}
+          {/* Hero Visual: Desktop Browser Showcase */}
           <div className="lg:col-span-5 relative">
             <HeroShowcase />
           </div>

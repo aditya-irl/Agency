@@ -12,7 +12,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { MAIN_PROJECTS, EXPERIMENTAL_PROJECTS } from "@/data/projects";
-import { DesktopMockup, MobileMockup } from "@/components/DeviceMockup";
+import { DesktopMockup } from "@/components/DeviceMockup";
+import { ConfidentialDemoButton } from "@/components/ConfidentialDemoModal";
 
 export default function WorkPage() {
   const [filter, setFilter] = useState("all");
@@ -136,7 +137,13 @@ export default function WorkPage() {
                         <span>Read Case Study</span>
                         <ArrowUpRight className="w-4 h-4" />
                       </Link>
-                      {project.liveUrl && (
+                      {project.isConfidentialDemo ? (
+                        <ConfidentialDemoButton
+                          projectName={project.name}
+                          className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full border border-[#484042] text-[#D4C9BC] font-medium text-sm hover:bg-[#282325] hover:text-white transition-colors cursor-pointer"
+                          label="Live Demo"
+                        />
+                      ) : project.liveUrl ? (
                         <a
                           href={project.liveUrl}
                           target="_blank"
@@ -146,7 +153,7 @@ export default function WorkPage() {
                           <span>Live Preview</span>
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
-                      )}
+                      ) : null}
                     </div>
                   </div>
 
@@ -154,17 +161,9 @@ export default function WorkPage() {
                     <DesktopMockup
                       src={project.screenshots.desktop}
                       alt={`${project.name} Executive Operations Command Dashboard`}
-                      urlDisplay="crm-two-orcin-18.vercel.app/#dashboard"
+                      urlDisplay="ledger.datacrafts.in (Client NDA Protected)"
                       theme="dark"
                     />
-                    {project.screenshots.mobile && (
-                      <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-32 md:w-36 z-10 transition-transform duration-300 group-hover:-translate-y-2">
-                        <MobileMockup
-                          src={project.screenshots.mobile}
-                          alt={`${project.name} Mobile Operations`}
-                        />
-                      </div>
-                    )}
                   </div>
                 </div>
               </article>
@@ -296,15 +295,6 @@ export default function WorkPage() {
                         : "project-preview"
                     }
                   />
-
-                  {project.screenshots.mobile && (
-                    <div className="hidden sm:block absolute -bottom-6 -right-4 w-32 md:w-36 z-10 transition-transform duration-300 hover:-translate-y-2">
-                      <MobileMockup
-                        src={project.screenshots.mobile}
-                        alt={`${project.name} Mobile View`}
-                      />
-                    </div>
-                  )}
                 </div>
               </div>
             </article>

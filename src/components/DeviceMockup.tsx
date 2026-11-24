@@ -88,37 +88,3 @@ export function DesktopMockup({
   );
 }
 
-interface MobileMockupProps {
-  src: string;
-  alt: string;
-  className?: string;
-}
-
-export function MobileMockup({
-  src,
-  alt,
-  className = "",
-}: MobileMockupProps) {
-  return (
-    <div
-      className={`relative rounded-[2.2rem] p-2 bg-[#1C191A] border-4 border-[#3D3739] shadow-2xl overflow-hidden ${className}`}
-    >
-      {/* Dynamic island notch */}
-      <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#1C191A] rounded-full z-20 flex items-center justify-center">
-        <div className="w-2 h-2 rounded-full bg-[#352F30] mr-2" />
-        <div className="w-6 h-1 rounded-full bg-[#352F30]" />
-      </div>
-
-      {/* Screen Frame */}
-      <div className="relative aspect-[9/19.5] w-full rounded-[1.8rem] overflow-hidden bg-[#FFFDF6]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 60vw, 300px"
-          className="object-cover object-top"
-        />
-      </div>
-    </div>
-  );
-}

@@ -10,6 +10,8 @@ export interface Project {
   statusBadge: string;
   statusType: "completed" | "in_progress" | "paused" | "cancelled" | "planning";
   liveUrl?: string;
+  isConfidentialDemo?: boolean;
+  confidentialNotice?: string;
   tagline: string;
   description: string;
   features: string[];
@@ -221,7 +223,9 @@ export const MAIN_PROJECTS: Project[] = [
     locationVerified: true,
     statusBadge: "Completed",
     statusType: "completed",
-    liveUrl: "https://crm-two-orcin-18.vercel.app/#dashboard",
+    isConfidentialDemo: true,
+    confidentialNotice:
+      "Live production access is restricted due to client confidentiality and financial ledger NDA. Private demo walkthrough available upon request.",
     ctaLabel: "Explore Project",
     isMainPortfolio: true,
     tagline:

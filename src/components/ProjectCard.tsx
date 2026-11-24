@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink, MapPin, ShieldAlert, Sparkles, CheckCircle2 } from "lucide-react";
 import { Project } from "@/data/projects";
-import { DesktopMockup, MobileMockup } from "./DeviceMockup";
+import { DesktopMockup } from "./DeviceMockup";
+import { ConfidentialDemoButton } from "./ConfidentialDemoModal";
 
 interface ProjectCardProps {
   project: Project;
@@ -78,7 +81,13 @@ export default function ProjectCard({
               <span>{project.ctaLabel}</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
-            {project.liveUrl && (
+            {project.isConfidentialDemo ? (
+              <ConfidentialDemoButton
+                projectName={project.name}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-[#484042] text-[#E0D5C9] font-semibold text-sm hover:bg-[#282325] hover:text-white hover:border-[#6B5E62] transition-colors cursor-pointer"
+                label="Live Demo"
+              />
+            ) : project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -89,7 +98,7 @@ export default function ProjectCard({
                 <span>Live Demo</span>
                 <ExternalLink className="w-3.5 h-3.5 text-[#C6532E]" />
               </a>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -99,18 +108,14 @@ export default function ProjectCard({
             <DesktopMockup
               src={project.screenshots.desktop}
               alt={`${project.name} Executive Operations Command Dashboard`}
-              urlDisplay="crm-two-orcin-18.vercel.app/#dashboard"
+              urlDisplay={
+                project.isConfidentialDemo
+                  ? "ledger.datacrafts.in (Client NDA Protected)"
+                  : "crm.datacrafts.in"
+              }
               theme="dark"
               priority={priority}
             />
-            {project.screenshots.mobile && (
-              <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-32 md:w-36 z-10 transition-transform duration-300 group-hover:-translate-y-2">
-                <MobileMockup
-                  src={project.screenshots.mobile}
-                  alt={`${project.name} Mobile Operations`}
-                />
-              </div>
-            )}
           </div>
 
           <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
@@ -242,7 +247,13 @@ export default function ProjectCard({
             <span>{project.ctaLabel}</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
-          {project.liveUrl && (
+          {project.isConfidentialDemo ? (
+            <ConfidentialDemoButton
+              projectName={project.name}
+              className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-[rgba(35,31,32,0.18)] text-foreground font-semibold text-sm hover:bg-[rgba(35,31,32,0.06)] hover:border-accent transition-colors cursor-pointer"
+              label="Live Demo"
+            />
+          ) : project.liveUrl ? (
             <a
               href={project.liveUrl}
               target="_blank"
@@ -252,7 +263,7 @@ export default function ProjectCard({
               <span>Live Site</span>
               <ExternalLink className="w-3.5 h-3.5 text-accent" />
             </a>
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -273,16 +284,6 @@ export default function ProjectCard({
             }
             priority={priority}
           />
-
-          {/* Optional mobile preview for handheld ergonomics */}
-          {project.screenshots.mobile && (
-            <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-32 md:w-36 z-10 transition-transform duration-300 group-hover:-translate-y-2">
-              <MobileMockup
-                src={project.screenshots.mobile}
-                alt={`${project.name} Mobile Experience`}
-              />
-            </div>
-          )}
         </div>
       </div>
     </article>

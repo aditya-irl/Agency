@@ -17,8 +17,9 @@ import {
   Smartphone,
 } from "lucide-react";
 import { MAIN_PROJECTS, EXPERIMENTAL_PROJECTS, Project } from "@/data/projects";
-import { DesktopMockup, MobileMockup } from "@/components/DeviceMockup";
+import { DesktopMockup } from "@/components/DeviceMockup";
 import ImageLightbox from "@/components/ImageLightbox";
+import { ConfidentialDemoButton } from "@/components/ConfidentialDemoModal";
 import { createPageMetadata } from "@/lib/seo";
 
 const ALL_STUDY_PROJECTS = [...MAIN_PROJECTS, ...EXPERIMENTAL_PROJECTS];
@@ -176,7 +177,13 @@ export default function CaseStudyPage({ params }: PageProps) {
             <span className="block font-mono uppercase tracking-wider text-text-secondary">
               Live Link
             </span>
-            {project.liveUrl ? (
+            {project.isConfidentialDemo ? (
+              <ConfidentialDemoButton
+                projectName={project.name}
+                className="inline-flex items-center gap-1.5 font-semibold text-accent hover:underline text-sm mt-1 cursor-pointer"
+                label="Confidential Demo (Schedule)"
+              />
+            ) : project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -230,7 +237,9 @@ export default function CaseStudyPage({ params }: PageProps) {
             src={project.screenshots.desktop}
             alt={`${project.name} Interface Screenshot`}
             urlDisplay={
-              project.liveUrl
+              project.isConfidentialDemo
+                ? "ledger.datacrafts.in (Client NDA Protected)"
+                : project.liveUrl
                 ? project.liveUrl.replace("https://", "").replace(/\/$/, "")
                 : "datacraft-archive"
             }
@@ -340,30 +349,6 @@ export default function CaseStudyPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Optional Mobile Viewport Preview if available */}
-      {project.screenshots.mobile && (
-        <section className="space-y-6 pt-6 border-t border-[rgba(35,31,32,0.1)]">
-          <div className="space-y-2">
-            <span className="badge-pill">Handheld Ergonomics</span>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-              Responsive Mobile Viewport
-            </h2>
-            <p className="text-sm text-text-secondary max-w-xl">
-              Captured directly from the live deployment to verify touch navigation,
-              header compression, and readability.
-            </p>
-          </div>
-          <div className="p-8 rounded-3xl bg-[#FCFAF8] border border-[rgba(35,31,32,0.1)] flex justify-center">
-            <div className="w-56 sm:w-64">
-              <MobileMockup
-                src={project.screenshots.mobile}
-                alt={`${project.name} Mobile Viewport`}
-              />
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ========================================================
           7. FEATURES DELIVERED
           ======================================================== */}
@@ -446,7 +431,7 @@ export default function CaseStudyPage({ params }: PageProps) {
       {/* ========================================================
           10. LIVE PROJECT CTA
           ======================================================== */}
-      {project.liveUrl && (
+      {(project.liveUrl || project.isConfidentialDemo) && (
         <section
           className={`rounded-3xl p-8 sm:p-12 md:p-14 shadow-card flex flex-col md:flex-row items-center justify-between gap-6 ${
             isCrm
@@ -456,27 +441,36 @@ export default function CaseStudyPage({ params }: PageProps) {
         >
           <div className="space-y-2 text-center md:text-left">
             <span className="text-xs font-mono uppercase tracking-wider text-accent">
-              Live Preview
+              {project.isConfidentialDemo ? "Protected Walkthrough" : "Live Preview"}
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Experience {project.name}
+              {project.isConfidentialDemo ? `Schedule a Demo of ${project.name}` : `Experience ${project.name}`}
             </h3>
             <p className="text-sm text-[#D4C9BC] max-w-lg">
-              Explore the deployed interface, interactions, and performance
-              firsthand.
+              {project.isConfidentialDemo
+                ? "Experience the full architecture, ledger waterfalls, and role-based workflows in a 30-minute founder walkthrough."
+                : "Explore the deployed interface, interactions, and performance firsthand."}
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-sm"
-            >
-              <span>{project.ctaLabel}</span>
-              <ExternalLink className="w-4 h-4" />
-            </a>
+            {project.isConfidentialDemo ? (
+              <ConfidentialDemoButton
+                projectName={project.name}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-sm cursor-pointer"
+                label="Schedule Private Demo"
+              />
+            ) : (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-accent text-white font-semibold text-sm hover:bg-accent-hover transition-colors shadow-sm"
+              >
+                <span>{project.ctaLabel}</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#352F30] border border-[#4A4244] text-white font-semibold text-sm hover:bg-[#3D3638] transition-colors"
