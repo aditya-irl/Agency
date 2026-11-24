@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import BackgroundScrollVideo from "@/components/BackgroundScrollVideo";
 import CookieConsent from "@/components/CookieConsent";
 import MobileQuickActions from "@/components/MobileQuickActions";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
@@ -149,7 +150,7 @@ gtag('js', new Date());`,
         />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </head>
-      <body className="font-sans min-h-screen flex flex-col bg-background text-foreground antialiased selection:bg-accent selection:text-white">
+      <body className="font-sans min-h-screen flex flex-col bg-[#121011] text-foreground antialiased selection:bg-accent selection:text-white relative">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-full"
@@ -158,13 +159,16 @@ gtag('js', new Date());`,
         </a>
         <AnalyticsProvider />
         <SmoothScroll />
-        <Navbar />
-        <main id="main-content" className="flex-1 pt-24 md:pt-28">
-          {children}
-        </main>
-        <Footer />
-        <MobileQuickActions />
-        <CookieConsent />
+        <BackgroundScrollVideo />
+        <div className="relative z-10 flex flex-col min-h-screen">
+          <Navbar />
+          <main id="main-content" className="flex-1 pt-24 md:pt-28">
+            {children}
+          </main>
+          <Footer />
+          <MobileQuickActions />
+          <CookieConsent />
+        </div>
       </body>
     </html>
   );

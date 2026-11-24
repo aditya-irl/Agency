@@ -17,7 +17,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-foreground);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
@@ -36,7 +36,7 @@
 
   body {
     min-height: 100vh;
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-foreground);
     overflow-x: hidden;
   }
@@ -157,3 +157,97 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(35, 31, 32, 0.35);
 }
+
+/* ========================================================
+   BACKGROUND SCROLL VIDEO: CYBER DARK & WARM HYBRID GLASS THEMES
+   ======================================================== */
+html.theme-cyber-dark {
+  --color-background: transparent;
+  --color-surface: rgba(24, 21, 22, 0.85);
+  --color-surface-secondary: rgba(35, 31, 32, 0.85);
+  --color-foreground: #FFFDF6;
+  --color-text-secondary: #C8BFB5;
+  --color-border: rgba(255, 255, 255, 0.14);
+}
+
+html.theme-cyber-dark body {
+  color: #FFFDF6;
+}
+
+html.theme-cyber-dark .bg-foreground {
+  background-color: #FFFDF6 !important;
+  color: #181516 !important;
+}
+
+html.theme-cyber-dark .text-background {
+  color: #181516 !important;
+}
+
+html.theme-cyber-dark .bg-\[\#FFFDF6\],
+html.theme-cyber-dark .bg-\[\#F6EEE2\] {
+  background-color: rgba(22, 19, 20, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFDF6 !important;
+}
+
+html.theme-cyber-dark .bg-\[\#FCFAF8\] {
+  background-color: rgba(32, 28, 29, 0.78) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #FFFDF6 !important;
+}
+
+html.theme-cyber-dark .text-foreground {
+  color: #FFFDF6 !important;
+}
+
+html.theme-cyber-dark .text-text-secondary {
+  color: #B8ADA3 !important;
+}
+
+html.theme-cyber-dark .badge-pill {
+  background-color: rgba(42, 36, 38, 0.85) !important;
+  color: #FCEAE3 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+html.theme-cyber-dark header {
+  background-color: rgba(18, 16, 17, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.theme-cyber-dark header nav {
+  background-color: rgba(26, 22, 24, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.theme-cyber-dark nav a.bg-foreground {
+  background-color: #C6532E !important;
+  color: #FFFFFF !important;
+}
+
+html.theme-cyber-dark nav a:not(.bg-foreground) {
+  color: #C8BFB5 !important;
+}
+
+html.theme-cyber-dark nav a:not(.bg-foreground):hover {
+  color: #FFFFFF !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Warm Hybrid Glass Treatment */
+html:not(.theme-cyber-dark) .bg-\[\#FFFDF6\] {
+  background-color: rgba(255, 253, 246, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+html:not(.theme-cyber-dark) .bg-\[\#FCFAF8\] {
+  background-color: rgba(252, 250, 248, 0.82) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
